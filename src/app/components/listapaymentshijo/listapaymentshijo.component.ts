@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
+import { Evento } from '../../models/evento';
 
 @Component({
   selector: 'app-listapaymentshijo',
@@ -22,7 +23,7 @@ import { ImagenPipe } from '../../pipes/imagen.pipe';
   styleUrls: ['./listapaymentshijo.component.css']
 })
 export class ListapaymentshijoComponent implements OnChanges {
-   @Input() selectedStudentProfile!: Student;
+   @Input() selectedEventoProfile!: Evento;
     
       title = 'Padres';
     
@@ -59,16 +60,16 @@ export class ListapaymentshijoComponent implements OnChanges {
       }
 
       ngOnChanges(changes: SimpleChanges): void {
-        this.selectedStudentProfile;
-        // console.log(this.selectedStudentProfile);
-        if (changes['selectedStudentProfile'] && changes['selectedStudentProfile'].currentValue) {
+        this.selectedEventoProfile;
+        // console.log(this.selectedEventoProfile);
+        if (changes['selectedEventoProfile'] && changes['selectedEventoProfile'].currentValue) {
           this.getPaymentsbyStudent();
         }
       }
     
       getPaymentsbyStudent(){
         this.isLoading = true;
-        this.studentService.getPaymentById(this.selectedStudentProfile.id).subscribe((resp:any)=>{
+        this.studentService.getPaymentById(this.selectedEventoProfile.id).subscribe((resp:any)=>{
           this.payments = resp.payments;
           this.isLoading = false;
           // console.log(this.payments);

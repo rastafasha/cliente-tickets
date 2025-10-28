@@ -17,12 +17,14 @@ import { ImagenPipe } from "../../../pipes/imagen.pipe";
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
 import { PieChart2Component } from '../../../components/charts/pie-chart2/pie-chart2.component';
 import Swal from 'sweetalert2';
+import { EventoService } from '../../../services/evento.service';
+import { Evento } from '../../../models/evento';
 @Component({
   selector: 'app-student-list',
   imports: [HeaderComponent,MenuFooterComponent,
     CommonModule, NgFor,NgIf,LoadingComponent, ReactiveFormsModule, FormsModule,
     ListapaymentshijoComponent, RouterLink, ImagenPipe, BackButtnComponent,
-    PieChart2Component
+    // PieChart2Component
   ],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.scss'
@@ -30,11 +32,11 @@ import Swal from 'sweetalert2';
 export class StudentListComponent {
     userprofile!: Parent;
     isLoading = false;
-    pageTitle = 'Estudiantes';
+    pageTitle = 'Eventos';
   
     loading = false;
     usersCount = 0;
-    students!: Student[];
+    eventos!: Evento[];
     studentprofile!: Student;
     roles:any;
   
@@ -49,11 +51,12 @@ export class StudentListComponent {
     ServerUrl = environment.url_servicios;
     // role:any;
   
-    selectedStudentProfile!: Student;
+    selectedEventoProfile!: Evento;
   
     constructor(
       private parentService: ParentService,
       private studentService: StudentService,
+      private eventoService: EventoService,
       private http: HttpClient,
       private authService: AuthService,
       handler: HttpBackend
@@ -66,15 +69,22 @@ export class StudentListComponent {
       this.userprofile = this.authService.getUser();
       // console.log(this.userprofile);
       // Removed this.getUsers() from here to avoid calling before userprofile is set
-      this.getStudents();
+      this.getEventos();
+      // this.getEventosbyUser();
     }
   
     ngOnChanges(changes: SimpleChanges): void {
       if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
       }
     }
+
+    getEventos(){
+      this.eventoService.getActivos().subscribe((resp:any)=>{
+        this.eventos = resp.eventos;
+      })
+    }
   
-    getStudents(): void {
+    getEventosbyUser(): void {
       if (!this.userprofile || !this.userprofile.id) {
         this.isLoading = false;
         this.error = 'User profile is not defined';
@@ -83,7 +93,7 @@ export class StudentListComponent {
       this.isLoading = true;
       this.studentService.getByParentId(this.userprofile.id).subscribe(
         (res: any) => {
-          this.students = res.students;
+          this.eventos = res.eventos;
           this.isLoading = false;
         },
         (error) => {
@@ -94,8 +104,8 @@ export class StudentListComponent {
     }
   
     search() {
-      return this.studentService.search(this.query).subscribe((res: any) => {
-        this.students = res;
+      return this.eventoService.search(this.query).subscribe((res: any) => {
+        this.eventos = res;
         if (!this.query) {
           this.ngOnInit();
         }
@@ -103,15 +113,15 @@ export class StudentListComponent {
     }
   
     public PageSize(): void {
-      this.getStudents();
+      this.getEventos();
       this.query = '';
     }
   
-    openPaymentsModal(student: Student): void {
-      this.selectedStudentProfile = student;
+    openPaymentsModal(evento: Evento): void {
+      this.selectedEventoProfile = evento;
     }
 
-    eliminarUser(user:Student){
+    eliminarUser(evento:Evento){
       Swal.fire({
           title: "Esta Seguro?",
           text: "Se perderán todos los datos!",
@@ -122,7 +132,7 @@ export class StudentListComponent {
           confirmButtonText: "Si, Borrar!"
         }).then((result) => {
           if (result.isConfirmed) {
-             this.studentService.deleteById(user.id).subscribe(
+             this.eventoService.deleteById(evento).subscribe(
               response =>{
                 Swal.fire({
                   title: "Borrado!",
@@ -130,7 +140,7 @@ export class StudentListComponent {
                   icon: "success"
                 });
                 
-                this.getStudents();
+                this.getEventos();
               },
               error=>{
                 this.msm_error = 'No se pudo eliminar el curso, vuelva a intentar.'

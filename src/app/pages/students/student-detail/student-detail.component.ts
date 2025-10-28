@@ -10,40 +10,57 @@ import { LineChartComponent } from '../../../components/charts/line-chart/line-c
 import { CalificacionService } from '../../../services/calificacion.service';
 import { Student } from '../../../models/student';
 import { Calificacion } from '../../../models/calificacion';
-import { ExamenesStudentComponent } from '../../../components/examenes-student/examenes-student.component';
-import { CalendarioTComponent } from '../../../components/calendario-t/calendario-t.component';
+import { ActivatedRoute } from '@angular/router';
+import { EventoService } from '../../../services/evento.service';
+import { Evento } from '../../../models/evento';
+import { ImagenPipe } from '../../../pipes/imagen.pipe';
 
 @Component({
   selector: 'app-student-detail',
   imports: [
-      CommonModule,
-          ReactiveFormsModule,
-          FormsModule,
-          LoadingComponent,
-          TranslateModule,
-          ExamenesStudentComponent,
-          NgFor,
-          LineChartComponent,
-          CalendarioTComponent
-          // ImagenPipe
-          
-    ],
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    LoadingComponent,
+    TranslateModule,
+    // NgFor,
+    MenuFooterComponent,
+    HeaderComponent,
+    BackButtnComponent,
+    ImagenPipe
+],
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss'
 })
 export class StudentDetailComponent {
-  @Input() profileSeleccionado!: Student;
+  pageTitle= 'Evento';
+  @Input() profileSeleccionado!: Evento;
   isLoading = false;
   option_selectedd:number = 1;
   solicitud_selectedd:any = null;
-
-  calificaciones!:Calificacion[]|null;
+  evento!:Evento;
   error!: string;
 
-  constructor(private calificacionService: CalificacionService,){}
+  constructor(
+    private eventoService: EventoService,
+    private activatedRoute: ActivatedRoute
+  ){}
 
   ngOnInit(){
     this.getStudents();
+    this.activatedRoute.params.subscribe( ({id}) => this.getEvento(id));
+
+  }
+
+  getEvento(id:number){
+    this.isLoading= true;
+    this.eventoService.getById(id).subscribe(
+      res=>{
+        this.evento = res.event;
+        this.isLoading = false;
+      }
+
+    )
   }
 
   optionSelected(value:number){
@@ -64,17 +81,7 @@ export class StudentDetailComponent {
         return;
       }
       this.isLoading = true;
-      this.calificacionService.getCalificacionsbyStudent(this.profileSeleccionado.id).subscribe(
-        (res: any) => {
-          // this.students = res.students;
-          this.calificaciones = res.calificaciones;
-          this.isLoading = false;
-        },
-        (error) => {
-          this.error = error;
-          this.isLoading = false;
-        }
-      );
+      
     }
 
 }

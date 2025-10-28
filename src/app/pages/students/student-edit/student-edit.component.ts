@@ -32,7 +32,7 @@ import { StudentDetailComponent } from "../student-detail/student-detail.compone
   styleUrl: './student-edit.component.scss'
 })
 export class StudentEditComponent {
-  pageTitle= 'Estudiante';
+  pageTitle= 'Editar Evento';
     Title!:string;
     public iswhatsapp : boolean = false;
     selectedValueCode = '';

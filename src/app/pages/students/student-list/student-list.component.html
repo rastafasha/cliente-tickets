@@ -42,11 +42,12 @@
                         <!-- <th>ID</th> -->
                         <th>Imagen</th>
                         <th>Nombre</th>
-                        <!-- <th>CI</th> -->
-                        <th>Género</th>
+                        <th>Inicio</th>
+                        <th>Finaliza</th>
                         <!-- <th>Nacimiento</th> -->
-                        <th>Grado</th>
-                        <th>Sección</th>
+                        <th>P General</th>
+                        <th>P Especialistas</th>
+                        <th>P Estudiantes</th>
                         <th>Status</th>
                         <!-- <th>Option</th> -->
                         <th class="text-nowrap">Acciones</th>
@@ -54,40 +55,41 @@
                 </thead>
                 <tbody>
                     <tr
-                        *ngFor="let student of students  ; let i = index;">
+                        *ngFor="let evento of eventos  ; let i = index;">
 
                         <td>
-                            <img [src]="student.avatar| imagenPipe: 'students' "  class="imagecircle shadow" alt="">
+                            <a data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">
+
+                                <img [src]="evento.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt="">
+                            </a>
                         </td>
-                        <td><a [routerLink]="['/student/edit/', student.id]">{{student.name}} {{student.surname}}</a></td>
-                        <!-- <td>{{student.name}} {{student.surname}} </td> -->
-                        <!-- <td>{{student.n_doc}} </td> -->
-                        <!-- <td>{{student.gender}} </td> -->
+                        <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
+                        <!-- <td><a data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">{{evento.name}} </a></td> -->
+                        <!-- <td>{{evento.name}}  </td> -->
+                        
+                        <td>{{evento.fecha_inicio|date}} </td>
+                        <td>{{evento.fecha_fin|date}} </td>
+                        <td>{{evento.precio_general|currency}} </td>
+                        <td>{{evento.precio_especialistas|currency}} </td>
+                        <td>{{evento.precio_estudiantes|currency}} </td>
                         <td>
-                            <span class="badge bg-primary" *ngIf="student.gender === 1">M</span>
-                            <span class="badge bg-danger" *ngIf="student.gender === 2">F</span>
-                        </td>
-                        <!-- <td>{{student.birth_date|date}} </td> -->
-                        <td>{{student.school_year}} </td>
-                        <td>{{student.section | uppercase}} </td>
-                        <td>
-                             <span class="badge bg-success" *ngIf="student.status === 'ACTIVE'">Activo</span>
-                            <span class="badge bg-danger" *ngIf="student.status === 'INACTIVE'">Inactivo</span>
-                            <span class="badge bg-primary" *ngIf="student.status === 'RETIRED'">Retirado</span>
-                            <span class="badge bg-warning" *ngIf="student.status === 'GRADUATED'">Graduado</span>    
+                             <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Graduado</span>    
                         </td>
                         
                         <td class="text-nowrap text-center">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentModal" (click)="openPaymentsModal(student)">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button type="button" class="btn btn-danger"  (click)="eliminarUser(student)">
+                            <!-- <button type="button" class="btn btn-danger"  (click)="eliminarUser(evento)">
                                 <i class="fa fa-trash"></i>
-                            </button>
+                            </button> -->
                         </td>
 
                         <!-- Modal -->
-                        <app-listapaymentshijo [selectedStudentProfile]="selectedStudentProfile"></app-listapaymentshijo>
+                        <app-listapaymentshijo [selectedEventoProfile]="selectedEventoProfile"></app-listapaymentshijo>
                         
                         <!-- Modal -->
                     </tr>
