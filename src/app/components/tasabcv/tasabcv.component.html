@@ -1,0 +1,9 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="d-flex"  style="height: auto;" *ngIf="!isLoading">
+    
+    <div class="alert alert-success " *ngIf="profile ">
+        <p style="margin: 0; padding: 0;">Tasa BCV del día:</p> 
+        <p style="margin: 0; padding: 0; margin-bottom: 5px;">{{precio_fecha | date:'MMM d, y, h:mm:ss a'}} </p>
+        <h4 style="margin: 0; padding: 0;"><strong>{{precio_dia|currency:'Bs.'}} x $</strong></h4>
+    </div>
+</div>

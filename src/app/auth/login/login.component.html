@@ -1,0 +1,143 @@
+<div class="logincontainer">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form action="#" class="sign-in-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <h2 class="title">Iniciar Sesión</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" formControlName="email" placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" formControlName="password" placeholder="Password" />
+          </div>
+          <div class="row">
+            <div class="form-check rememb">
+                <input class="form-check-input" type="checkbox" formControlName="remember" id="remember">
+                <label class="form-check-label" for="remember">Recuerdame</label>
+            </div>
+            <br>
+            <div class="col-sm-12">
+                <a routerLink="/password-reset" id="to-recover">
+                    <i class="fa fa-lock m-r-5"></i> Olvido Contraseña?</a>
+                <br>
+                <!-- <br> Don't have an account? <a routerLink="/registro" class="text-primary m-l-5"><b>Sign Up</b></a> -->
+            </div>
+        </div>
+          <input type="submit" value="Login" (click)="login()" class="btn solid" />
+          <!-- <p class="social-text">Tambien puedes iniciar sesion con tu plataforma</p> -->
+          <div class="social-media">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center" id="google-btn">
+                    <div id="my-signin2"></div>
+                </div>
+            </div>
+          </div>
+        </form>
+        <form action="#" class="sign-up-form" [formGroup]="registerForm" (ngSubmit)="crearUsuario()">
+          <h2 class="title">Registro</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" formControlName="name" placeholder="Nombre" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" formControlName="surname" placeholder="Apellido" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" formControlName="n_doc" placeholder="Id o CI" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" formControlName="email" placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" formControlName="password" placeholder="Password" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" formControlName="confirmPassword" placeholder="Comfirmar Password" />
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+                <div class="checkbox checkbox-primary p-t-0">
+                    <input id="checkbox-signup" formControlName="terminos" type="checkbox">
+                    <label for="checkbox-signup"> Acepto las <a href="javascript:;"  data-bs-toggle="modal" data-bs-target="#condicionesModal">Condiciones </a></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-danter">
+                <p *ngIf="campoNoValido('username')"><span>*</span> El username es obligatorio</p>
+                <p *ngIf="campoNoValido('email')"><span>*</span> El email es obligatorio y debe ser valido</p>
+                <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
+                <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
+            </div>
+        </div>
+          <input type="submit" class="btn" (click)="crearUsuario()" value="Sign up" />
+          <!-- <p class="social-text">Tambien puedes registrarte con tu plataforma</p> -->
+          <div class="social-media">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center" id="google-btn">
+                    <div id="my-signin2"></div>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>Nuevo aquí?</h3>
+          <p>
+            También puedes registrarte en nuestra plataforma
+          </p>
+          <button class="btn transparent" id="sign-up-btn" (click)="switchRegistrologin()">
+            Registrarme!
+          </button>
+        </div>
+        <img src="./assets/images/log.svg" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>Eres uno de nostros ?</h3>
+          <p>
+            Ingresa con tu usario
+          </p>
+          <button class="btn transparent" id="sign-in-btn" (click)="switchRegistrologin()">
+            Ingresar
+          </button>
+        </div>
+        <img src="./assets/img/register.svg" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+  <!-- <app-modal-condiciones></app-modal-condiciones> -->
+
+   <div class="modal fade" id="condicionesModal" tabindex="-1" aria-labelledby="condicionesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+<h5 class="modal-title" id="condicionesModalLabel">Términos y Condiciones</h5>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <h1>Términos de servicio</h1>
+                <p>1.Introducción Los presentes términos y condiciones regulan el uso de este sitio web y los servicios ofrecidos a través del mismo. Al acceder y utilizar este sitio, usted acepta cumplir con estos términos. 
+                  2. Exclusividad de Contenido Las clases implementadas en este sitio web son de exclusividad de los profesores que las imparten, al igual que su contenido. Cualquier reproducción, distribución o uso no autorizado de dicho contenido está estrictamente prohibido. 
+                  3. Uso del Sitio El usuario se compromete a utilizar el sitio web de manera responsable y a no realizar actividades que puedan dañar la imagen, los intereses o los derechos de la empresa o de terceros. 
+                  4. Modificaciones La empresa se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas una vez publicadas en el sitio web. 
+                  5. Aceptación de Términos El uso continuado del sitio web después de la publicación de cambios en estos términos implica la aceptación de dichos cambios. 
+                  6. Contacto Para cualquier consulta relacionada con estos términos y condiciones, por favor contáctenos a través de la información proporcionada en el sitio web.</p>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+<app-header></app-header>
+<section class="user">
+    <div class="container-fluid">
+        <app-backButtn [pageTitle]="pageTitle" ></app-backButtn>
+        <div class="tab-content-set">
+          <ul class="nav">
+              <li>
+                  <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Editar</a>
+              </li>
+              <li *ngIf="profileSeleccionado">
+                  <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}" (click)="optionSelected(2)">Rendimiento</a>
+              </li>
+          </ul>
+      </div>
+
+        <div class="row" *ngIf="option_selected == 1">
+                <div class="col-xs-12 ">
+    
+                    
+                    <app-loading *ngIf="isLoading" [loadingTitle]="loadingTitle"></app-loading>
+                    <form   [formGroup]="userForm" *ngIf="!isLoading"  >
+                        <div class="card text-left mb-4 " *ngIf="student">
+                          <img class="card-img-top" [src]="IMAGE_PREVISUALIZA" style="width: 45px; height: 45px; border-radius: 100px;" alt="">
+                          <div class="card-body">
+                            <h4 class="card-title">{{student.name}}</h4>
+                            <p class="card-text">{{student.email}}</p>
+                          </div>
+                        </div>
+                        <!-- datos -->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <!-- Foto -->
+                                <div class="form-group local-top-form">
+                                    <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
+                                    <div class="settings-btn upload-files-avator">
+                                        <label for="file" class="upload labelgoogle">
+                                            <input type="file" accept="image/*" name="image" id="file" (change)="loadFile($event)" class="hide-input input">
+                                            <span class="label__name">
+                                                {{'formulario.Select a Photo'|translate}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="FILE_AVATAR">
+                                    <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="">
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-12 col-md-9">
+                                <div class="row ">
+                                    <!-- name -->
+                                    <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="name" class="form-control input" id="validationCustom02" placeholder=" " required>
+                                            <span class="label__name">
+                                                {{'formulario.First Name'|translate}} <span class="login-danger">*</span>
+                                            </span>
+                                        </label>
+                                        @if(userForm.controls['name'].touched){
+                          
+                                            <div class="text-danger">
+                                              @if(userForm.controls['name'].errors?.['required']){
+                                                  <span >{{'formulario.Field Required'|translate}}</span>
+                                              }
+                                              @if(userForm.controls['name'].errors?.['minlength']){
+                                                  <span >{{'formulario.3 Charecters Minimal'|translate}}</span>
+                                              }
+                                            </div>
+                                        }
+                                      </div>
+                                      <!-- Apellido -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="surname" class="form-control input" id="validationCustom02" placeholder=" " required>
+                                            <span class="label__name">
+                                                {{'formulario.Last Name'|translate}} <span class="login-danger">*</span>
+    
+                                            </span>
+                                        </label>
+                                        @if(userForm.controls['surname'].touched){
+                          
+                                            <div class="text-danger">
+                                              @if(userForm.controls['surname'].errors?.['required']){
+                                                  <span >{{'formulario.Field Required'|translate}}</span>
+                                              }
+                                              @if(userForm.controls['surname'].errors?.['minlength']){
+                                                  <span >{{'formulario.3 Charecters Minimal'|translate}}</span>
+                                              }
+                                            </div>
+                                        }
+                                      </div>
+                                      <!-- Identificación -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="n_doc" class="form-control input" id="validationCustom02" placeholder=" " required>
+                                            <span class="label__name">
+                                                {{'formulario.Id Number'|translate}}<span class="login-danger">*</span>
+                                            </span>
+                                        </label>
+                                        @if(userForm.controls['n_doc'].touched){
+                          
+                                            <div class="text-danger">
+                                              @if(userForm.controls['n_doc'].errors?.['required']){
+                                                  <span >{{'formulario.Field Required'|translate}}</span>
+                                              }
+                                              @if(userForm.controls['n_doc'].errors?.['minlength']){
+                                                  <span >{{'formulario.3 Charecters Minimal'|translate}}</span>
+                                              }
+                                            </div>
+                                        }
+                                      </div>
+                                      <!-- matricula -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="matricula" class="form-control input" id="validationCustom02" placeholder=" " required>
+                                            <span class="label__name">
+                                                {{'Matricula'|translate}}<span class="login-danger">*</span>
+                                            </span>
+                                        </label>
+                                        @if(userForm.controls['matricula'].touched){
+                          
+                                            <div class="text-danger">
+                                              @if(userForm.controls['matricula'].errors?.['required']){
+                                                  <span >{{'formulario.Field Required'|translate}}</span>
+                                              }
+                                              @if(userForm.controls['matricula'].errors?.['minlength']){
+                                                  <span >{{'formulario.3 Charecters Minimal'|translate}}</span>
+                                              }
+                                            </div>
+                                        }
+                                      </div>
+                                      <!-- school_year -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="school_year" class="form-control input" id="validationCustom02" placeholder=" " required>
+                                            <span class="label__name">
+                                                {{'Grado'|translate}}<span class="login-danger">*</span>
+                                            </span>
+                                        </label>
+                                        @if(userForm.controls['school_year'].touched){
+                          
+                                            <div class="text-danger">
+                                              @if(userForm.controls['school_year'].errors?.['required']){
+                                                  <span >{{'formulario.Field Required'|translate}}</span>
+                                              }
+                                              @if(userForm.controls['school_year'].errors?.['minlength']){
+                                                  <span >{{'formulario.3 Charecters Minimal'|translate}}</span>
+                                              }
+                                            </div>
+                                        }
+                                      </div>
+                                      <!-- section -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="text" formControlName="section" class="form-control input" id="validationCustom02" placeholder=" " >
+                                            <span class="label__name">
+                                                {{'Sección'|translate}}
+                                            </span>
+                                        </label>
+                                      </div>
+                                      <!-- birth_date -->
+                                      <div class="col-md-4 ">
+                                        <label for="validationCustom02" class="form-label labelgoogle">
+                                            <input type="date" formControlName="birth_date" class="form-control input" id="validationCustom02" placeholder=" " >
+                                            <span class="label__name">
+                                                {{'Nacimiento'|translate}}
+                                            </span>
+                                        </label>
+                                      </div>
+                                      <!-- Género -->
+                                      <div class="col-12 col-md-4  col-xl-4">
+                                        <div class="form-group select-gender input-group gap-3">
+                                            <!-- <label class="gen-label">{{'formulario.Gender'|translate}}<span class="login-danger">*</span></label><br> -->
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </span>
+                                            <div class="form-check-inline ">
+                                                <label class="form-check-label ">
+                                                    <input type="radio"  value="1" formControlName="gender" class="form-check-input ">{{'formulario.Male'|translate}}
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline ">
+                                                <label class="form-check-label ">
+                                                    <input type="radio"  value="2" formControlName="gender" class="form-check-input ">{{'formulario.Female'|translate}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+    
+                        <div class="row align-items-center" >
+                            <div class="col-12">
+                                <div class="doctor-submit text-end">
+                                    <button type="button" class="btn btn-primary submit-form me-2" (click)="onUserSave()">{{'formulario.Save'|translate}}</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+    
+                    </form>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-3 col-md-3">
+                    <app-lateral></app-lateral>
+    
+                </div> -->
+        </div>
+
+        <div class="row" *ngIf="option_selected == 2">
+            <app-student-detail [profileSeleccionado]="profileSeleccionado"></app-student-detail>
+        </div>
+        
+    </div>
+</section>
+<app-menu-footer></app-menu-footer>

@@ -1,0 +1,59 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!-- <div class="row" *ngIf="!isLoading">
+
+    <div class="alert alert-success shadow d-flex flex-column" *ngIf="parent_has_debt ">
+        <a href="javascript:;" (click)="PageSize()" 
+        class="btn btn-outline-success doctor-refresh ms-2 d-flex align-self-end justify-content-center circle"
+        style="width: 30px;">
+            <i class="fa fa-refresh"></i>
+        </a>
+        <h5>Deuda Pendiente:</h5> 
+        <strong>{{parent_debt_amount|currency}}</strong>
+        <div *ngIf="student_with_debt">
+            <ul *ngFor="let student of student_with_debt">
+                <li>Nombre: {{student.student_name}}<br>
+                    Matricula: {{student.matricula|currency}}<br>
+                    Deuda: {{student.debt_amount|currency}}<br>
+                    Fecha: {{student.earliest_debt_date|date}}
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div> -->
+
+
+
+<div class="row">
+  <div *ngIf="!isLoading  && student_with_debt" class="swiffy-slider slider-item-show3 slider-item-reveal slider-nav-dark slider-nav-outside-expand">
+    <h3 style="padding: 0;
+    margin: 0;
+    margin-bottom: -20px;">{{'Pendientes'}}</h3>
+    <br>
+    <ul class="slider-container slideh-list" id="slider2" >
+        <li *ngFor="let student of student_with_debt">
+            <div class="card  ">
+                <!-- <div class="ratio ratio-1x1">
+                    <a [routerLink]="['/especialista/', item.user_id]">
+                        <img  [src]="student.avatar  | imagenPipe: 'students' " class="card-img-top" loading="lazy">
+                    </a>
+                </div> -->
+                <div class="card-body d-flex flex-column ">
+                    <div class="flex-grow-1">
+                        <strong>{{student.student_name}}</strong>
+                        <p class="card-text">Matricula: {{student.matricula|currency}}</p>
+                        <p class="card-text">Deuda: <br>
+                            {{student.debt_amount|currency}}</p>
+                        <p class="card-text">Fecha:<br> 
+                            {{student.earliest_debt_date|date}}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+</div>

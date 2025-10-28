@@ -1,0 +1,126 @@
+<div *ngFor="let pago of payments; let i = index"></div>
+
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">{{selectedStudentProfile?.name}} {{selectedStudentProfile?.surname}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-12">
+                    <div class="row">
+                            <div class="col-xs-12">
+                                <!-- buscador -->
+                                <form class="form-horizontal">
+                                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                        <div class="input-group">
+                                            <input type="search" name="search" type="text"
+                                                class="form-control col-xs-12" placeholder="Buscar.."
+                                                [(ngModel)]="query" aria-describedby="button-addon1"
+                                                class="form-control border-0 bg-light">
+                                            <div class="input-group-append">
+                                                <button id="button-addon1" type="submit"
+                                                    class="btn btn-link text-primary" (click)="search()" name="submit"
+                                                    data-toggle="tooltip" title="mostrar todos"><i
+                                                        class="fa fa-search"></i></button>
+                                                <a href="javascript:;" (click)="PageSize()"
+                                                    class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                                        class="fa fa-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- buscador -->
+                            </div>
+                        </div>
+                    <div class="card recent-sales overflow-auto">
+
+                        
+                        <app-loading *ngIf="isLoading"></app-loading>
+                        <div class="card-body" *ngIf="!isLoading">
+                            
+
+                            <table class="table table-borderless datatable table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Imagen</th>
+                                        <th scope="col">Referencia</th>
+                                        <th scope="col">Banco Destino</th>
+                                        <th scope="col">Metodo</th>
+                                        <th scope="col">Monto </th>
+                                        <th scope="col">deuda</th>
+                                        <th scope="col">Monto Pendiente</th>
+                                        <th scope="col">Status Deuda</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Fecha | Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }"> -->
+                                    <tr *ngFor="let pago of payments ">
+                                        <td>
+                            <img [src]="pago.avatar| imagenPipe: 'payments' " class="imagecircle shadow" alt="">
+                        </td>
+                                        <th scope="row"><a
+                                                [routerLink]="['/payment-detail', pago.id]">{{pago.referencia}}</a>
+                                        </th>
+                                        <td>{{pago.bank_destino}}</td>
+                                        <td>{{pago.metodo}}</td>
+                                        <td >
+                                        <span *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
+                                            {{pago.monto|currency:'Bs.'}}
+                                            
+                                        </span>
+                                        <span *ngIf="pago.metodo ==='Transferencia Dólares'">
+                                            {{pago.monto|currency}}
+                                        </span>
+                                    </td>
+                                    <td >
+                                        <span *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
+                                            {{pago.deuda|currency:'Bs.'}}
+                                            
+                                        </span>
+                                        <span *ngIf="pago.metodo ==='Transferencia Dólares'">
+                                            {{pago.deuda|currency}}
+                                        </span>
+                                    </td>
+                                    <td >
+                                        <span *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
+                                            {{pago.monto_pendiente|currency:'Bs.'}}
+                                            
+                                        </span>
+                                        <span *ngIf="pago.metodo ==='Transferencia Dólares'">
+                                            {{pago.monto_pendiente|currency}}
+                                        </span>
+                                    </td>
+                                        <td>
+                                        <!-- {{pago.status_deuda}} -->
+                                        <span class="badge bg-success" *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span>
+                                        <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span>
+                                    </td>
+                                        <td>
+                                            <span class="badge bg-success"
+                                                *ngIf="pago.status === 'APPROVED'">Aprobado</span>
+                                            <span class="badge bg-primary"
+                                                *ngIf="pago.status === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger"
+                                                *ngIf="pago.status === 'REJECTED'">Rechazado</span>
+                                        </td>
+                                        <td>{{pago.created_at | date:'MMM d, y, h:mm:ss a'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

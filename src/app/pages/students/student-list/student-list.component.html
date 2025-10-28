@@ -1,0 +1,109 @@
+<app-header></app-header>
+<div class="container-fluid user">
+    <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+    <div class="row">
+        <div class="col-xs-12" style="
+            display: flex;
+            justify-content: space-between;">
+            <!-- buscador -->
+            <form class="form-horizontal">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="width: 65vw;">
+                    <div class="input-group">
+                        <input type="search" name="search" type="text" class="form-control col-xs-12"
+                            placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                            class="form-control border-0 bg-light">
+                        <div class="input-group-append">
+                            <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                    class="fa fa-search"></i></button>
+                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                    class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- buscador -->
+              <button type="button" style="display: flex
+;
+    height: 40px;" class="btn btn-primary" [routerLink]="['/student/add']" >
+                                Agregar
+                            </button>
+        </div>
+        
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="card recent-sales overflow-auto border-radio" *ngIf="!isLoading">
+
+        <div class="card-body">
+
+            <table class="table table-borderless datatable table-striped">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <!-- <th>CI</th> -->
+                        <th>Género</th>
+                        <!-- <th>Nacimiento</th> -->
+                        <th>Grado</th>
+                        <th>Sección</th>
+                        <th>Status</th>
+                        <!-- <th>Option</th> -->
+                        <th class="text-nowrap">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let student of students  ; let i = index;">
+
+                        <td>
+                            <img [src]="student.avatar| imagenPipe: 'students' "  class="imagecircle shadow" alt="">
+                        </td>
+                        <td><a [routerLink]="['/student/edit/', student.id]">{{student.name}} {{student.surname}}</a></td>
+                        <!-- <td>{{student.name}} {{student.surname}} </td> -->
+                        <!-- <td>{{student.n_doc}} </td> -->
+                        <!-- <td>{{student.gender}} </td> -->
+                        <td>
+                            <span class="badge bg-primary" *ngIf="student.gender === 1">M</span>
+                            <span class="badge bg-danger" *ngIf="student.gender === 2">F</span>
+                        </td>
+                        <!-- <td>{{student.birth_date|date}} </td> -->
+                        <td>{{student.school_year}} </td>
+                        <td>{{student.section | uppercase}} </td>
+                        <td>
+                             <span class="badge bg-success" *ngIf="student.status === 'ACTIVE'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="student.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="student.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="student.status === 'GRADUATED'">Graduado</span>    
+                        </td>
+                        
+                        <td class="text-nowrap text-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentModal" (click)="openPaymentsModal(student)">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger"  (click)="eliminarUser(student)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+
+                        <!-- Modal -->
+                        <app-listapaymentshijo [selectedStudentProfile]="selectedStudentProfile"></app-listapaymentshijo>
+                        
+                        <!-- Modal -->
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+   <!-- Button trigger modal -->
+
+
+
+
+</div>
+<app-menu-footer></app-menu-footer>

@@ -1,0 +1,31 @@
+<app-header></app-header>
+
+<section class="home">
+  <div class="container-fluid">
+    <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+        <div class="col-xs-12">
+
+
+          <!-- aviso  -->
+          <div class="d-flex gap-3 justify-content-between">
+            <app-aviso  [user]="user"></app-aviso>
+          
+          <app-tasabcv></app-tasabcv>
+          </div>
+
+          <!-- <app-statuspagos [user]="user"></app-statuspagos> -->
+          <br>
+          <!-- <app-recentpayments></app-recentpayments> -->
+
+          
+        </div>
+        <!-- lateral -->
+        <!-- <div class="col-xs-12 col-sm-3 col-md-3">
+          <app-lateral></app-lateral>
+        </div> -->
+  </div>
+</section>
+
+
+
+<app-menu-footer></app-menu-footer>

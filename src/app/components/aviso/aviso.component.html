@@ -1,0 +1,14 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="d-flex" *ngIf="!isLoading" style="height: auto">
+    <div class="alert alert-info " *ngIf="!user  ">
+        <button class="btn close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-close"></i></button>
+        <strong>{{'aviso.verifica'|translate}}</strong>
+        <p>{{'aviso.porfavor'|translate}} <a [routerLink]="['/profile/edit', profile.id]">aqui</a>.</p>
+    </div>
+    <div class="alert alert-primary" *ngIf="user " >
+        <p style="margin: 0; padding: 0;">{{'aviso.Welcome'|translate}} </p>
+        <p style="margin: 0; padding: 0;"><strong>{{user.name}}!</strong></p>
+        <!-- <span class="badge bg-success" *ngIf="profile.status === 'ACTIVE'">Activo</span> -->
+                            <!-- <span class="badge bg-danger" *ngIf="profile.status === 'INACTIVE'">Inactivo</span> -->
+    </div>
+</div>

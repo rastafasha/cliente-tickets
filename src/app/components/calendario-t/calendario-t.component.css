@@ -1,0 +1,67 @@
+.calendary{
+    display: flex;
+    flex-direction: column;
+}
+.tope{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 14px;
+}
+.tope .btn{
+    
+    border-radius: 100px;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.calendary ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.calendary ul li{
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    justify-content: space-between;
+    gap: 5px;
+    min-height: 60px;
+    width: 100vw;
+    flex-direction: row;
+    place-items:flex-start;
+    
+}
+.calendary .info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+    flex-direction: column;
+}
+.calendary .info h4,
+.calendary .info p
+{
+    margin: 0;
+    padding: 0;
+}
+.calendary ul li h4
+{
+    font-size: 16px;
+}
+.calendary ul li p
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calendary .badge
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 30px;
+}
