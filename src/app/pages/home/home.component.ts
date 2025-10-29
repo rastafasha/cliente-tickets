@@ -14,6 +14,7 @@ import { TasabcvComponent } from "../../components/tasabcv/tasabcv.component";
 import { RecentpaymentsComponent } from '../../components/recentpayments/recentpayments.component';
 import { StatuspagosComponent } from '../../components/statuspagos/statuspagos.component';
 import { Client } from '../../models/client.model';
+import { SliderComponent } from "../../shared/slider/slider.component";
 
 @Component({
   selector: 'app-home',
@@ -25,9 +26,7 @@ import { Client } from '../../models/client.model';
     BackButtnComponent,
     TranslateModule,
     TasabcvComponent,
-    RecentpaymentsComponent,
-    // LateralComponent,
-    // StatuspagosComponent
+    SliderComponent
 ],
   providers: [TranslateService],
   templateUrl: './home.component.html',

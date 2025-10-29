@@ -1,0 +1,25 @@
+.carousel-indicators{
+    &> button {
+        background-color: var(--azul);
+        opacity: 0.5;
+        &.active {
+            background-color: var(--azulclaro);
+            opacity: 1;
+        }
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background: none;
+    border: none;
+    & .fa {
+        color: var(--azul);
+        border:1px solid #ccc;
+        border-radius: 100px;
+        &:hover {
+            color: var(--azulclaro);
+        }
+
+    }
+}

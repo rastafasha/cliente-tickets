@@ -23,6 +23,8 @@ import { StudentService } from '../../../services/student-service.service';
 import { Student } from '../../../models/student';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
 import { TasabcvService } from '../../../services/tasabcv.service';
+import { EventoService } from '../../../services/evento.service';
+import { Evento } from '../../../models/evento';
 
 @Component({
   selector: 'app-pagar',
@@ -55,13 +57,16 @@ export class PagarComponent implements OnInit {
   pagoSeleccionado!: Payment;
   paymentMethods!: PaymentMethod[] | null;
 
-  student_id!: number;
+  event_id!: number;
   parent_id!: number;
   fecha!: Date;
-  student!: Student;
+  evento!: Evento;
 
   precio_dia!: number;
-  matricula!: number;
+  precio_general!: number;
+  precio_estudiantes!: number;
+  precio_especialistas!: number;
+  
   precio_fecha!: Date;
 
   public FILE_AVATAR: any;
@@ -75,7 +80,7 @@ export class PagarComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     public paymentMethodService: PaymentmethodService,
-    public studentService: StudentService,
+    public eventoService: EventoService,
     public tasaBcvService: TasabcvService
   ) {
     this.usuario = this.authService.user;
@@ -86,13 +91,13 @@ export class PagarComponent implements OnInit {
     this.getTiposdepagos();
     this.activatedRoute.params.subscribe((resp: any) => {
       // console.log(resp);
-      this.student_id = resp.id;
-      this.getStuden();
+      this.event_id = resp.id;
+      this.getEvento();
     });
 
     this.usuario = this.authService.user;
     // console.log(this.usuario);
-    this.getInfoPago();
+    // this.getInfoPago();
     this.validarFormulario();
     this.getUltimoPrecioTasaBcv();
   }
@@ -117,7 +122,7 @@ export class PagarComponent implements OnInit {
   getInfoPago() {
     this.isLoading = true;
     this.paymentService
-      .getPagosPendingbyStudent(this.student_id)
+      .getPagosPendingbyStudent(this.event_id)
       .subscribe((resp: any) => {
         this.isLoading = false;
         console.log(resp);
@@ -127,16 +132,22 @@ export class PagarComponent implements OnInit {
       });
   }
 
-  getStuden() {
-    this.studentService.getUserById(this.student_id).subscribe((resp: any) => {
+  getEvento() {
+    this.isLoading = true;
+    this.eventoService.getById(this.event_id).subscribe((resp: any) => {
       // console.log(resp);
-      if (resp && resp.student) {
-        this.student = resp.student;
-        this.matricula = resp.student.matricula;
+      if (resp && resp.evento) {
+        this.evento = resp.evento;
+        this.precio_general = resp.evento.precio_general;
+        this.precio_estudiantes = resp.evento.precio_estudiantes;
+        this.precio_especialistas = resp.evento.precio_especialistas;
       } else {
-        this.student = {} as Student;
-        this.matricula = 0;
+        this.evento = {} as Evento;
+        this.precio_general = 0;
+        this.precio_estudiantes = 0;
+        this.precio_especialistas = 0;
       }
+      this.isLoading = false;
     });
   }
 
@@ -152,7 +163,7 @@ export class PagarComponent implements OnInit {
       email: [this.usuario.email],
       nombre: [this.usuario.name],
       parent_id: [this.parent_id],
-      student_id: [''],
+      event_id: [''],
       status: ['PENDING'],
       fecha: [''],
     });
@@ -187,7 +198,7 @@ export class PagarComponent implements OnInit {
       'referencia',
       this.PaymentRegisterForm.get('referencia')?.value
     );
-    formData.append('student_id', this.student_id + '');
+    formData.append('event_id', this.event_id + '');
     formData.append('parent_id', this.parent_id + '');
     formData.append('nombre', this.usuario.name);
     formData.append('email', this.usuario.email);
@@ -197,7 +208,7 @@ export class PagarComponent implements OnInit {
     //crear
     this.isLoading = true;
     this.paymentService
-      .pagarDeuda(formData, this.parent_id, this.student_id)
+      .pagarDeuda(formData, this.parent_id, this.event_id)
       .subscribe((resp: any) => {
         this.pagoSeleccionado = resp;
 

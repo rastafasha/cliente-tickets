@@ -14,13 +14,15 @@
     align-items: baseline;
     padding: 10px;"
                 >
-                    <p><b>Estudiante:</b> {{student.name}} {{student.surname}}</p>
-                    <p><b>Matricula:</b> {{matricula|currency}}</p>
-                    <p><b>Deuda:</b> {{deuda|currency}}</p>
+                    <p><b>Evento:</b> {{evento.name}} </p>
+                    <p><b>Precio General:</b> {{evento.precio_general|currency}}</p>
+                    <p><b>Precio Especialista:</b> {{evento.precio_especialistas|currency}}</p>
+                    <p><b>Precio Estudiante:</b> {{evento.precio_estudiantes|currency}}</p>
+                    <!-- <p><b>Deuda:</b> {{deuda|currency}}</p> -->
                     <p><b>Fecha:</b> {{fecha|date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Tasa BCV:</b> {{precio_dia|currency:'Bs.'}}</p>
                     <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>(deuda*$):</b> {{deuda*precio_dia|currency:'Bs.'}}</p>
+                    <!-- <p><b>(deuda*$):</b> {{deuda*precio_dia|currency:'Bs.'}}</p> -->
                 </div>
             </div>
         </div>

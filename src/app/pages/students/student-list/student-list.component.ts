@@ -11,11 +11,9 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { ListapaymentshijoComponent } from '../../../components/listapaymentshijo/listapaymentshijo.component';
 import {  RouterLink } from '@angular/router';
 import { ImagenPipe } from "../../../pipes/imagen.pipe";
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
-import { PieChart2Component } from '../../../components/charts/pie-chart2/pie-chart2.component';
 import Swal from 'sweetalert2';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
@@ -23,7 +21,8 @@ import { Evento } from '../../../models/evento';
   selector: 'app-student-list',
   imports: [HeaderComponent,MenuFooterComponent,
     CommonModule, NgFor,NgIf,LoadingComponent, ReactiveFormsModule, FormsModule,
-    ListapaymentshijoComponent, RouterLink, ImagenPipe, BackButtnComponent,
+    
+    RouterLink, ImagenPipe, BackButtnComponent,
     // PieChart2Component
   ],
   templateUrl: './student-list.component.html',

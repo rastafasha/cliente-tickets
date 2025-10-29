@@ -6,7 +6,7 @@
           <app-loading *ngIf="isLoading" [loadingTitle]="loadingTitle"></app-loading>
           <div class=" itemFav shadow" *ngIf="!isLoading">
             <div class="fototext">
-              <img [src]="(profile?.avatar || '')  | imagenPipe: 'clients' " alt="">
+              <img [src]="(profile.avatar || '')  | imagenPipe: 'clients' " alt="">
               <div class="div1">
                 <p>{{'Username'|translate}}: {{user.name}}</p>
                 <p *ngIf="profile">{{profile.name}} {{profile.surname}}</p>

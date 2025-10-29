@@ -10,7 +10,7 @@ import { LineChartComponent } from '../../../components/charts/line-chart/line-c
 import { CalificacionService } from '../../../services/calificacion.service';
 import { Student } from '../../../models/student';
 import { Calificacion } from '../../../models/calificacion';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
@@ -27,7 +27,8 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
     MenuFooterComponent,
     HeaderComponent,
     BackButtnComponent,
-    ImagenPipe
+    ImagenPipe,
+    RouterModule
 ],
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss'
