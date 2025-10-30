@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
   public activeLang = 'es';
 
   
+public currentStep = 1;
 
   constructor(
     private router: Router,
@@ -204,6 +205,14 @@ passwordsIguales(pass1Name: string, pass2Name: string){
   }
 }
 // Registro
+
+nextStep() {
+  this.currentStep = 2;
+}
+
+prevStep() {
+  this.currentStep = 1;
+}
 
 switchRegistrologin(){
   const container = document.querySelector(".logincontainer");

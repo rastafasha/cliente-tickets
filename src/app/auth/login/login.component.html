@@ -34,33 +34,44 @@
             </div>
           </div>
         </form>
+       
+        <!-- registro -->
         <form action="#" class="sign-up-form" [formGroup]="registerForm" (ngSubmit)="crearUsuario()">
           <h2 class="title">Registro</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" formControlName="name" placeholder="Nombre" />
+          <div class="first-part" *ngIf="currentStep === 1">
+            <h3>1. Información Personal</h3>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" formControlName="name" placeholder="Nombre" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" formControlName="surname" placeholder="Apellido" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" formControlName="n_doc" placeholder="Id o CI" />
+            </div>
+            <button type="button" class="btn solid" (click)="nextStep()">Siguiente</button>
           </div>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" formControlName="surname" placeholder="Apellido" />
+          <div class="second-part" *ngIf="currentStep === 2">
+            
+            <h3>2. Credenciales</h3>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" formControlName="email" placeholder="Email" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" formControlName="password" placeholder="Password" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" formControlName="password2" placeholder="Comfirmar Password" />
+            </div>
+            <button type="button" class="btn solid" (click)="prevStep()">Atrás</button>
           </div>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" formControlName="n_doc" placeholder="Id o CI" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" formControlName="email" placeholder="Email" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" formControlName="password" placeholder="Password" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" formControlName="confirmPassword" placeholder="Comfirmar Password" />
-          </div>
-          <div class="form-group row">
+          <div class="form-group row" *ngIf="currentStep === 2">
             <div class="col-md-12">
                 <div class="checkbox checkbox-primary p-t-0">
                     <input id="checkbox-signup" formControlName="terminos" type="checkbox">
@@ -68,15 +79,15 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="currentStep === 2">
             <div class="col text-danter">
-                <p *ngIf="campoNoValido('username')"><span>*</span> El username es obligatorio</p>
+                <p *ngIf="campoNoValido('name')"><span>*</span> El nombre es obligatorio</p>
                 <p *ngIf="campoNoValido('email')"><span>*</span> El email es obligatorio y debe ser valido</p>
-                <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
+                <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p>
                 <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
             </div>
         </div>
-          <input type="submit" class="btn" (click)="crearUsuario()" value="Sign up" />
+          <input type="submit" class="btn" (click)="crearUsuario()" value="Registrarme" *ngIf="currentStep === 2" />
           <!-- <p class="social-text">Tambien puedes registrarte con tu plataforma</p> -->
           <div class="social-media">
             <div class="row">
@@ -86,6 +97,7 @@
             </div>
           </div>
         </form>
+        <!-- registro -->
       </div>
     </div>
 
