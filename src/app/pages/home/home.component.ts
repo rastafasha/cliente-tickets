@@ -21,11 +21,11 @@ import { SliderComponent } from "../../shared/slider/slider.component";
   imports: [
     HeaderComponent,
     MenuFooterComponent,
-    AvisoComponent,
+    // AvisoComponent,
     CommonModule,
-    BackButtnComponent,
+    // BackButtnComponent,
     TranslateModule,
-    TasabcvComponent,
+    // TasabcvComponent,
     SliderComponent
 ],
   providers: [TranslateService],

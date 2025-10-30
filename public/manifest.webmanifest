@@ -1,8 +1,8 @@
 {
-  "name": "PayCole | Padres",
-  "short_name": "PayCole",
-  "categories": ["school", "production"],
-  "description": "App para administrar Colegio",
+  "name": "PayTicket | Clientes",
+  "short_name": "PayTicket",
+  "categories": ["production"],
+  "description": "App para administrar compra de ticket para eventos",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

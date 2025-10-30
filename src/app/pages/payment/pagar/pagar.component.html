@@ -102,6 +102,7 @@
                                                         <div class="input-group">
 
                                                             <select class="form-control" formControlName="bank_destino">
+                                                                <option value="">-- Seleccione Banco destino --</option>
                                                                 <option *ngFor="let data of paymentMethods"
                                                                     [value]="data.bankName">
                                                                     {{data.bankName}}
@@ -121,9 +122,10 @@
                                                         <div class="input-group">
 
                                                             <select class="form-control" (change)="selectPrecio($any($event.target).value)">
+                                                                <option value="">-- Seleccione Monto --</option>
                                                                 <option *ngFor="let data of preciosEvento"
                                                                     [value]="data.precio">
-                                                                    {{data.precionombre}} 
+                                                                    {{data.precionombre}} - {{data.precio | currency}}
                                                                 </option>
                                                             </select>
 

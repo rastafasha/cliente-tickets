@@ -7,7 +7,7 @@
 
 .BannPpal {
     background-size: cover;
-    height: 100vh;
+    height: calc(100vh - 60px);
     display: flex;
     justify-content: start;
     align-items: start;
@@ -104,6 +104,14 @@
         color: #774477;
         font-size: 40px;
     }
+
+    .BannPpal {
+    background-size: cover;
+    height: calc(100vh );
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
 }
 
 
