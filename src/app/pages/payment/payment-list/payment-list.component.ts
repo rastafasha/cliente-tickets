@@ -23,7 +23,7 @@ import { BarChartComponent } from '../../../components/charts/bar-chart/bar-char
   imports: [MenuFooterComponent,HeaderComponent,
     FormsModule,ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
     RouterLink, CommonModule, BackButtnComponent, ImagenPipe,
-    BarChartComponent
+    // BarChartComponent
   ],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'

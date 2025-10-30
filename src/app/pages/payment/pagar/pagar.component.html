@@ -19,7 +19,8 @@
                     <p><b>Precio Especialista:</b> {{evento.precio_especialistas|currency}}</p>
                     <p><b>Precio Estudiante:</b> {{evento.precio_estudiantes|currency}}</p>
                     <!-- <p><b>Deuda:</b> {{deuda|currency}}</p> -->
-                    <p><b>Fecha:</b> {{fecha|date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Fecha:</b> {{evento.fecha_inicio|date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Fecha fin:</b> {{evento.fecha_fin|date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Tasa BCV:</b> {{precio_dia|currency:'Bs.'}}</p>
                     <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y, h:mm:ss a'}}</p>
                     <!-- <p><b>(deuda*$):</b> {{deuda*precio_dia|currency:'Bs.'}}</p> -->
@@ -45,7 +46,7 @@
 
                     </ul>
                     <div class="tab-content pt-2">
-
+                        <!-- instruccioness -->
                         <div class="tab-pane fade show active profile-overview" id="instrucci">
                             <div class="instruccioness pagarinfo ">
                                 <!-- <img src="./assets/img/paypal-pay01.png" alt=""> -->
@@ -76,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- carpagos -->
                         <div class="tab-pane fade pt-3" id="formulario">
 
                             <section class="section dashboard carpagos ">
@@ -85,7 +86,7 @@
                                     enctype="multipart/form-data" [formGroup]="PaymentRegisterForm">
                                     <div class="container">
                                         <!-- Seleccione Su Método de Pago -->
-                                        <div *ngIf="!metodo" class="divinfo">
+                                        <div  class="divinfo">
                                             <div class="col-xs-12 movil">
                                                     <p class="text-center Bordered text-bold">
                                                         Seleccione Su Método de Pago</p>
@@ -93,7 +94,7 @@
                                         </div>
                                         <!-- Seleccione Banco destino -->
                                         <div class="divinfo">
-                                            <div class="col-xs-12 movil">
+                                            <div class="col-xs-12 ">
                                                     <p class="text-center Bordered text-bold">
                                                         Seleccione Banco destino</p>
 
@@ -104,6 +105,25 @@
                                                                 <option *ngFor="let data of paymentMethods"
                                                                     [value]="data.bankName">
                                                                     {{data.bankName}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="divinfo">
+                                            <div class="col-xs-12 ">
+                                                    <p class="text-center Bordered text-bold">
+                                                        Seleccione Monto a cancelar</p>
+
+                                                    <div class="col-md-4 ">
+                                                        <div class="input-group">
+
+                                                            <select class="form-control" (change)="selectPrecio($any($event.target).value)">
+                                                                <option *ngFor="let data of preciosEvento"
+                                                                    [value]="data.precio">
+                                                                    {{data.precionombre}} 
                                                                 </option>
                                                             </select>
 
@@ -190,9 +210,9 @@
                                                                 class="form-control">
                                                         </div> -->
                                                         <div class="form-group "
-                                                            *ngIf="deuda && metodo==='Transferencia Dólares'">
+                                                            *ngIf="preciopagar && metodo==='Transferencia Dólares'">
                                                             <label for="">Monto</label>
-                                                            <p>Colocar Monto a pagar: <b>{{deuda|currency}}</b></p>
+                                                            <p>Colocar Monto a pagar: <b>{{preciopagar|currency}}</b></p>
                                                             <input type="text" formControlName="monto"
                                                                 class="form-control">
                                                                 @if(PaymentRegisterForm.controls['monto'].touched){
@@ -205,10 +225,10 @@
                                                              }
                                                         </div>
                                                         <div class="form-group "
-                                                            *ngIf="deuda && metodo==='Transferencia Bolívares'">
+                                                            *ngIf="preciopagar && metodo==='Transferencia Bolívares'">
                                                             <label for="">Monto</label>
                                                             <p>Colocar Monto a pagar:
-                                                                <b>{{deuda*precio_dia|currency:'Bs.'}}</b>
+                                                                <b>{{preciopagar*precio_dia|currency:'Bs.'}}</b>
                                                             </p>
                                                             <input type="text" formControlName="monto"
                                                                 class="form-control">
@@ -224,7 +244,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- pago movil -->
-                                                <div class="divform" *ngIf="deuda && metodo === 'Pago Móvil'">
+                                                <div class="divform" *ngIf="preciopagar && metodo === 'Pago Móvil'">
                                                     <div class="div2">
                                                         <div class="form-group ">
                                                             <label for="">Nombre Banco </label>
@@ -288,7 +308,7 @@
                                                             >
                                                             <label for="">Monto</label>
                                                             <p>Colocar Monto a pagar:
-                                                                <b>{{deuda*precio_dia|currency:'Bs.'}}</b>
+                                                                <b>{{preciopagar*precio_dia|currency}}</b>
                                                             </p>
                                                             <input type="text" formControlName="monto"
                                                                 class="form-control">

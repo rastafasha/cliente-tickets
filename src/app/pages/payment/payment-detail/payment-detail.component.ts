@@ -14,6 +14,9 @@ import { ParentService } from '../../../services/parent-service.service';
 import { Parent } from '../../../models/parents';
 import { Student } from '../../../models/student';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { EventoService } from '../../../services/evento.service';
+import { Client } from '../../../models/client.model';
+import { Evento } from '../../../models/evento';
 
 @Component({
   selector: 'app-payment-detail',
@@ -30,17 +33,17 @@ export class PaymentDetailComponent {
   pageTitle = "Detalle Pago";
   payment!: Payment;
   error!: string;
-  student_id!:number;
-  parent_id!:number;
-  parent!:Parent;
-  student!:Student;
+  client_id!:number;
+  event_id!:number;
+  client!:Client;
+  event!:Evento;
   isLoading:boolean=false;
 
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
-    private studentService: StudentService,
+    private eventService: EventoService,
     private parentService: ParentService,
     private http: HttpClient
   ) { }
@@ -65,8 +68,8 @@ export class PaymentDetailComponent {
       res=>{
         this.payment = res;
         // console.log(this.payment);
-        this.parent_id = res.parent_id;
-        this.student_id = res.student_id;
+        this.client_id = res.client_id;
+        this.event_id = res.event_id;
         this.isLoading = false;
         this.getParent();
         this.getStudent();
@@ -75,16 +78,16 @@ export class PaymentDetailComponent {
     )
   }
   getParent(){
-    this.parentService.getUserById(this.parent_id).subscribe((resp:any)=>{
+    this.parentService.getUserById(this.client_id).subscribe((resp:any)=>{
       // console.log(resp);
-      this.parent = resp.representante;
+      this.client = resp.client;
 
     })
   }
   getStudent(){
-    this.studentService.getUserById(this.student_id).subscribe((resp:any)=>{
+    this.eventService.getById(this.event_id).subscribe((resp:any)=>{
       // console.log(resp);
-      this.student = resp.student;
+      this.event = resp.event;
     })
   }
 

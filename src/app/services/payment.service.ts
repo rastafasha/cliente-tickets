@@ -74,8 +74,8 @@ export class PaymentService {
    const url = `${baseUrl}/payment/update/status/${payment_id}`;
     return this.http.put(url, data, this.headers);
   }
-  pagarDeuda(data:any, parent_id:any, student_id:number): Observable<any> {
-   const url = `${baseUrl}/payment/pay-debt/${parent_id}/${student_id}`;
+  pagarDeuda(data:any, client_id:any, event_id:number): Observable<any> {
+   const url = `${baseUrl}/payment/pay-debt/${client_id}/${event_id}`;
     return this.http.post(url, data, this.headers);
   }
 

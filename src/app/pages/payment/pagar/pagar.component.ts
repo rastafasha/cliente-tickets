@@ -69,6 +69,9 @@ export class PagarComponent implements OnInit {
   
   precio_fecha!: Date;
 
+  preciosEvento: any;
+  preciopagar!: number;
+
   public FILE_AVATAR: any;
   public IMAGE_PREVISUALIZA: any = 'assets/img/user-06.jpg';
 
@@ -88,7 +91,7 @@ export class PagarComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.getTiposdepagos();
+    
     this.activatedRoute.params.subscribe((resp: any) => {
       // console.log(resp);
       this.event_id = resp.id;
@@ -100,6 +103,7 @@ export class PagarComponent implements OnInit {
     // this.getInfoPago();
     this.validarFormulario();
     this.getUltimoPrecioTasaBcv();
+    this.getTiposdepagos();
   }
   getTiposdepagos(): void {
     // return this.planesService.carga_info();
@@ -136,19 +140,30 @@ export class PagarComponent implements OnInit {
     this.isLoading = true;
     this.eventoService.getById(this.event_id).subscribe((resp: any) => {
       // console.log(resp);
-      if (resp && resp.evento) {
-        this.evento = resp.evento;
-        this.precio_general = resp.evento.precio_general;
-        this.precio_estudiantes = resp.evento.precio_estudiantes;
-        this.precio_especialistas = resp.evento.precio_especialistas;
+      if (resp && resp.event) {
+        this.evento = resp.event;
+        this.precio_general = resp.event.precio_general;
+        this.precio_estudiantes = resp.event.precio_estudiantes;
+        this.precio_especialistas = resp.event.precio_especialistas;
+        this.preciosEvento = [
+          { precioevento: this.precio_general, precionombre: 'Precio General', precio: this.evento.precio_general },
+          { precioevento: this.precio_estudiantes, precionombre: 'Precio Estudiantes', precio: this.evento.precio_estudiantes },
+          { precioevento: this.precio_especialistas, precionombre: 'Precio Especialistas', precio: this.evento.precio_especialistas },
+        ];
       } else {
         this.evento = {} as Evento;
         this.precio_general = 0;
         this.precio_estudiantes = 0;
         this.precio_especialistas = 0;
+        this.preciosEvento = [];
       }
       this.isLoading = false;
     });
+  }
+
+  selectPrecio(value?: any) {
+    console.log(value)
+    this.preciopagar = value;
   }
 
   validarFormulario() {
@@ -158,7 +173,7 @@ export class PagarComponent implements OnInit {
       phone: [''],
       bank_name: ['', Validators.required],
       bank_destino: ['', Validators.required],
-      monto: ['', Validators.required],
+      monto: [this.preciopagar, Validators.required],
       referencia: ['', Validators.required],
       email: [this.usuario.email],
       nombre: [this.usuario.name],
@@ -199,7 +214,7 @@ export class PagarComponent implements OnInit {
       this.PaymentRegisterForm.get('referencia')?.value
     );
     formData.append('event_id', this.event_id + '');
-    formData.append('parent_id', this.parent_id + '');
+    formData.append('client_id', this.usuario.id + '');
     formData.append('nombre', this.usuario.name);
     formData.append('email', this.usuario.email);
     formData.append('imagen', this.FILE_AVATAR);
@@ -208,7 +223,7 @@ export class PagarComponent implements OnInit {
     //crear
     this.isLoading = true;
     this.paymentService
-      .pagarDeuda(formData, this.parent_id, this.event_id)
+      .pagarDeuda(formData, this.usuario.id, this.event_id)
       .subscribe((resp: any) => {
         this.pagoSeleccionado = resp;
 

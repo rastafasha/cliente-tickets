@@ -25,8 +25,8 @@
                     </p>
                     <p><b>Nombre de la cuenta:</b> {{payment.nombre}}</p>
                     <p><b>email de la cuenta:</b> {{payment.email}}</p>
-                    <p><b>Padre:</b> {{parent.name}} {{parent.surname}}</p>
-                    <p><b>Estudiante:</b> {{student.name}} {{student.surname}}</p>
+                    <p><b>Evento:</b> {{event.name}} </p>
+                    <p><b>Fecha inicio:</b> {{event.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Fecha | Hora:</b> {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Metodo de Pago:</b> {{payment.metodo}}</p>
                     <div *ngIf="payment.bank_name">

@@ -1,0 +1,3 @@
+- [ ] Populate preciosEvento array in getEvento() method with precio_general, precio_estudiantes, precio_especialistas
+- [ ] Add 'montoapagar' form control to PaymentRegisterForm
+- [ ] Verify the select works in the HTML
