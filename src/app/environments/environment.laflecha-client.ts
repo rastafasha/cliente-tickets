@@ -1,9 +1,9 @@
 export const environment = {
     production: false,
-    url_backend: 'https://malcolmcordova.com/lawyer-app/backend-api-lawyer/',
-    url_servicios: 'https://malcolmcordova.com/lawyer-app/backend-api-lawyer/public/api',
-    url_frontend: 'https://malcolmcordova.com/app-padres-app/',
-    url_media: 'https://malcolmcordova.com/lawyer-app/backend-api-lawyer/storage/app/public/',
+    url_backend: 'https://ticketapp.malcolmcordova.com/backend-api-tickets/',
+    url_servicios: 'https://ticketapp.malcolmcordova.com/backend-api-tickets/public/api',
+    url_frontend: 'https://ticketapp.malcolmcordova.com/',
+    url_media: 'https://ticketapp.malcolmcordova.com/backend-api-tickets/storage/app/public/',
     
   };
   
