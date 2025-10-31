@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "padresappcolegio": {
+    "payticketapp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/padresappcolegio",
+            "outputPath": "dist/payticketapp",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -52,6 +52,53 @@
               ],
               "outputHashing": "all",
               "serviceWorker": "ngsw-config.json"
+            },
+            "payticketapp": {
+              "outputPath": "dist/payticketapp",
+              "index": {
+                "input": "src/env/payticketapp/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/app/environments/environment.ts",
+                  "with": "src/app/environments/environment.payticketapp.ts"
+                }
+              ],
+              "assets": [
+                "src/.htaccess",
+                "src/assets",
+                "src/manifest.webmanifest",
+                  "src/env/payticketapp/QR/**",
+                {
+                  "glob": "_redirects",
+                  "input": "src",
+                  "output": "/"
+                },
+                {
+                  "glob": "**.*",
+                  "input": "src/env/payticketapp/QR",
+                  "output": "/QR/"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "public"
+                }
+                
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "75kb",
+                  "maximumError": "90kb"
+                }
+              ],
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,

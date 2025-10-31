@@ -7,7 +7,7 @@
     "start:dev": "ng serve --port 4204",
     "start:prod": "ng build && lite-server -p 8080 --baseDir dist/browser/padresappcolegio",
     "build": "ng build",
-    "build:payticket-client": "ng build --configuration payticket-client",
+    "build:payticketapp": "ng build --configuration payticketapp",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

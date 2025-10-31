@@ -1,7 +1,7 @@
 {
-  "name": "PayTicket | Clientes",
+  "name": "PayTicket App",
   "short_name": "PayTicket",
-  "categories": ["production"],
+  "categories": ["eventos y tickets", "compras"],
   "description": "App para administrar compra de ticket para eventos",
   "display": "standalone",
   "scope": "./",

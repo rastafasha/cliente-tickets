@@ -173,7 +173,7 @@ export class PagarComponent implements OnInit {
       phone: [''],
       bank_name: ['', Validators.required],
       bank_destino: ['', Validators.required],
-      monto: [this.preciopagar, Validators.required],
+      monto: ['', Validators.required],
       referencia: ['', Validators.required],
       email: [this.usuario.email],
       nombre: [this.usuario.name],

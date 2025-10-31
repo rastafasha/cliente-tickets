@@ -107,10 +107,12 @@
 
     .BannPpal {
     background-size: cover;
-    height: calc(100vh );
-    display: flex;
-    justify-content: start;
-    align-items: start;
+        height: calc(80vh);
+        display: flex
+;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: 60px;
 }
 }
 
