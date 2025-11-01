@@ -32,6 +32,9 @@
                     <div *ngIf="payment.bank_name">
                         <p><b>Nombre del Banco:</b> {{payment.bank_name}}</p>
                     </div>
+                    <div *ngIf="payment.bank_destino">
+                        <p><b>Banco destino:</b> {{payment.bank_destino}}</p>
+                    </div>
 
                     <p><b>Monto:</b>
                         <span *ngIf="payment.metodo ==='Transferencia Bolívares' || payment.metodo ==='payment Móvil'">

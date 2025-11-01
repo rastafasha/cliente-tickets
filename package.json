@@ -1,11 +1,11 @@
 {
-  "name": "padresappcolegio",
+  "name": "payticketapp",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "start:dev": "ng serve --port 4204",
-    "start:prod": "ng build && lite-server -p 8080 --baseDir dist/browser/padresappcolegio",
+    "start:prod": "ng build && lite-server -p 8080 --baseDir dist/browser/payticketapp",
     "build": "ng build",
     "build:payticketapp": "ng build --configuration payticketapp",
     "watch": "ng build --watch --configuration development",

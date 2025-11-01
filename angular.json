@@ -112,10 +112,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "padresappcolegio:build:production"
+              "buildTarget": "payticketapp:build:production"
             },
             "development": {
-              "buildTarget": "padresappcolegio:build:development"
+              "buildTarget": "payticketapp:build:development"
             }
           },
           "defaultConfiguration": "development"
