@@ -2,12 +2,10 @@
 <div class="container-fluid user">
     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
     <div class="row">
-        <div class="col-xs-12" style="
-            display: flex;
-            justify-content: space-between;">
+        <div class="col-xs-12">
             <!-- buscador -->
             <form class="form-horizontal">
-                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="width: 65vw;">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                     <div class="input-group">
                         <input type="search" name="search" type="text" class="form-control col-xs-12"
                             placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
@@ -16,20 +14,14 @@
                             <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
                                 (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
                                     class="fa fa-search"></i></button>
-                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary doctor-refresh ms-2 circle"><i
-                                    class="fa fa-refresh"></i></a>
+                            <a href="javascript:;" (click)="PageSize()"
+                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
                         </div>
                     </div>
                 </div>
             </form>
             <!-- buscador -->
-              <button type="button" style="display: flex
-;
-    height: 40px;" class="btn btn-primary" [routerLink]="['/student/add']" >
-                                Agregar
-                            </button>
         </div>
-        
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="card recent-sales overflow-auto border-radio" *ngIf="!isLoading">
@@ -44,13 +36,9 @@
                         <th>Nombre</th>
                         <th>Inicio</th>
                         <th>Finaliza</th>
-                        <!-- <th>Nacimiento</th> -->
-                        <th>P General</th>
-                        <th>P Especialistas</th>
-                        <th>P Estudiantes</th>
                         <th>Status</th>
                         <!-- <th>Option</th> -->
-                        <th class="text-nowrap">Acciones</th>
+                        <!-- <th class="text-nowrap">Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -64,29 +52,23 @@
                             </a>
                         </td>
                         <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
-                        <!-- <td><a data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">{{evento.name}} </a></td> -->
-                        <!-- <td>{{evento.name}}  </td> -->
-                        
                         <td>{{evento.fecha_inicio|date}} </td>
                         <td>{{evento.fecha_fin|date}} </td>
-                        <td>{{evento.precio_general|currency}} </td>
-                        <td>{{evento.precio_especialistas|currency}} </td>
-                        <td>{{evento.precio_estudiantes|currency}} </td>
                         <td>
                              <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
                             <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                             <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
-                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Graduado</span>    
+                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    
                         </td>
                         
-                        <td class="text-nowrap text-center">
+                        <!-- <td class="text-nowrap text-center">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <!-- <button type="button" class="btn btn-danger"  (click)="eliminarUser(evento)">
+                            <button type="button" class="btn btn-danger"  (click)="eliminarUser(evento)">
                                 <i class="fa fa-trash"></i>
-                            </button> -->
-                        </td>
+                            </button>
+                        </td> -->
 
                         <!-- Modal -->
                         <!-- <app-listapaymentshijo [selectedEventoProfile]="selectedEventoProfile"></app-listapaymentshijo> -->

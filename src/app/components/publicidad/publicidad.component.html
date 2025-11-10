@@ -30,12 +30,12 @@
         <!-- <li  *ngFor="let slider of sliders; let i = index"  [class.active]="i === currentSlide" ></li> -->
     </ol>
     <div class="carousel-indicators">
-    <button *ngFor="let slider of sliders | slice:0:5; let i = index"  [class.active]="i === currentSlide" (click)="selectSlide(i)" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide ' + (i+1)"></button>
+    <button *ngFor="let slider of eventos | slice:0:5; let i = index"  [class.active]="i === currentSlide" (click)="selectSlide(i)" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide ' + (i+1)"></button>
   </div>
     <div class="carousel-inner">
-        <div class="carousel-item" *ngFor="let slider of sliders| slice:0:5; let i=index; "
+        <div class="carousel-item" *ngFor="let slider of eventos| slice:0:5; let i=index; "
             [class.active]="i === currentSlide">
-            <div class="BannPpal" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
+            <div class="BannPublicidad" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
                     <div class="container">
                         <!-- <div class="cuadrotext {{slider.align}}"> -->
                             <!-- <h3 class="Up {{slider?.is_activeText}} {{slider.color}}">{{slider.first_title}}</h3> -->
@@ -44,7 +44,7 @@
                             <!-- <p class="Up {{slider?.is_activeText}} {{slider.color}}">{{slider.subtitulo}}</p> -->
                             <div class="text-center">
                                 <!-- <a [href]="slider.enlace" [target]="slider.target" class="btn-azul btn-lg {{slider.mostrarboton}}">+ Info</a> -->
-                                <button class="btn btn-success" [routerLink]="['/comprar-ticket/',slider.id]">Comprar ticket</button>
+                                <!-- <button class="btn btn-success" [routerLink]="['/comprar-ticket/',slider.id]">Comprar ticket</button> -->
                                 <button class="btn btn-primary" [routerLink]="['/event/',slider.id]">+ Info</button>
                             </div>
                         </div>

@@ -63,6 +63,14 @@ export class EventoService {
       
           
         }
+        getDestacados(): Observable<any> {
+      
+          let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+          let URL = this.serverUrl+"/events/destacados";
+          return this.http.get(URL, {headers:headers});
+      
+          
+        }
        
         getById(id:number): Observable<any> {
       

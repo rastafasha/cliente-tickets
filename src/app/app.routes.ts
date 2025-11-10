@@ -6,8 +6,8 @@ import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { EditComponent } from './pages/profile/edit/edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PaymentDetailComponent } from './pages/payment/payment-detail/payment-detail.component';
-import { StudentListComponent } from './pages/students/student-list/student-list.component';
-import { StudentDetailComponent } from './pages/students/student-detail/student-detail.component';
+import { EventoListComponent } from './pages/eventos/evento-list/evento-list.component';
+import { EventoDetailComponent } from './pages/eventos/evento-detail/evento-detail.component';
 import { PaymentListComponent } from './pages/payment/payment-list/payment-list.component';
 import { PagarComponent } from './pages/payment/pagar/pagar.component';
 
@@ -26,8 +26,8 @@ export const routes: Routes = [
     {path: 'payments', component: PaymentListComponent},
     {path: 'payment-detail/:id', component: PaymentDetailComponent},
 
-    {path: 'events', component: StudentListComponent},
-    {path: 'event/:id', component: StudentDetailComponent},
+    {path: 'events', component: EventoListComponent},
+    {path: 'event/:id', component: EventoDetailComponent},
     
 
     {path: '**', redirectTo: '', pathMatch: 'full'},

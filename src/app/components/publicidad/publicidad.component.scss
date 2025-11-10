@@ -9,11 +9,18 @@
     }
 }
 
-.carousel-item {
-    height: 100%;
-    min-height: 300px;
-    background: no-repeat center center scroll;
+.BannPublicidad {
     background-size: cover;
+    height: calc(30vh - 60px);
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.carousel-item {
+    border-radius: 0px;
+    height: auto;
+    border: 1px solid var(--grisclaro);
 }
 
 .carousel-control-prev,

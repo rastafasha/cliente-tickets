@@ -6,17 +6,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { LineChartComponent } from '../../../components/charts/line-chart/line-chart.component';
-import { CalificacionService } from '../../../services/calificacion.service';
-import { Student } from '../../../models/student';
-import { Calificacion } from '../../../models/calificacion';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 
 @Component({
-  selector: 'app-student-detail',
+  selector: 'app-evento-detail',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -30,10 +26,10 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
     ImagenPipe,
     RouterModule
 ],
-  templateUrl: './student-detail.component.html',
-  styleUrl: './student-detail.component.scss'
+  templateUrl: './evento-detail.component.html',
+  styleUrl: './evento-detail.component.scss'
 })
-export class StudentDetailComponent {
+export class EventoDetailComponent {
   pageTitle= 'Evento';
   @Input() profileSeleccionado!: Evento;
   isLoading = false;
@@ -48,6 +44,7 @@ export class StudentDetailComponent {
   ){}
 
   ngOnInit(){
+    window.scrollTo(0,0);
     this.getStudents();
     this.activatedRoute.params.subscribe( ({id}) => this.getEvento(id));
 

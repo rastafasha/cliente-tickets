@@ -18,17 +18,17 @@ import Swal from 'sweetalert2';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 @Component({
-  selector: 'app-student-list',
+  selector: 'app-evento-list',
   imports: [HeaderComponent,MenuFooterComponent,
     CommonModule, NgFor,NgIf,LoadingComponent, ReactiveFormsModule, FormsModule,
     
     RouterLink, ImagenPipe, BackButtnComponent,
     // PieChart2Component
   ],
-  templateUrl: './student-list.component.html',
-  styleUrl: './student-list.component.scss'
+  templateUrl: './evento-list.component.html',
+  styleUrl: './evento-list.component.scss'
 })
-export class StudentListComponent {
+export class EventoListComponent {
     userprofile!: Parent;
     isLoading = false;
     pageTitle = 'Eventos';
@@ -36,7 +36,7 @@ export class StudentListComponent {
     loading = false;
     usersCount = 0;
     eventos!: Evento[];
-    studentprofile!: Student;
+    eventprofile!: Evento;
     roles:any;
   
     p: number = 1;
@@ -54,7 +54,6 @@ export class StudentListComponent {
   
     constructor(
       private parentService: ParentService,
-      private studentService: StudentService,
       private eventoService: EventoService,
       private http: HttpClient,
       private authService: AuthService,
@@ -90,7 +89,7 @@ export class StudentListComponent {
         return;
       }
       this.isLoading = true;
-      this.studentService.getByParentId(this.userprofile.id).subscribe(
+      this.eventoService.getUserbyEvent(this.userprofile.id).subscribe(
         (res: any) => {
           this.eventos = res.eventos;
           this.isLoading = false;

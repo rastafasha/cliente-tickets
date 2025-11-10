@@ -37,7 +37,7 @@ export class SliderComponent {
     }
   
     obtenerSliders(){
-      return this.eventoService.getActivos().subscribe(
+      return this.eventoService.getDestacados().subscribe(
         resp=>{
           this.sliders = resp.eventos;
           // console.log(this.sliders);

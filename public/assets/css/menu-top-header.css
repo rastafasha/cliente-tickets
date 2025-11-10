@@ -305,6 +305,20 @@
     display: none;
     
 }
+.logosvg{
+    display: block;
+    height: 30px;
+    width: 130px;
+    margin-top: 17px;
+    margin-left: -70px;
+}
+.logosvg-menu{
+    display: block;
+    height: 30px;
+    width: 130px;
+    margin-top: 17px;
+}
+
 
 
 @media (min-width : 668px) {
