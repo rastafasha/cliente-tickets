@@ -34,8 +34,8 @@
                         <!-- <th>ID</th> -->
                         <th>Imagen</th>
                         <th>Nombre</th>
-                        <th>Inicio</th>
-                        <th>Finaliza</th>
+                        <!-- <th>Inicio</th>
+                        <th>Finaliza</th> -->
                         <th>Status</th>
                         <!-- <th>Option</th> -->
                         <!-- <th class="text-nowrap">Acciones</th> -->
@@ -46,14 +46,15 @@
                         *ngFor="let evento of eventos  ; let i = index;">
 
                         <td>
-                            <a data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">
+                            <!-- <a data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)"> -->
+                            <a [routerLink]="['/event/', evento.id]">
 
                                 <img [src]="evento.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt="">
                             </a>
                         </td>
                         <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
-                        <td>{{evento.fecha_inicio|date}} </td>
-                        <td>{{evento.fecha_fin|date}} </td>
+                        <!-- <td>{{evento.fecha_inicio|date}} </td>
+                        <td>{{evento.fecha_fin|date}} </td> -->
                         <td>
                              <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
                             <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>

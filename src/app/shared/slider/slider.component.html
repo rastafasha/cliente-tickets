@@ -57,7 +57,7 @@
         <span class="fa fa-chevron-circle-left fa-2x  " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>
-    <button class="carousel-control-next" *ngIf="currentSlide <= 3" type="button" data-target="#carouselExampleIndicators" data-slide="next" (click)="nextSlide()">
+    <button class="carousel-control-next" *ngIf="currentSlide <= this.sliders.length+1" type="button" data-target="#carouselExampleIndicators" data-slide="next" (click)="nextSlide()">
         <span class="fa fa-chevron-circle-right fa-2x " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>
