@@ -278,8 +278,18 @@
     color: #000 !important;
 }
 
+/* input */
 .darkmode.input:where(:focus,:not(:placeholder-shown)) + .darkmode .label__name{
     transform: translateY(-50%) scale(.7);
     background-color: var(--fondo-negro) !important;
     color: #fff;
 }
+
+.darkmode input.form-control,
+.darkmode textarea.form-control {
+    background-color: #393939;
+    color: var(--white);
+}
+.darkmode .bg-light {
+    background-color: #393939 !important;
+} 

@@ -1,5 +1,5 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Payment } from '../../models/payment';
 import { Student } from '../../models/student';
@@ -12,6 +12,7 @@ import { LoadingComponent } from '../../shared/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { Evento } from '../../models/evento';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-listapaymentshijo',
@@ -22,10 +23,11 @@ import { Evento } from '../../models/evento';
   templateUrl: './listapaymentshijo.component.html',
   styleUrls: ['./listapaymentshijo.component.css']
 })
-export class ListapaymentshijoComponent implements OnChanges {
-   @Input() selectedEventoProfile!: Evento;
+export class ListapaymentshijoComponent implements OnInit {
+   @Input() selectedEventoProfile!: any;
+   @Input() userprofile!: any;
     
-      title = 'Padres';
+      title = 'Compras';
     
       loading = false;
       usersCount = 0;
@@ -43,9 +45,7 @@ export class ListapaymentshijoComponent implements OnChanges {
       ServerUrl = environment.url_servicios;
     
       constructor(
-        private parentService: ParentService,
         private paymentService: PaymentService,
-        private studentService: StudentService,
         private http: HttpClient,
         handler: HttpBackend
       ) {
@@ -54,32 +54,37 @@ export class ListapaymentshijoComponent implements OnChanges {
     
       ngOnInit(): void {
         window.scrollTo(0, 0);
+        this.userprofile 
+        console.log(this.userprofile)
         
-        
-        // this.getPaymentsbyStudent();
+        this.getPaymentsbyStudent();
       }
+     
 
       ngOnChanges(changes: SimpleChanges): void {
-        this.selectedEventoProfile;
-        // console.log(this.selectedEventoProfile);
-        if (changes['selectedEventoProfile'] && changes['selectedEventoProfile'].currentValue) {
+        this.userprofile;
+        console.log(this.userprofile);
+        if (changes['userprofile'] && changes['userprofile'].currentValue) {
           this.getPaymentsbyStudent();
+          
         }
       }
     
       getPaymentsbyStudent(){
         this.isLoading = true;
-        this.studentService.getPaymentById(this.selectedEventoProfile.id).subscribe((resp:any)=>{
+        this.paymentService.getPagosbyUser(this.userprofile.id).subscribe((resp:any)=>{
           this.payments = resp.payments;
           this.isLoading = false;
-          // console.log(this.payments);
+          console.log(this.payments);
         })
       }
+
+      
     
       search() {
-        return this.studentService.search(this.query).subscribe((res: any) => {
+        return this.paymentService.search(this.query).subscribe((res: any) => {
           // console.log(res);
-          this.students = res;
+          this.payments = res;
           if (!this.query) {
             this.ngOnInit();
           }

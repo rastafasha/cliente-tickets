@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuFooterComponent } from '../../shared/menu-footer/menu-footer.component';
 import { LateralComponent } from '../../components/lateral/lateral.component';
@@ -33,6 +33,7 @@ import { Client } from '../../models/client.model';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+  
   pageTitle= 'Profile';
   public user!: any;
   public role!: any;
@@ -41,6 +42,8 @@ export class ProfileComponent {
     loadingTitle!:string;
 
   public profile!: Client;
+
+  
 
   constructor(
     private authService: AuthService,
@@ -83,4 +86,7 @@ export class ProfileComponent {
   logout() {
     this.authService.logout();
   }
+
+
+
 }

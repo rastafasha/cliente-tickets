@@ -89,7 +89,7 @@ export class EventoListComponent {
         return;
       }
       this.isLoading = true;
-      this.eventoService.getUserbyEvent(this.userprofile.id).subscribe(
+      this.eventoService.eventsbyUser(this.userprofile.id).subscribe(
         (res: any) => {
           this.eventos = res.eventos;
           this.isLoading = false;
