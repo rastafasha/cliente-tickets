@@ -93,6 +93,12 @@ export class EventoService {
           let URL = this.serverUrl+"/event/eventsbyuser/"+id;
           return this.http.get(URL,{headers:headers});
         }
+        eventsbyClient(id:number): Observable<any> {
+      
+          let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+          let URL = this.serverUrl+"/event/eventsbyclient/"+id;
+          return this.http.get(URL,{headers:headers});
+        }
 
         createEvento(evento:Evento) {
            return this.http.post<any>(this.serverUrl + '/event/store/', evento)

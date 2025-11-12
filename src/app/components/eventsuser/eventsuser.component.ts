@@ -48,10 +48,10 @@ export class EventsuserComponent {
          
            ngOnInit(): void {
              window.scrollTo(0, 0);
-             this.userprofile 
-             console.log(this.userprofile)
+            //  this.userprofile 
+            //  console.log(this.userprofile)
              
-             this.geteventsbyClient();
+            //  this.geteventsbyClient();
            }
           
      
@@ -66,8 +66,8 @@ export class EventsuserComponent {
          
            geteventsbyClient(){
              this.isLoading = true;
-             this.eventoService.eventsbyUser(this.userprofile.id).subscribe((resp:any)=>{
-               this.events = resp.events;
+             this.eventoService.eventsbyClient(this.userprofile.id).subscribe((resp:any)=>{
+               this.events = resp.client.eventos;
                this.isLoading = false;
                console.log(this.events);
              })

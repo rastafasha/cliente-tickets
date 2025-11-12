@@ -17,20 +17,22 @@ import { BackButtnComponent } from '../../../shared/backButtn/backButtn.componen
 import { StudentService } from '../../../services/student-service.service';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { BarChartComponent } from '../../../components/charts/bar-chart/bar-chart.component';
+import { EventsuserComponent } from "../../../components/eventsuser/eventsuser.component";
 
 @Component({
   selector: 'app-payment-list',
-  imports: [MenuFooterComponent,HeaderComponent,
-    FormsModule,ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
-    RouterLink, CommonModule, BackButtnComponent, ImagenPipe,
-    // BarChartComponent
-  ],
+  imports: [MenuFooterComponent, HeaderComponent,
+    FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
+    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })
 export class PaymentListComponent {
 
-  pageTitle = 'Pagos';
+  option_selectedd:number = 1;
+  solicitud_selectedd:any = null;
+
+  pageTitle = 'Historial';
     isLoading = false;
     loading = false;
     usersCount = 0;
@@ -133,5 +135,16 @@ export class PaymentListComponent {
       this.getPayments();
     });
   }
+
+   optionSelected(value:number){
+      this.option_selectedd = value;
+      if(this.option_selectedd === 1){
+
+        // this.ngOnInit();
+      }
+      if(this.option_selectedd === 2){
+        this.solicitud_selectedd = null;
+      }
+    }
 
 }
