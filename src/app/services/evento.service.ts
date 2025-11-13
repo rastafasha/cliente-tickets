@@ -87,6 +87,8 @@ export class EventoService {
         }
 
         
+
+        
         eventsbyUser(id:number): Observable<any> {
       
           let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});

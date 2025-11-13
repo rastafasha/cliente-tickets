@@ -35,19 +35,11 @@
 
 
                         <div class="row p-3 ">
-                            <!-- <div class="col-xs-12 col-sm-4">
-                        <select class="form-control form-select-solid fw-bolder" name="status" [(ngModel)]="evento.status"
-                        (change)="cambiarStatus(evento)" placeholder="status">
-                        <option value="">Seleccione</option>
-                        <option value="APPROVED">Aprobado</option>
-                        <option value="PENDING">Pendiente</option>
-                        <option value="REJECTED">Rechazado</option>
-                    </select>
-                    </div> -->
                             <button type="button" class="btn btn-primary " [routerLink]="['/comprar-ticket/',evento.id]">
                                 comprar ticket
                             </button>
                         </div>
+                        <p><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
                     </div>
 
 

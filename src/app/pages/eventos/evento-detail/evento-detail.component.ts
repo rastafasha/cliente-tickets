@@ -10,6 +10,10 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
+import { PaymentService } from '../../../services/payment.service';
+import { Usuario } from '../../../models/usuario.model';
+import { AuthService } from '../../../services/auth.service';
+import { Payment } from '../../../models/payment';
 
 @Component({
   selector: 'app-evento-detail',
@@ -37,14 +41,19 @@ export class EventoDetailComponent {
   solicitud_selectedd:any = null;
   evento!:Evento;
   error!: string;
+  userprofile!:Usuario;
+  payments!:any;
 
   constructor(
     private eventoService: EventoService,
+    private paymentService: PaymentService,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute
   ){}
 
   ngOnInit(){
     window.scrollTo(0,0);
+    this.userprofile = this.authService.getUser();
     this.getStudents();
     this.activatedRoute.params.subscribe( ({id}) => this.getEvento(id));
 
@@ -59,6 +68,16 @@ export class EventoDetailComponent {
       }
 
     )
+    this.getPaymentbyClientbyEvent(id);
+  }
+
+  getPaymentbyClientbyEvent(id:number){
+    this.paymentService.getPaymentByEventbyClientId(id, this.userprofile.id).subscribe((resp:any)=>{
+
+      this.payments = resp.payments;
+
+
+    })
   }
 
   optionSelected(value:number){

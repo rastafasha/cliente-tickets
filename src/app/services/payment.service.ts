@@ -131,9 +131,19 @@ export class PaymentService {
         map((resp:{ok: boolean}) => resp)
         );
   }
-  getPagosStatusbyUser2(parent_id:number,student_id:number): Observable<any> {
+  getPagosStatusbyUser2(client_id:number): Observable<any> {
 
-    const url = `${baseUrl}/payment/check-debt-status-p/${parent_id}`;
+    const url = `${baseUrl}/payment/check-debt-status-p/${client_id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean}) => resp)
+        );
+  }
+
+  getPaymentByEventbyClientId(event_id:number, client_id:number): Observable<any> {
+      
+
+    const url = `${baseUrl}/payment/paymentbyeventbyclient/${event_id}/${client_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean}) => resp)

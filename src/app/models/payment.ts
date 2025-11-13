@@ -27,6 +27,7 @@ export class Payment {
    fecha?:Date;
 
    plan_id?:number;
+   event_id?:number;
    nombre?:Usuario;
    email?:Usuario;
 
