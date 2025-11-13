@@ -27,36 +27,27 @@
                 <thead>
                     <tr>
                         <th scope="col">Imagen</th>
-                        <!-- <th scope="col">Referencia</th> -->
-                        <th scope="col">Status Deuda</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let pago of events ">
+                    <tr *ngFor="let evento of events ">
                         <td>
-                            <img [src]="pago.avatar| imagenPipe: 'events' " class="imagecircle shadow" alt="">
+                            <img [src]="evento.avatar| imagenPipe: 'events' " class="imagecircle shadow" style="width: 45px; height: 45px;" alt="">
                         </td>
-                        <!-- <th scope="row"><a [routerLink]="['/payment-detail', pago.id]">{{pago.referencia}}</a>
-                        </th> -->
+                        <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
                         
                         <td>
-                            <!-- {{pago.status_deuda}} -->
-                            <!-- <span class="badge bg-success" *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span> -->
-                            <!-- <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span> -->
+                            {{evento.fecha_inicio|date}}
                         </td>
 
                         <td>
-                            <!-- <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">
-                                <i class="fa fa-check-circle" ></i>
-                            </span>
-                            <span class="badge bg-primary" *ngIf="pago.status === 'PENDING'">
-                                <i class="fa fa-coffee"></i>
-                            </span>
-                            <span class="badge bg-danger" *ngIf="pago.status === 'REJECTED'">
-                                <i class="fa fa-close"></i>
-                            </span> -->
-                            <!-- <span class="badge bg-success">{{pago.status}}</span> -->
+                             <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    
                         </td>
                        
                     </tr>

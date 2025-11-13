@@ -20,14 +20,17 @@
             font-size: 14px;
             & a{
                 color: var(--azulclaro);
+                
             }
         }
-        
-
         
     }
    
 }
+
+.active{
+  color: #ccc !important;
+ }
 
 
 

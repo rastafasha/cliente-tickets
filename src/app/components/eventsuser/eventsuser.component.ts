@@ -3,7 +3,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { EventoService } from '../../services/evento.service';
@@ -13,7 +13,7 @@ import { Evento } from '../../models/evento';
   selector: 'app-eventsuser',
   imports:[
     CommonModule, FormsModule, NgIf, NgFor, LoadingComponent, 
-    ImagenPipe
+    ImagenPipe, RouterModule
   ],
   templateUrl: './eventsuser.component.html',
   styleUrl: './eventsuser.component.scss'
