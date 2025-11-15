@@ -1,0 +1,1 @@
+- Modify getEventsporCliente to set ticketcount for all events based on payment count

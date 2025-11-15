@@ -19,7 +19,7 @@ export class Evento {
     image: string = "";
     avatar: string = "";
     status?: 'ACTIVE' | 'INACTIVE' | 'FINISHED' | 'RETIRED';
-    
+    ticketcount?:number=0;
 
 
 

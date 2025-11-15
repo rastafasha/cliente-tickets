@@ -310,7 +310,7 @@
     height: 40px;
     width: 130px;
     margin-top: 7px;
-    margin-left: -70px;
+    margin-left: 70px;
 }
 .logosvg-menu{
     display: block;
@@ -340,4 +340,8 @@
     .menu-top .logointerno #logoNuevo {
         margin-left: 10px;
     }
+
+    .logosvg {
+    margin-left: -100px;
+}
 }

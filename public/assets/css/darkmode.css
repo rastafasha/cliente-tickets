@@ -118,7 +118,7 @@
 
 .darkmode .card {
     background-color: var(--black);
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     /* border-radius: 18px; */
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
     /* min-height: 30vh;
@@ -136,6 +136,31 @@
     
 }
 
+/* tabla */
+.darkmode .table-striped tbody tr:nth-of-type(odd) {
+    background: #232222;
+    color: var(--bs-gray);
+}
+
+.darkmode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: #949aa0;
+}
+
+.darkmode .table {
+    color: #fff;
+}
+.darkmode .clinicaname{
+    border-left: 1px solid var(--white);
+    
+}
+.darkmode .topbar{
+    background-color: var(--fondo-negro);
+    
+}
+
+
+/* tab-content */
 
 .darkmode .tab-content-set .active{
     color: var(--base);
@@ -145,13 +170,22 @@
 }
 
 .darkmode .tab-content-set{
-    color: var(--blanco);
-    background-color: var(--fondo-negro);
+    color: var(--white);
 }
 
 .darkmode b {
-    color: var(--blanco);
+    color: var(--white);
 }
+.darkmode .navbarM a.active {
+    background: #9c9a9a;
+    color: #fff;
+}
+.darkmode .tab-content-set li a {
+    color: #fff;
+}
+
+.darkmode 
+
 .darkmode .navbarM a.active {
     background: #9c9a9a;
     color: #fff;

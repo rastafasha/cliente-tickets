@@ -12,34 +12,35 @@
             <section class="section dashboard">
 
                 <div class="card pagodetail border-radio">
-                    <div class="col-xs-12 ">
-
-                        <img [src]="evento.avatar | imagenPipe: 'events'" style="width:100%; padding: 10px;
-                border: 1px solid #ccc;
-                margin-top: 30px;" class="shadow" alt="">
-                    </div>
-                    <div class="col-xs-12 col-sm-6 info_evento p-3">
-                        <p><b>Nombre:</b> {{evento.name}}</p>
-                        <p><b>Descripción:</b> {{evento.description}}</p>
-                        <p><b>Status: &nbsp;</b>
-                            <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
-                            <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
-                            <span class="badge bg-danger" *ngIf="evento.status === 'FINISHED'">finalizado</span>
-                        </p>
-
-                        <p><b>Precio General:</b> {{evento.precio_general| currency}}</p>
-                        <p><b>Precio Estudiantes:</b> {{evento.precio_estudiantes| currency}}</p>
-                        <p><b>Precio Especialistas:</b> {{evento.precio_especialistas| currency}}</p>
-                        <p><b>Fecha inicio | Hora:</b> {{evento.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
-                        <p><b>Fecha fin | Hora:</b> {{evento.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
-
-
-                        <div class="row p-3 ">
-                            <button type="button" class="btn btn-primary " [routerLink]="['/comprar-ticket/',evento.id]">
-                                comprar ticket
-                            </button>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <img [src]="evento.avatar | imagenPipe: 'events'" style="width:100%; padding: 10px;
+                    border: 1px solid #ccc;
+                    margin-top: 30px;" class="shadow" alt="">
                         </div>
-                        <p><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
+                        <div class="col-xs-12 col-sm-6 info_evento p-3">
+                            <p><b>Nombre:</b> {{evento.name}}</p>
+                            <p><b>Descripción:</b> {{evento.description}}</p>
+                            <p><b>Status: &nbsp;</b>
+                                <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                                <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                                <span class="badge bg-danger" *ngIf="evento.status === 'FINISHED'">finalizado</span>
+                            </p>
+
+                            <p><b>Precio General:</b> {{evento.precio_general| currency}}</p>
+                            <p><b>Precio Estudiantes:</b> {{evento.precio_estudiantes| currency}}</p>
+                            <p><b>Precio Especialistas:</b> {{evento.precio_especialistas| currency}}</p>
+                            <p><b>Fecha inicio | Hora:</b> {{evento.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
+                            <p><b>Fecha fin | Hora:</b> {{evento.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
+
+
+                            <div class="row p-3 ">
+                                <button type="button" class="btn btn-primary " [routerLink]="['/comprar-ticket/',evento.id]">
+                                    comprar ticket
+                                </button>
+                            </div>
+                            <p><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
+                        </div>
                     </div>
 
 

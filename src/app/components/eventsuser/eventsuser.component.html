@@ -28,7 +28,7 @@
                     <tr>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
-                        <!-- <th scope="col">tickets</th> -->
+                        <th scope="col">tickets</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Status</th>
                     </tr>
@@ -41,8 +41,9 @@
                         <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
                         
                         <!-- <td>
-                            {{eventPaymentCounts[evento.id] || 0}}
+                            {{eventPaymentCounts[evento.id] || 1}}
                         </td> -->
+                        <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
                         <td>
                             {{evento.fecha_inicio|date}}
                         </td>

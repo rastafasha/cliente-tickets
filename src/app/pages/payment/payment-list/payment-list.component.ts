@@ -36,7 +36,6 @@ export class PaymentListComponent {
     isLoading = false;
     loading = false;
     usersCount = 0;
-    students!: Student;
     payments!: Payment[]|null;
   
     p: number = 1;
@@ -47,7 +46,6 @@ export class PaymentListComponent {
     selectedValue!: any;
     msm_error!: string;
     query: string = '';
-    student!:Student;
   
     ServerUrl = environment.url_servicios;
   
@@ -84,19 +82,8 @@ export class PaymentListComponent {
       this.paymentService.getPagosbyUser(this.userprofile.id).subscribe(
         (res: any) => {
           this.payments = res;
+          console.log(res)
           this.isLoading = false;
-          //recorremos payment para traer la info del studiante
-        if (this.payments) {
-          this.payments.forEach((payment: Payment) => {
-            if (payment.student_id !== undefined) {
-              this.studentService.getUserById(payment.student_id).subscribe((res: any) => {
-                this.student = res;
-                // console.log(this.student);
-
-              });
-            }
-          });
-        }
         },
         (error) => {
           this.error = error;
@@ -120,21 +107,6 @@ export class PaymentListComponent {
       this.query = '';
     }
 
-    cambiarStatus(data: any) {
-    const VALUE = data.status;
-    // console.log(VALUE);
-
-    this.paymentService.updateStatus(data, data.id).subscribe((resp) => {
-      // console.log(resp);
-      // Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-      // this.toaster.open({
-      //   text:'Producto Actualizado!',
-      //   caption:'Mensaje de Validación',
-      //   type:'success',
-      // })
-      this.getPayments();
-    });
-  }
 
    optionSelected(value:number){
       this.option_selectedd = value;

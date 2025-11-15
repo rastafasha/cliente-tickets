@@ -10,11 +10,12 @@ import { EventoService } from '../../services/evento.service';
 import { Evento } from '../../models/evento';
 import { PaymentService } from '../../services/payment.service';
 import { AuthService } from '../../services/auth.service';
+import { Payment } from '../../models/payment';
 
 @Component({
   selector: 'app-eventsuser',
-  imports:[
-    CommonModule, FormsModule, NgIf, NgFor, LoadingComponent, 
+  imports: [
+    CommonModule, FormsModule, NgIf, NgFor, LoadingComponent,
     ImagenPipe, RouterModule
   ],
   templateUrl: './eventsuser.component.html',
@@ -22,105 +23,103 @@ import { AuthService } from '../../services/auth.service';
 })
 export class EventsuserComponent {
 
-   @Input() userprofile!: any;
-    
-      title = 'Eventos';
-    
-      loading = false;
-      usersCount = 0;
-      events!: Evento[]|null;
-    
-      p: number = 1;
-      count: number = 8;
-      isLoading = false;
-      error!: string;
-      selectedValue!: any;
-      msm_error!: string;
-      query: string = '';
-      payments:any;
-      public paymentscount:number=0;
-      eventPaymentCounts: { [key: number]: number } = {};
-    
-      ServerUrl = environment.url_servicios;
-      event_id!:number;
-      paymentsbyevent!:number;
-    
-     constructor(
-             private eventoService: EventoService,
-             private paymentService: PaymentService,
-             private http: HttpClient,
-             handler: HttpBackend
-           ) {
-             this.http = new HttpClient(handler);
-           }
-         
-           ngOnInit(): void {
-             window.scrollTo(0, 0);
-            //  this.userprofile 
-            //  console.log(this.userprofile)
-             
-            //  this.geteventsbyClient();
-           }
-          
-     
-           ngOnChanges(changes: SimpleChanges): void {
-             this.userprofile;
-             console.log(this.userprofile);
-             if (changes['userprofile'] && changes['userprofile'].currentValue) {
-               this.geteventsbyClient();
-               
-             }
-           }
+  @Input() userprofile!: any;
 
-           
-         
-           geteventsbyClient(){
-             this.isLoading = true;
-             this.eventoService.eventsbyClient(this.userprofile.id).subscribe((resp:any)=>{
-               this.events = resp.client.eventos;
-               this.payments = resp.client.payments;
+  title = 'Eventos';
 
-               //filtramos los pagos del mismo cliente y del mismo evento
-               const client_id = this.userprofile.id;
-               this.payments = this.payments.filter((payment: any) => payment.event_id && payment.client_id && this.events && this.events.some((event: any) => event.id === payment.event_id));
-               // extrae de cada pago donde el client_id y el event_id este repetido y cuenta cuantos son
-               this.eventPaymentCounts = {};
-               this.payments.forEach((payment: any) => {
-                 if (payment.event_id) {
-                   this.eventPaymentCounts[payment.event_id] = (this.eventPaymentCounts[payment.event_id] || 0) + 1;
-                 }
-               });
-               this.paymentscount = Object.values(this.eventPaymentCounts).reduce((sum, count) => sum + count, 0);
+  loading = false;
+  usersCount = 0;
+  events!: any[];
 
-               this.isLoading = false;
-               console.log(resp);
-             })
-           }
+  p: number = 1;
+  count: number = 8;
+  isLoading = false;
+  error!: string;
+  selectedValue!: any;
+  msm_error!: string;
+  query: string = '';
+  public paymentscount: number = 0;
+  eventPaymentCounts: { [key: number]: number } = {};
 
-           getPaymentbyClientbyEvent(){
-            this.paymentService.getPaymentByEventbyClientId(this.event_id, this.userprofile.id).subscribe((resp:any)=>{
+  ServerUrl = environment.url_servicios;
+  event_id!: number;
+  paymentsbyevent!: number;
 
-              this.paymentsbyevent = resp.payments;
+  payments!: Payment[];
+
+  constructor(
+    private eventoService: EventoService,
+    private paymentService: PaymentService,
+    private http: HttpClient,
+    handler: HttpBackend
+  ) {
+    this.http = new HttpClient(handler);
+  }
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+    //  this.userprofile 
+    //  console.log(this.userprofile)
+
+    //  this.geteventsbyClient();
+  }
 
 
-            })
+  ngOnChanges(changes: SimpleChanges): void {
+    this.userprofile;
+    console.log(this.userprofile);
+    if (changes['userprofile'] && changes['userprofile'].currentValue) {
+      this.getEventsporCliente();
+
+    }
+  }
+
+
+
+  getEventsporCliente() {
+    this.isLoading = true;
+    this.eventoService.eventsbyClient(this.userprofile.id).subscribe(
+      (res: any) => {
+        this.events = res.client.eventos;
+        this.payments = res.client.payments;
+
+        // Compute ticketcount for events with repeated event_id
+        const countMap: { [key: number]: number } = {};
+        this.payments.forEach(payment => {
+          if (payment.event_id) {
+            countMap[payment.event_id] = (countMap[payment.event_id] || 0) + 1;
           }
+        });
+        this.events.forEach(event => {
+          if (countMap[event.id] > 1) {
+            event.ticketcount = countMap[event.id];
+          }
+        });
 
-     
-           
-         
-           search() {
-             return this.eventoService.search(this.query).subscribe((res: any) => {
-               // console.log(res);
-               this.events = res;
-               if (!this.query) {
-                 this.ngOnInit();
-               }
-             });
-           }
-         
-           public PageSize(): void {
-             this.geteventsbyClient();
-             this.query = '';
-           }
+        this.isLoading = false;
+      },
+      (error) => {
+        this.error = error;
+        this.isLoading = false;
+      }
+    );
+  }
+
+
+
+
+  search() {
+    return this.eventoService.search(this.query).subscribe((res: any) => {
+      // console.log(res);
+      this.events = res;
+      if (!this.query) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  public PageSize(): void {
+    this.getEventsporCliente();
+    this.query = '';
+  }
 }

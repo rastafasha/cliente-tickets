@@ -51,7 +51,16 @@
 
   <script type="text/javascript">
         $(document).ready(function() {
-            $('#carouselExampleIndicators').each(function() {
+            $('#carouselPrincipal').each(function() {
+                $(this).carousel({
+                    pause: false,
+                    interval: 8000
+                });
+            });
+
+        });
+        $(document).ready(function() {
+            $('#carouselPublicidad').each(function() {
                 $(this).carousel({
                     pause: false,
                     interval: 8000

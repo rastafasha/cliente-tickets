@@ -1,4 +1,5 @@
 import { environment } from "../environments/environment";
+import { Evento } from "./evento";
 import { Student } from "./student";
 import { Usuario } from "./usuario.model";
 
@@ -30,6 +31,7 @@ export class Payment {
    event_id?:number;
    nombre?:Usuario;
    email?:Usuario;
+   event?:Evento;
 
   //  status?:string;
   //  validacion?:string;

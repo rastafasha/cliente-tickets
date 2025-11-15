@@ -70,7 +70,8 @@ export class PagarComponent implements OnInit {
   precio_fecha!: Date;
 
   preciosEvento: any;
-  preciopagar!: number;
+  bankselected: any = null;
+  preciopagar: number = 0;
 
   public FILE_AVATAR: any;
   public IMAGE_PREVISUALIZA: any = 'assets/img/user-06.jpg';
@@ -161,6 +162,10 @@ export class PagarComponent implements OnInit {
     });
   }
 
+  selectBanco(value?: any) {
+    console.log(value)
+    this.bankselected = value;
+  }
   selectPrecio(value?: any) {
     console.log(value)
     this.preciopagar = value;

@@ -23,8 +23,9 @@
 .info_evento{
     display: flex;
     justify-content: space-between;
-    width: 98%;
+    // width: 98%;
     padding: 30px 15px;
+    flex-direction: column;
     gap: 10px;
     & p{
         border-right: 1px solid #ccc;
@@ -33,14 +34,23 @@
 
 }
 
+.pagodetail {
+    & p{
+        margin: 0;
+        padding: 0;
+        margin-bottom: 5px;
+    }
+}
+
 @media (max-width:990px) {
     .info_evento{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
     width: 98%;
     padding: 30px 15px;
-    gap: 10px;
+    gap: 0px;
     & p{
         border-right: none;
         
