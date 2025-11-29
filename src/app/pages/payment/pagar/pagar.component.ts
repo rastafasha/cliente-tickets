@@ -34,8 +34,8 @@ import { Evento } from '../../../models/evento';
     NgFor,
     FormsModule,
     ReactiveFormsModule,
-    HeaderComponent,
-    MenuFooterComponent,
+    // HeaderComponent,
+    // MenuFooterComponent,
     BackButtnComponent,
     LoadingComponent,
   ],
@@ -46,7 +46,7 @@ export class PagarComponent implements OnInit {
   public PaymentRegisterForm!: FormGroup;
   public isLoading: boolean = true;
   public cargandoPago: boolean = true;
-  pageTitle = 'Pagar';
+  pageTitle = 'Comprar';
   public text_validation: string = '';
   public text_success: string = '';
 
@@ -107,20 +107,24 @@ export class PagarComponent implements OnInit {
     this.getTiposdepagos();
   }
   getTiposdepagos(): void {
+    this.isLoading = true;
     // return this.planesService.carga_info();
     this.paymentMethodService
       .getPaymentmethodsActivos()
       .subscribe((resp: any) => {
         this.paymentMethods = resp.tiposdepagos;
         // console.log(resp);
+        this.isLoading = false;
         (error: any) => (this.error = error);
       });
   }
 
   getUltimoPrecioTasaBcv() {
+    this.isLoading = true;
     this.tasaBcvService.getTasas().subscribe((resp: any) => {
       this.precio_dia = resp[0].precio_dia;
       this.precio_fecha = resp[0].created_at;
+      this.isLoading = false;
     });
   }
 

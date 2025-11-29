@@ -22,7 +22,8 @@ import { Evento } from '../../../models/evento';
   selector: 'app-payment-detail',
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule,
-    HeaderComponent, MenuFooterComponent,BackButtnComponent, ImagenPipe,
+    // HeaderComponent, MenuFooterComponent,
+    BackButtnComponent, ImagenPipe,
     LoadingComponent
   ],
   templateUrl: './payment-detail.component.html',

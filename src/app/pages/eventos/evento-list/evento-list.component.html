@@ -57,7 +57,7 @@
                             <!-- <td>{{evento.fecha_inicio|date}} </td>
                             <td>{{evento.fecha_fin|date}} </td> -->
                             <td>
-                                 <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                                 <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                 <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                                 <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    

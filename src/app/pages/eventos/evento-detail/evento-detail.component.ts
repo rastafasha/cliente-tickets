@@ -14,6 +14,7 @@ import { PaymentService } from '../../../services/payment.service';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
 import { Payment } from '../../../models/payment';
+import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
 
 @Component({
   selector: 'app-evento-detail',
@@ -24,11 +25,12 @@ import { Payment } from '../../../models/payment';
     LoadingComponent,
     TranslateModule,
     // NgFor,
-    MenuFooterComponent,
-    HeaderComponent,
+    // MenuFooterComponent,
+    // HeaderComponent,
     BackButtnComponent,
     ImagenPipe,
-    RouterModule
+    RouterModule,
+    TicketCardComponent
 ],
   templateUrl: './evento-detail.component.html',
   styleUrl: './evento-detail.component.scss'

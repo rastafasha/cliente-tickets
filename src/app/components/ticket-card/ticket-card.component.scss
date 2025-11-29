@@ -1,0 +1,142 @@
+.ticket-card {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 5px;
+  padding: 10px ;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  & p{
+    margin: 0;
+  }
+  & h3{
+    margin: 0;
+    font-size: 1.2em;
+  }
+  & .image{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  & .contenido{
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  & .actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+  }
+}
+
+
+
+.modaldescarga{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.cerrarinfo{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 30px;
+    /* color: white; */
+    cursor: pointer;
+    z-index: 11;
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: cornflowerblue;
+    color: #333;
+}
+
+.contenido_modalinfo{
+    width: 80%;
+    height: auto;
+    min-height: 30%;
+    background: var(--blanco);
+    color: #333;
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.infocontain{
+    height: auto;
+    min-height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+
+.imagecircle{
+    width:40px; 
+    height:40px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    border-radius: 100px;
+}
+
+.tab-content-set{
+    & .nav{
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+        padding: 10px;
+        gap: 5px;
+
+        & li{
+            padding: 5px;
+            font-size: 14px;
+            & a{
+                color: cornflowerblue;
+                
+            }
+        }
+        
+    }
+   
+}
+
+.active{
+  color: coral !important;
+ }
+
+ .info_items{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #ccc;
+
+ }

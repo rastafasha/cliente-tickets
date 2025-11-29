@@ -1,6 +1,6 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="container-fluid user animated fadeInUp" style="margin-top: 70px;" *ngIf="!isLoading">
+<div class="container-fluid user animated fadeInUp" style="margin-top: 0px; padding-top: 15px;" *ngIf="!isLoading">
     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
 
     <div class="row">
@@ -10,17 +10,18 @@
                 <div class="pt-3" style="display: flex;
                             flex-direction: column;
                             align-items: baseline;
-                            padding: 10px;">
+                            padding: 10px;
+                            border-left: 1px solid #ccc; 
+                            padding-left: 15px;
+                            margin-left: 5px;">
                     <p><b>Evento:</b> {{evento.name}} </p>
                     <p><b>Precio General:</b> {{evento.precio_general|currency}}</p>
                     <p><b>Precio Especialista:</b> {{evento.precio_especialistas|currency}}</p>
                     <p><b>Precio Estudiante:</b> {{evento.precio_estudiantes|currency}}</p>
-                    <!-- <p><b>Deuda:</b> {{deuda|currency}}</p> -->
                     <p><b>Fecha:</b> {{evento.fecha_inicio|date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Fecha fin:</b> {{evento.fecha_fin|date:'MMM d, y, h:mm:ss a'}}</p>
                     <p><b>Tasa BCV:</b> {{precio_dia|currency:'Bs.'}}</p>
                     <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y, h:mm:ss a'}}</p>
-                    <!-- <p><b>(deuda*$):</b> {{deuda*precio_dia|currency:'Bs.'}}</p> -->
                 </div>
             </div>
         </div>
@@ -364,4 +365,4 @@
     </div>
 </div>
 
-<app-menu-footer></app-menu-footer>
+<!-- <app-menu-footer></app-menu-footer> -->

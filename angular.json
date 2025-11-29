@@ -56,7 +56,7 @@
             "payticketapp": {
               "outputPath": "dist/payticketapp",
               "index": {
-                "input": "src/env/payticketapp/index.html",
+                "input": "src/app/env/payticketapp/index.html",
                 "output": "index.html"
               },
               "fileReplacements": [

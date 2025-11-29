@@ -6,15 +6,17 @@ import { environment } from '../../environments/environment';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { Evento } from '../../models/evento';
 import { EventoService } from '../../services/evento.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-slider',
   imports: [
     CommonModule,
-    RouterModule, 
+    RouterModule,
     NgFor,
-    ImagenPipe
-  ],
+    ImagenPipe,
+    LoadingComponent
+],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss'
 })
@@ -24,6 +26,7 @@ export class SliderComponent {
     imagenSerUrl = environment.url_media;
 
     currentSlide = 0;
+    isLoading = false;
   
   
     constructor(
@@ -37,10 +40,12 @@ export class SliderComponent {
     }
   
     obtenerSliders(){
+      this.isLoading = true;
       return this.eventoService.getDestacados().subscribe(
         resp=>{
           this.sliders = resp.eventos;
           // console.log(this.sliders);
+          this.isLoading = false;
         }
       )
     }

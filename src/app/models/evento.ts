@@ -18,7 +18,7 @@ export class Evento {
     created_at: string = "";
     image: string = "";
     avatar: string = "";
-    status?: 'ACTIVE' | 'INACTIVE' | 'FINISHED' | 'RETIRED';
+    status?: 'PUBLISHED' | 'INACTIVE' | 'FINISHED' | 'RETIRED';
     ticketcount?:number=0;
 
 

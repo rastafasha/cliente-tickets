@@ -30,7 +30,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">tickets</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Status</th>
+                        <!-- <th scope="col">Status</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -48,12 +48,12 @@
                             {{evento.fecha_inicio|date}}
                         </td>
 
-                        <td>
-                             <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                        <!-- <td>
+                             <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>
                             <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                             <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                             <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    
-                        </td>
+                        </td> -->
                        
                     </tr>
 

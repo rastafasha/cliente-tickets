@@ -1,28 +1,6 @@
+<app-loading *ngIf="isLoading"></app-loading>
 
-<!-- 
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button *ngFor="let slider of sliders | slice:0:5; let i = index"  [class.active]="i === currentSlide" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-  </div>
-  <div class="carousel-inner" >
-    <div class="carousel-item active" *ngFor="let slider of sliders| slice:0:5; let i=index; ">
-      <img [src]="slider.avatar| imagenPipe: 'events' "  class="d-block w-100" alt="...">
-    </div>
-    
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div> -->
-
-
-
-<div id="carouselPublicidad" class="carousel slide" data-ride="carousel" data-interval="8000">
+<div id="carouselPublicidad" class="carousel slide" data-ride="carousel" data-interval="8000" *ngIf="!isLoading">
 
     
     <ol class="carousel-indicators">
@@ -53,11 +31,11 @@
         </div>
 
     
-    <button class="carousel-control-prev" *ngIf="currentSlide > 0" type="button" data-target="#carouselPublicidad" data-slide="prev" (click)="prevSlide()">
+    <button class="carousel-control-prev" *ngIf="currentSlide > 0" type="button" data-target="#carouselPrincipal" data-slide="prev" (click)="prevSlide()">
         <span class="fa fa-chevron-circle-left fa-2x  " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>
-    <button class="carousel-control-next" *ngIf="currentSlide <= 3" type="button" data-target="#carouselPublicidad" data-slide="next" (click)="nextSlide()">
+    <button class="carousel-control-next" *ngIf="currentSlide <= 4" type="button" data-target="#carouselPrincipal" data-slide="next" (click)="nextSlide()">
         <span class="fa fa-chevron-circle-right fa-2x " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>

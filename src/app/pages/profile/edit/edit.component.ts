@@ -21,8 +21,8 @@ import { ClientService } from '../../../services/client.service';
   selector: 'app-edit',
   imports: [
     CommonModule,
-    HeaderComponent,
-        MenuFooterComponent, 
+    // HeaderComponent,
+        // MenuFooterComponent, 
         BackButtnComponent,
         ReactiveFormsModule,
         FormsModule,

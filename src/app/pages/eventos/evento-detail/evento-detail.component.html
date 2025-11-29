@@ -1,8 +1,8 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp user main" role="main" name="profile" style="margin-top: 70px;">
+<div class="container animated fadeInUp user main" role="main" name="profile" style="margin-top: 0px;">
 
-    <div class="col-xs-12">
+    <div class="col-xs-12 pt-2">
 
         <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
         <!-- <h3>{{evento.name}}</h3> -->
@@ -22,7 +22,7 @@
                             <p><b>Nombre:</b> {{evento.name}}</p>
                             <p><b>Descripción:</b> {{evento.description}}</p>
                             <p><b>Status: &nbsp;</b>
-                                <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                                <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                                 <span class="badge bg-danger" *ngIf="evento.status === 'FINISHED'">finalizado</span>
                             </p>
@@ -39,18 +39,21 @@
                                     comprar ticket
                                 </button>
                             </div>
-                            <p><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
+                            <p *ngIf="payments.length == 0"><b>Aun no has comprado ticket para este evento</b> </p>
+                            <p *ngIf="payments.length > 0"><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
                         </div>
                     </div>
-
-
-
                 </div>
-
-
             </section>
+        </div>
+
+        <div class="row pt-3 pb-3 " *ngIf="payments.length > 0">
+            <h2>Mis Tickets</h2>
+            <div class="col-xs-12 " *ngFor="let payment of payments">
+                <app-ticket-card [payment]="payment" ></app-ticket-card>        
+                </div>
         </div>
     </div>
 </div>
 <!-- End #main-->
-<app-menu-footer></app-menu-footer>
+<!-- <app-menu-footer></app-menu-footer> -->

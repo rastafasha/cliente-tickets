@@ -6,13 +6,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { Evento } from '../../models/evento';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-publicidad',
   imports: [
     CommonModule, NgFor, ReactiveFormsModule, FormsModule,
     
-    RouterLink, ImagenPipe
+    RouterLink, ImagenPipe,
+    LoadingComponent
     // PieChart2Component
   ],
   templateUrl: './publicidad.component.html',
@@ -20,18 +22,22 @@ import { Evento } from '../../models/evento';
 })
 export class PublicidadComponent implements OnInit {
 
-  public cargando: boolean = true;
+  public cargando: boolean = false;
+  public isLoading: boolean = false;
   currentSlide = 0;
   eventos:Evento[] = [];
+  
   
   constructor(
     public eventoService:EventoService
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.eventoService.getActivos().subscribe((resp:any)=>{
       // console.log(resp);
       this.eventos = resp.eventos;
+      this.isLoading = false;
     })
   }
 

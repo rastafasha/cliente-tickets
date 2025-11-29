@@ -1,0 +1,109 @@
+<div class="ticket-card">
+    <div class="image">
+        <img [src]="payment.avatar | imagenPipe: 'payments'" alt="Ticket Image" />
+    </div>
+    <div class="contenido">
+        <h3>{{ payment.referencia }}</h3>
+        <p>Evento: <a [routerLink]="['/event/', payment.event_id]">{{ payment.event?.name }}</a></p>
+        <p>Status Deuda:
+            <span class="badge bg-success" *ngIf="payment.status_deuda !== 'DEUDA'">Pagado</span>
+            <span class="badge bg-danger" *ngIf="payment.status_deuda === 'DEUDA'">Deuda</span>
+        </p>
+        <p>Status:
+            <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'">
+                <i class="fa fa-check-circle"></i>
+            </span>
+            <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'">
+                <i class="fa fa-coffee"></i>
+            </span>
+            <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'">
+                <i class="fa fa-close"></i>
+            </span>
+        </p>
+    </div>
+    <div class="actions">
+        <a (click)="abrirModalInfo()" class="btn btn-success">
+            <i class="fa fa-share"></i>
+        </a>
+        <a [routerLink]="['/payment-detail', payment.id]" class="btn btn-primary">
+            <i class="fa fa-eye"></i>
+        </a>
+
+    </div>
+</div>
+
+
+<!-- modalinfo -->
+
+<div class="modaldescarga animated fadeIn" *ngIf="mostrarinfo" >
+    <div class="cerrarinfo">
+        <span class="closeinfo" (click)="closemodalInfo()">&times;</span>
+    </div>
+    <div class="contenido_modalinfo">
+        <div class="border_top animated fadeInDown"></div>
+        <div class="infocontain">
+            <div class="tab-content-set">
+                <ul class="nav">
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                            (click)="optionSelected(1)">Mis Contactos</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
+                            (click)="optionSelected(2)">Invitar</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row" *ngIf="option_selectedd == 1">
+                 <div class="row">
+                    <div class="col-xs-12">
+                        <!-- buscador -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                        placeholder="Buscar por correo o id.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                        class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                            (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                                class="fa fa-search"></i></button>
+                                        <a href="javascript:;" (click)="PageSize()"
+                                            class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- buscador -->
+                    </div>
+                </div>
+                <div class="info_items">
+                    <p><b>Nombre:</b> {{payment.user?.name}} {{payment.user?.lastname}}</p>
+                    <p><b>Email:</b> {{payment.user?.email}}</p>
+                     <a (click)="compartir()" class="btn btn-success">
+                        <i class="fa fa-share"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="option_selectedd == 2">
+                <form action="">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Invitación</button>
+                </form>
+            </div>
+
+
+            
+            
+        </div>
+        <!-- <a href="assets/material/ElNobelEsNuestro_MaterialCompleto.zip" download>
+            <button class="btn_descargar">Descargar Material</button>
+        </a> -->
+        <div class="border_button animated fadeInUp"></div>
+    </div>
+</div>
+<!-- modalinfo -->
