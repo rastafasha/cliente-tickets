@@ -74,9 +74,10 @@ export class EventoDetailComponent {
   }
 
   getPaymentbyClientbyEvent(id:number){
+    this.isLoading= true;
     this.paymentService.getPaymentByEventbyClientId(id, this.userprofile.id).subscribe((resp:any)=>{
-
       this.payments = resp.payments;
+      this.isLoading = false;
 
 
     })

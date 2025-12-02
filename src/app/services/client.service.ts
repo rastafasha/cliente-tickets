@@ -83,4 +83,10 @@ export class ClientService {
     const url = `${baseUrl}/clients/removeClientFromUser/${_id}`;
     return this.http.delete(url, this.headers);
   }
+
+
+    search(query=''){
+    return this.http.get(`${baseUrl}/client/search/buscar`, {params: {buscar: query}})
+
+  }
 }
