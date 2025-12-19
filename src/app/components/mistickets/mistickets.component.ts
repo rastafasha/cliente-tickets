@@ -1,23 +1,20 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { CommonModule } from '@angular/common';
+import { Component, inject, Input, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingComponent } from "../../shared/loading/loading.component";
+import Swal from 'sweetalert2';
 import { ClientService } from '../../services/client.service';
 import { TicketService } from '../../services/ticket.service';
-import Swal from 'sweetalert2';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
-  selector: 'app-ticket-card',
+  selector: 'app-mistickets',
   imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, LoadingComponent],
-  templateUrl: './ticket-card.component.html',
-  styleUrl: './ticket-card.component.scss'
+  templateUrl: './mistickets.component.html',
+  styleUrl: './mistickets.component.scss'
 })
-export class TicketCardComponent implements OnInit {
-  @Input() payment!:any;
+export class MisticketsComponent {
   @Input() userprofile!:any;
-  @Input() ticket!:any;
 
   isLoading: boolean = false;
   mostrarinfo: boolean = false;
@@ -35,7 +32,7 @@ isloading: boolean = false;
   tickets: any[] = [];
 
    ngOnInit(): void {
-    window.scrollTo(0, 0); // this.getEventos();
+    // window.scrollTo(0, 0); // this.getEventos();
   }
 
    ngOnChanges(changes: SimpleChanges): void {
@@ -45,30 +42,30 @@ isloading: boolean = false;
   }
   
   compartir(client:any){
-    this.isloading = true;
-    const data = {
-      client_id: client.id,
-      status: 'SHARED'
-    };
-    this.ticketService.compartirTicket(this.ticket.id, data).subscribe((res:any)=>{
-      if (res.status === 'error') {
-                //this.uploadError = res.message;
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Ocurrión un error, vuelva a intentar!',
-                });
-              } else {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Exito!',
-                  text: 'Se Compartió Correctamente!'
-                });
-                // this.router.navigateByUrl('/');
-                this.isloading = false;
-                this.PageSize()
-              }
-    });
+    // this.isloading = true;
+    // const data = {
+    //   client_id: client.id,
+    //   status: 'COMPARTIDO'
+    // };
+    // this.ticketService.compartirTicket(this.ticket.id, data).subscribe((res:any)=>{
+    //   if (res.status === 'error') {
+    //             //this.uploadError = res.message;
+    //             Swal.fire({
+    //               icon: 'error',
+    //               title: 'Oops...',
+    //               text: 'Ocurrión un error, vuelva a intentar!',
+    //             });
+    //           } else {
+    //             Swal.fire({
+    //               icon: 'success',
+    //               title: 'Exito!',
+    //               text: 'Se Compartió Correctamente!'
+    //             });
+    //             // this.router.navigateByUrl('/');
+    //             this.isloading = false;
+    //             this.PageSize()
+    //           }
+    // });
   }
 
   getTicketporCliente(){

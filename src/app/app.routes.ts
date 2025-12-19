@@ -10,6 +10,7 @@ import { EventoListComponent } from './pages/eventos/evento-list/evento-list.com
 import { EventoDetailComponent } from './pages/eventos/evento-detail/evento-detail.component';
 import { PaymentListComponent } from './pages/payment/payment-list/payment-list.component';
 import { PagarComponent } from './pages/payment/pagar/pagar.component';
+import { TicketDetailComponent } from './pages/ticket/ticket-detail/ticket-detail.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -25,10 +26,11 @@ export const routes: Routes = [
     {path: 'comprar-ticket/:id', component: PagarComponent},
     {path: 'payments', component: PaymentListComponent},
     {path: 'payment-detail/:id', component: PaymentDetailComponent},
-
+    
     {path: 'events', component: EventoListComponent},
     {path: 'event/:id', component: EventoDetailComponent},
     
+    {path: 'ticket-detail/:id', component: TicketDetailComponent},
 
     {path: '**', redirectTo: '', pathMatch: 'full'},
 ];

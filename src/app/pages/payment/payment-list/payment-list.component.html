@@ -13,10 +13,10 @@
                     <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
                         (click)="optionSelected(2)">Eventos</a>
                 </li>
-                <!-- <li>
+                <li>
                     <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 3}"
-                        (click)="optionSelected(3)">Calendario</a>
-                </li> -->
+                        (click)="optionSelected(3)">Tickets</a>
+                </li>
             </ul>
         </div>
          <div class="row" *ngIf="option_selectedd == 1">
@@ -93,6 +93,16 @@
     
          <div class="row" *ngIf="option_selectedd == 2">
             <app-eventsuser [userprofile]="userprofile"></app-eventsuser>
+         </div>
+         <div class="row" *ngIf="option_selectedd == 3">
+            <div class="row pt-3 pb-3 " >
+            <h2>Mis Tickets</h2>
+            <app-mistickets [userprofile]="userprofile"></app-mistickets>
+            <div class="row" *ngIf="!isLoading">
+                <div class="col-xs-12 " *ngFor="let ticket of tickets ">
+                </div>
+            </div>
+        </div>
          </div>
     </div>
 

@@ -1,0 +1,40 @@
+<!-- <app-header></app-header> -->
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp user main" role="main" name="profile" style="margin-top: 0px;">
+
+    <div class="col-xs-12 pt-2">
+
+        <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+        <!-- <h3>{{ticket.name}}</h3> -->
+        <app-loading *ngIf="isLoading"></app-loading>
+
+        <div class="row " *ngIf="!isLoading">
+            <section class="section dashboard">
+
+                <div class="card pagodetail border-radio">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <img [src]="ticket.qr_code " style="width:100%; padding: 10px;
+                    border: 1px solid #ccc;
+                    margin-top: 30px;" class="shadow" alt="">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 info_ticket p-3">
+                            <p><b>Referencia:</b> {{ticket.referencia}}</p>
+                            <p><b>Evento:</b> {{ticket.event.name}}</p>
+                            <p><b>Empresa:</b> {{ticket.company.name}}</p>
+
+                            <p><b>Monto:</b> {{ticket.monto| currency}}</p>
+                            <p><b>Fecha inicio | Hora:</b> {{ticket.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
+                            <p><b>Fecha fin | Hora:</b> {{ticket.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
+
+                            ß
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<!-- End #main-->
+<!-- <app-menu-footer></app-menu-footer> -->

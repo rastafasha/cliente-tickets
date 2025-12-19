@@ -28,6 +28,12 @@
                   <p>{{'Edit Profile'|translate}}</p>
                 </div>
               </a>
+              <a [routerLink]="['/profile/edit', user.id]">
+                <div class="option-admin">
+                  <i class="fa fa-envelope"></i>
+                  <p>{{'Notificaciones'|translate}}</p>
+                </div>
+              </a>
             
              
               <a (click)="logout()">

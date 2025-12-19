@@ -35,27 +35,28 @@
 
 
                             <div class="row p-3 ">
-                                <button type="button" class="btn btn-primary " [routerLink]="['/comprar-ticket/',evento.id]">
+                                <button type="button" class="btn btn-primary "
+                                    [routerLink]="['/comprar-ticket/',evento.id]">
                                     comprar ticket
                                 </button>
                             </div>
-                            <p *ngIf="payments.length == 0"><b>Aun no has comprado ticket para este evento</b> </p>
-                            <p *ngIf="payments.length > 0"><b>Has Comprado :</b> {{payments.length}} de 5 disponibles</p>
+                            <!-- <p *ngIf="payments.length == 0"><b>Aun no has comprado ticket para este evento</b> </p> -->
+                            <!-- <p *ngIf="payments.length > 0"><b>Has Comprado :</b> {{payments.length}} de 5 disponibles -->
+                            <!-- </p> -->
                         </div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <div class="row pt-3 pb-3 " *ngIf="payments.length > 0">
+        <div class="row pt-3 pb-3 " >
             <h2>Mis Tickets</h2>
             <app-loading *ngIf="isLoading"></app-loading>
             <div class="row" *ngIf="!isLoading">
-
-            <div class="col-xs-12 " *ngFor="let payment of payments ">
-                <app-ticket-card [payment]="payment" ></app-ticket-card>        
+                <div class="col-xs-12 " *ngFor="let ticket of tickets ">
+                    <app-ticket-card [ticket]="ticket"></app-ticket-card>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>

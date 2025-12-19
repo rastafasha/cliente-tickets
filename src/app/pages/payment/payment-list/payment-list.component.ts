@@ -18,11 +18,15 @@ import { StudentService } from '../../../services/student-service.service';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { BarChartComponent } from '../../../components/charts/bar-chart/bar-chart.component';
 import { EventsuserComponent } from "../../../components/eventsuser/eventsuser.component";
+import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
+import { TicketService } from '../../../services/ticket.service';
+import { MisticketsComponent } from '../../../components/mistickets/mistickets.component';
 
 @Component({
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
+    MisticketsComponent,
     RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
@@ -49,10 +53,11 @@ export class PaymentListComponent {
   
     ServerUrl = environment.url_servicios;
   
+    tickets!: any[];
     constructor(
       private parentService: ParentService,
       private paymentService: PaymentService,
-      private studentService: StudentService,
+      private ticktService: TicketService,
       private http: HttpClient,
       private authService: AuthService,
       handler: HttpBackend
@@ -117,6 +122,16 @@ export class PaymentListComponent {
       if(this.option_selectedd === 2){
         this.solicitud_selectedd = null;
       }
+      if(this.option_selectedd === 3){
+        this.solicitud_selectedd = null;
+      }
     }
+
+    getTicketbyClient(){
+      return this.ticktService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
+this.tickets = res;
+
+      });
+    } 
 
 }

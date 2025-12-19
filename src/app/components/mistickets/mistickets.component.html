@@ -1,6 +1,7 @@
 <app-loading *ngIf="isLoading"></app-loading>
 
-<div class="ticket-card">
+ <div class="col-xs-12 " *ngFor="let ticket of tickets ">
+    <div class="ticket-card">
     <div class="image">
         <img [src]="ticket.qr_code " alt="Ticket QR" />
     </div>
@@ -10,15 +11,17 @@
         
     </div>
     <div class="actions">
-        <a (click)="abrirModalInfo()" class="btn btn-success">
+        <!-- <a (click)="abrirModalInfo()" class="btn btn-success">
             <i class="fa fa-share"></i>
-        </a>
+        </a>-->
         <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">
             <i class="fa fa-eye"></i>
-        </a>
+        </a> 
 
     </div>
 </div>
+                </div>
+
 
 
 <!-- modalinfo -->

@@ -15,6 +15,7 @@ import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
 import { Payment } from '../../../models/payment';
 import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
+import { TicketService } from '../../../services/ticket.service';
 
 @Component({
   selector: 'app-evento-detail',
@@ -45,10 +46,13 @@ export class EventoDetailComponent {
   error!: string;
   userprofile!:Usuario;
   payments!:any;
+  tickets!:any;
+  event_id!:any;
 
   constructor(
     private eventoService: EventoService,
     private paymentService: PaymentService,
+    private ticketService: TicketService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute
   ){}
@@ -58,6 +62,7 @@ export class EventoDetailComponent {
     this.userprofile = this.authService.getUser();
     this.getStudents();
     this.activatedRoute.params.subscribe( ({id}) => this.getEvento(id));
+    // this.activatedRoute.params.subscribe( ({id}) => this.getTicketsByClientbyEvent(id));
 
   }
 
@@ -66,22 +71,33 @@ export class EventoDetailComponent {
     this.eventoService.getById(id).subscribe(
       res=>{
         this.evento = res.event;
+        this.event_id = this.evento.id;
         this.isLoading = false;
+        this.getTicketsByClientbyEvent();
       }
-
+      
     )
-    this.getPaymentbyClientbyEvent(id);
   }
 
-  getPaymentbyClientbyEvent(id:number){
-    this.isLoading= true;
-    this.paymentService.getPaymentByEventbyClientId(id, this.userprofile.id).subscribe((resp:any)=>{
-      this.payments = resp.payments;
-      this.isLoading = false;
+  // getPaymentbyClientbyEvent(id:number){
+  //   this.isLoading= true;
+  //   this.paymentService.getPaymentByEventbyClientId(id, this.userprofile.id).subscribe((resp:any)=>{
+  //     this.payments = resp.payments;
+  //     this.isLoading = false;
 
+
+  //   })
+  // }
+
+  getTicketsByClientbyEvent(){
+    this.isLoading= true;
+    this.ticketService.getTicketsByEvent(this.event_id).subscribe((resp:any)=>{
+      this.tickets = resp;
+      this.isLoading = false;
 
     })
   }
+
 
   optionSelected(value:number){
       this.option_selectedd = value;
