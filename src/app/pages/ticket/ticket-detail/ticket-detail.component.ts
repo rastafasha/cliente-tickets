@@ -56,7 +56,8 @@ export class TicketDetailComponent {
   
     ngOnInit(){
       window.scrollTo(0,0);
-      this.userprofile = this.authService.getUser();
+     let USER = localStorage.getItem("user");
+    this.userprofile = USER ? JSON.parse(USER) : null;
       this.activatedRoute.params.subscribe( ({id}) => this.getTicket(id));
       // this.activatedRoute.params.subscribe( ({id}) => this.getTicketsByClientbyEvent(id));
   
@@ -69,7 +70,8 @@ export class TicketDetailComponent {
         this.ticket = resp;
         this.isLoading = false;
         this.ticket_client_id= this.ticket.client_id;
-
+        console.log(this.ticket)
+        this.client = this.ticket.client;
         this.getUser();
   
       })

@@ -19,6 +19,7 @@
                 </li>
             </ul>
         </div>
+        <!-- compras -->
          <div class="row" *ngIf="option_selectedd == 1">
             <div class="col-xs-12">
                     <!-- buscador -->
@@ -90,10 +91,12 @@
             </div>
          </div>
     
-    
+         <!-- eventos -->
          <div class="row" *ngIf="option_selectedd == 2">
             <app-eventsuser [userprofile]="userprofile"></app-eventsuser>
          </div>
+
+         <!-- opciones ticket -->
          <div class="row" *ngIf="option_selectedd == 3">
 
             <div class="tab-content-set">
@@ -104,11 +107,15 @@
                     </li>
                     <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 2}"
-                            (click)="optionSelectedT(2)">Activos</a>
+                            (click)="optionSelectedT(2)">Disponibles</a>
                     </li>
                     <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 3}"
-                            (click)="optionSelectedT(3)">Enviados</a>
+                            (click)="optionSelectedT(3)">Recibidos Activos</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 4}"
+                            (click)="optionSelectedT(4)">Enviados</a>
                     </li>
                 </ul>
             </div>
@@ -120,6 +127,9 @@
                 <app-mistickets-activos [userprofile]="userprofile" ></app-mistickets-activos>
             </div>
             <div class="row" *ngIf="option_selecteddT == 3">
+                <app-mistickets-act-sh [userprofile]="userprofile"></app-mistickets-act-sh>
+            </div>
+            <div class="row" *ngIf="option_selecteddT == 4">
                 <app-mistickets-enviados [userprofile]="userprofile"></app-mistickets-enviados>
             </div>
          </div>

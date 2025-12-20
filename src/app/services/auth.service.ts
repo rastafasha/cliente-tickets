@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, of, tap } from 'rxjs';
 import { RegisterForm } from '../auth/interfaces/register-form.interface';
 import { environment } from '../environments/environment';
+import { Client } from '../models/client.model';
 
 const url_servicios = environment.url_servicios;
 
@@ -23,11 +24,43 @@ export class AuthService {
       this.getLocalStorage();//devuelve el usuario logueado
     }
 
-    getUser(){
-      return this.user;
+
+  get headers() {
+    return {
+      headers: {
+        auth_token: this.token,
+      },
+    };
+  }
+
+    getUser(id: string){
+      const url = `${url_servicios}/client/show/${id}`;
+              return this.http.get<any>(url, this.headers)
+                .pipe(
+                  map((resp:{ok: boolean, user: Client}) => resp.user)
+                  );
     }
   
+    getClientLocalStorage(){
+    let USER = localStorage.getItem("user");
+      if (USER) {
+        try {
+          this.user = JSON.parse(USER);
+          this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
+        } catch (e) {
+          console.error('Error parsing user from localStorage', e);
+          this.user = null;
+          this.role = '';
+        }
+      } else {
+        this.user = null;
+        this.role = '';
+      }
+      
+   }
     getLocalStorage(){
+
+      
       if(localStorage.getItem('token') && localStorage.getItem('user')){
         let USER = localStorage.getItem('user');
         this.user = JSON.parse(USER ? USER: '');

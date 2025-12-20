@@ -52,21 +52,9 @@ export class ProfileComponent {
   }
   
   ngOnInit(): void {
-    // this.user = this.authService.getRole();
     let USER = localStorage.getItem("user");
-     if (USER) {
-      try {
-        this.user = JSON.parse(USER);
-        this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
-      } catch (e) {
-        console.error('Error parsing user from localStorage', e);
-        this.user = null;
-        this.role = '';
-      }
-    } else {
-      this.user = null;
-      this.role = '';
-    }
+    this.user = USER ? JSON.parse(USER) : null;
+    console.log(this.user)
     window.scrollTo(0, 0);
     
     this.getProfile();

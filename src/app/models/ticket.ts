@@ -1,8 +1,10 @@
+import { Client } from "./client.model";
 import { Evento } from "./evento";
 
 export class Ticket {
     id!: number;
     client_id!: number;
+    client!: Client;
     from_id!: number;
     company_id!: number;
     event_id!: number;

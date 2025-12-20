@@ -15,7 +15,7 @@
                 <i class="fa fa-share"></i> Compartido
             </span>
             <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
-                <i class="fa fa-check-circle"></i> Activo
+                <i class="fa fa-check-circle"></i> Activo Disponible
             </span>
             <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
                                 <i class="fa fa-check-circle"></i> Compartido Activado
@@ -29,12 +29,7 @@
 
         </div>
         <div class="actions">
-            <!-- <a (click)="abrirModalInfo()" class="btn btn-success">
-            <i class="fa fa-share"></i>
-        </a> -->
-            <a (click)="aceptarTicketShared(ticket)" *ngIf="ticket.status !== 'ACTIVE'" class="btn btn-outline-success">
-            <i class="fa fa-check-circle-o"></i>
-        </a>
+           
             <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
                 <i class="fa fa-eye"></i>
             </a>
@@ -42,6 +37,7 @@
         </div>
     </div>
 
-    
 </div>
+
+
 

@@ -33,7 +33,7 @@ export class StatuspagosComponent {
       private authService: AuthService,
       private paymentService: PaymentService,
     ) {
-      this.user = this.authService.getUser();
+      // this.user = this.authService.getUser();
     }
 
       

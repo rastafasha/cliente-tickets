@@ -64,7 +64,8 @@ export class EventoListComponent {
   
     ngOnInit(): void {
       window.scrollTo(0, 0);
-      this.userprofile = this.authService.getUser();
+      let USER = localStorage.getItem("user");
+    this.userprofile = USER ? JSON.parse(USER) : null;
       // console.log(this.userprofile);
       // Removed this.getUsers() from here to avoid calling before userprofile is set
       this.getEventos();

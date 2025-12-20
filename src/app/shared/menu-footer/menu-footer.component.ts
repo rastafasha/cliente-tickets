@@ -11,10 +11,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './menu-footer.component.css'
 })
 export class MenuFooterComponent {
-  public user: Usuario;
+  public user!: Usuario;
   constructor(
       private authService: AuthService,
     ) {
-      this.user = this.authService.getUser();
+      // this.user = this.authService.getUser();
     }
 }

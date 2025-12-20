@@ -17,10 +17,9 @@ export class LateralComponent {
     private authService: AuthService,
     private profileService: ProfileService,
   ) {
-    this.user = this.authService.getUser();
   }
   ngOnInit(): void {
-    this.user = this.authService.getUser();
+    // this.user = this.authService.getUser();
     // this.getProfile();
   }
 

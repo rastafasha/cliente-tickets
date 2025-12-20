@@ -15,7 +15,7 @@
                 <i class="fa fa-share"></i> Compartido
             </span>
             <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
-                <i class="fa fa-check-circle"></i> Activo
+                <i class="fa fa-check-circle"></i> Activo Disponible
             </span>
             <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
                                 <i class="fa fa-check-circle"></i> Compartido Activado
@@ -29,12 +29,116 @@
 
         </div>
         <div class="actions">
-            
+            <a (click)="aceptarTicketShared(ticket)" *ngIf="ticket.status === 'ACTIVE'" class="btn btn-outline-success">
+            <i class="fa fa-check-circle-o"></i>
+        </a>
+            <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="ticket.status === 'ACTIVE' ">
+            <i class="fa fa-share"></i>
+        </a>
             <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
                 <i class="fa fa-eye"></i>
             </a>
 
         </div>
     </div>
+
+    <!-- modalinfo -->
+
+<div class="modaldescarga animated fadeIn" *ngIf="mostrarinfo" >
+    <div class="cerrarinfo">
+        <span class="closeinfo" (click)="closemodalInfo()">&times;</span>
+    </div>
+    <div class="contenido_modalinfo">
+        <div class="border_top animated fadeInDown"></div>
+        <div class="infocontain">
+            <div class="tab-content-set">
+                <ul class="nav">
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                            (click)="optionSelected(1)">Buscar Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
+                            (click)="optionSelected(2)">Invitar</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row" *ngIf="option_selectedd == 1">
+                 <div class="row">
+                    <div class="col-xs-12">
+                        <!-- buscador -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                        placeholder="Buscar por correo o id.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                        class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                            (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                                class="fa fa-search"></i></button>
+                                        <a href="javascript:;" (click)="PageSize()"
+                                            class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- buscador -->
+                    </div>
+                </div>
+                <div class="info_items" *ngIf="showList">
+
+                    <table class="table table-borderless datatable table-striped">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="col">Imagen</th> -->
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Opt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients | slice:0:5">
+                                <!-- <td>
+                                    <img [src]="client.avatar| imagenPipe: 'users' " class="imagecircle shadow" alt="">
+                                </td> -->
+                                <th scope="row">{{client.name}}
+                                </th>
+    
+                                <th scope="row">{{client.email | slice:0:25}}
+                                </th>
+                                <td>
+                                   <a (click)="compartir(client)" class="btn btn-success">
+                        <i class="fa fa-share"></i>
+                    </a>
+                                </td>
+                            </tr>
+    
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="option_selectedd == 2">
+                <form action="">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Invitación</button>
+                </form>
+            </div>
+
+
+            
+            
+        </div>
+        <div class="border_button animated fadeInUp"></div>
+    </div>
 </div>
+<!-- modalinfo -->
+</div>
+
+
 

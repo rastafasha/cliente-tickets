@@ -88,27 +88,27 @@ export class EditComponent {
       private fb: FormBuilder,
       private translate: TranslateService,
     ) {
-      this.user = this.authService.getUser();
+      this.user = this.authService.user;
     }
   
     
 
     ngOnInit(): void {
       window.scrollTo(0,0);
-      let USER = localStorage.getItem("user");
-     if (USER) {
-      try {
-        this.user = JSON.parse(USER);
-        this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
-      } catch (e) {
-        console.error('Error parsing user from localStorage', e);
-        this.user = null;
-        this.role = '';
-      }
-    } else {
-      this.user = null;
-      this.role = '';
-    }
+    //   let USER = localStorage.getItem("user");
+    //  if (USER) {
+    //   try {
+    //     this.user = JSON.parse(USER);
+    //     this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
+    //   } catch (e) {
+    //     console.error('Error parsing user from localStorage', e);
+    //     this.user = null;
+    //     this.role = '';
+    //   }
+    // } else {
+    //   this.user = null;
+    //   this.role = '';
+    // }
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormularioPerfil(id));
       this.validarFormularioPerfil();
       this.Title = this.user.name;

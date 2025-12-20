@@ -50,7 +50,7 @@ export class HomeComponent {
     
 
   ){
-    this.user = this.authService.getUser();
+    // this.user = this.authService.getUser();
     this.translate.use('es'); // Set default language
   }
 

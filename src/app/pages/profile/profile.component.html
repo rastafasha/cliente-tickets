@@ -8,7 +8,7 @@
             <div class="fototext">
               <img [src]="(profile.avatar || '')  | imagenPipe: 'clients' " alt="">
               <div class="div1">
-                <p>{{'Username'|translate}}: {{user.name}}</p>
+                <p>{{'Username'|translate}}: {{profile.name}}</p>
                 <p *ngIf="profile">{{profile.name}} {{profile.surname}}</p>
                 <p>{{user.email}}</p>
                 <!-- <p>{{user.roles}}</p> -->

@@ -59,7 +59,9 @@ export class EventoDetailComponent {
 
   ngOnInit(){
     window.scrollTo(0,0);
-    this.userprofile = this.authService.getUser();
+     let USER = localStorage.getItem("user");
+    this.userprofile = USER ? JSON.parse(USER) : null;
+
     this.getStudents();
     this.activatedRoute.params.subscribe( ({id}) => this.getEvento(id));
     // this.activatedRoute.params.subscribe( ({id}) => this.getTicketsByClientbyEvent(id));
@@ -91,7 +93,7 @@ export class EventoDetailComponent {
 
   getTicketsByClientbyEvent(){
     this.isLoading= true;
-    this.ticketService.getTicketsByEvent(this.event_id).subscribe((resp:any)=>{
+    this.ticketService.getTicketsByEvent(this.event_id, this.userprofile.id).subscribe((resp:any)=>{
       this.tickets = resp;
       this.isLoading = false;
 

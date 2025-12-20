@@ -63,6 +63,13 @@ export class TicketService {
             map((resp:{ok: boolean, tickets: Ticket}) => resp.tickets)
             );
       }
+      getTicketACtShared(_id: number) {
+        const url = `${baseUrl}/tickets/tiketsactivosCompartidos/${_id}`;
+        return this.http.get<any>(url, this.headers)
+          .pipe(
+            map((resp:{ok: boolean, tickets: Ticket}) => resp.tickets)
+            );
+      }
 
       getTicketsByClient(_id: number) {
         const url = `${baseUrl}/tickets/client/${_id}`;
@@ -72,8 +79,8 @@ export class TicketService {
             );
       }
     
-      getTicketsByEvent(_id: number) {
-        const url = `${baseUrl}/tickets/event/${_id}`;
+      getTicketsByEvent(_id: number, client_id?: number) {
+        const url = `${baseUrl}/tickets/event/${_id}/${client_id ? client_id : ''}`;
         return this.http.get<any>(url, this.headers)
           .pipe(
             map((resp:{ok: boolean, tickets: Ticket[]}) => resp.tickets)

@@ -16,8 +16,8 @@
                           <!-- <img class="card-img-top" [src]="IMAGE_PREVISUALIZA" style="width: 45px; height: 45px; border-radius: 100px;" alt=""> -->
                           <img [src]="(profile.avatar || '')  | imagenPipe: 'clients' "  style="width: 45px; height: 45px; border-radius: 100px;" alt="">
                           <div class="card-body">
-                            <h4 style="margin: 0; padding: 0;" class="card-title">{{user.name}}</h4>
-                            <p style="margin: 0; padding: 0;" class="card-text">{{user.email}}</p>
+                            <h4 style="margin: 0; padding: 0;" class="card-title">{{profileSeleccionado.name}}</h4>
+                            <p style="margin: 0; padding: 0;" class="card-text">{{profileSeleccionado.email}}</p>
                           </div>
                         </div>
                         <!-- datos -->

@@ -23,13 +23,14 @@ import { TicketService } from '../../../services/ticket.service';
 import { MisticketsComponent } from '../../../components/mistickets/mistickets.component';
 import { MisticketsEnviadosComponent } from '../../../components/mistickets-enviados/mistickets-enviados.component';
 import { MisticketsActivosComponent } from "../../../components/mistickets-activos/mistickets-activos.component";
+import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/mistickets-act-sh.component";
 
 @Component({
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
     MisticketsComponent, MisticketsEnviadosComponent,
-    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent, MisticketsActivosComponent],
+    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent, MisticketsActivosComponent, MisticketsActShComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })
@@ -74,7 +75,9 @@ export class PaymentListComponent {
   
   ngOnInit(): void {
       window.scrollTo(0, 0);
-      this.userprofile = this.authService.getUser();
+      let USER = localStorage.getItem("user");
+    this.userprofile = USER ? JSON.parse(USER) : null;
+      
       this.getPayments();
     }
 
@@ -130,6 +133,9 @@ export class PaymentListComponent {
         this.solicitud_selectedd = null;
       }
       if(this.option_selectedd === 3){
+        this.solicitud_selectedd = null;
+      }
+      if(this.option_selectedd === 4){
         this.solicitud_selectedd = null;
       }
     }

@@ -18,7 +18,7 @@ import { Parent } from '../../models/parents';
 })
 export class HeaderComponent {
   year: number = new Date().getFullYear();
-  public user: Usuario;
+  public user!: Usuario;
   public profile: Profile = new Profile();
   langs: string[] = [];
   public activeLang = 'es';
@@ -30,7 +30,7 @@ export class HeaderComponent {
     private profileService: ProfileService,
     private translate: TranslateService
   ) {
-    this.user = this.authService.getUser();
+    // this.user = this.authService.getUser();
     // this.translate.setDefaultLang('es');
     this.translate.setDefaultLang(this.activeLang);
     this.translate.use('es');
@@ -44,7 +44,8 @@ export class HeaderComponent {
   
   ngOnInit(): void {
     this.authService.getLocalDarkMode();
-    this.user = this.authService.getUser();
+  let USER = localStorage.getItem("user");
+    this.user = USER ? JSON.parse(USER) : null;
     // this.getProfile();
     // console.log(this.user);
     const lang = localStorage.getItem('lang');

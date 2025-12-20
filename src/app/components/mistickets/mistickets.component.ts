@@ -59,7 +59,7 @@ export class MisticketsComponent {
         this.ticketsShared = res;
       });
   }
-  
+
   abrirModalInfo() {
     this.mostrarinfo = true;
   }
@@ -69,31 +69,54 @@ export class MisticketsComponent {
   }
 
   aceptarTicketShared(ticket: any) {
-    this.isloading = true;
-    const data = {
-      client_id: this.userprofile.id,
-      ticket_id: ticket.id,
-      event_id: ticket.event_id,
-    };
-    this.eventoService.addClienteToEvento(data, ticket.event_id).subscribe(
-      (res: any) => {
-        this.isloading = false;
-        Swal.fire(
-          '¡Éxito!',
-          'Has aceptado el ticket compartido correctamente.',
-          'success'
+    Swal.fire({
+      title: "Quieres usar este ticket?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Si, Quiero usarlo",
+      // denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.isloading = true;
+        const data = {
+          client_id: this.userprofile.id,
+          ticket_id: ticket.id,
+          event_id: ticket.event_id,
+        };
+        this.eventoService.addClienteToEvento(data, ticket.event_id).subscribe(
+          (res: any) => {
+            this.isloading = false;
+            Swal.fire(
+              '¡Éxito!',
+              'Has aceptado el ticket compartido correctamente.',
+              'success'
+            );
+            this.getTicketShared();
+          },
+          (error: any) => {
+            this.isloading = false;
+            Swal.fire(
+              'Error',
+              'Hubo un problema al aceptar el ticket compartido.',
+              'error'
+            );
+          }
         );
-        this.getTicketShared();
-      },
-      (error: any) => {
-        this.isloading = false;
-        Swal.fire(
-          'Error',
-          'Hubo un problema al aceptar el ticket compartido.',
-          'error'
-        );
+      } else if (result.isDenied) {
+        Swal.fire("Ningun cambio efectuado", "", "info");
+        // this.ngOnInit();
       }
-    );
+    });
+
+
+
+
+
+
+
+
+
   }
 
   optionSelected(value: number) {
