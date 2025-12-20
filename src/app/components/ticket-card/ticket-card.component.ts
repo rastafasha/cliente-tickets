@@ -15,8 +15,7 @@ import Swal from 'sweetalert2';
   styleUrl: './ticket-card.component.scss'
 })
 export class TicketCardComponent implements OnInit {
-  @Input() payment!:any;
-  @Input() userprofile!:any;
+  @Input() profile!:any;
   @Input() ticket!:any;
 
   isLoading: boolean = false;
@@ -27,7 +26,11 @@ export class TicketCardComponent implements OnInit {
 clients:any[] = [];
 
 showList: boolean = false;
+showButton: boolean = false;
 isloading: boolean = false;
+user: any = null;
+client_id: any = null;
+user_id: any = null;
 
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
@@ -36,17 +39,18 @@ isloading: boolean = false;
 
    ngOnInit(): void {
     window.scrollTo(0, 0); // this.getEventos();
+    let USER = localStorage.getItem("user");
+    this.user = USER ? JSON.parse(USER) : null;
+    this.user_id = this.profile.id;
+    
   }
 
-   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
-      this.getTicketporCliente();
-    }
-  }
+   
   
-  compartir(client:any){
+  compartir(client:any){debugger
     this.isloading = true;
     const data = {
+      from_id: this.user_id,
       client_id: client.id,
       status: 'SHARED'
     };
@@ -69,14 +73,6 @@ isloading: boolean = false;
                 this.PageSize()
               }
     });
-  }
-
-  getTicketporCliente(){
-    return this.ticketService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
-this.tickets = res;
-
-    }
-    );
   }
 
   abrirModalInfo(){

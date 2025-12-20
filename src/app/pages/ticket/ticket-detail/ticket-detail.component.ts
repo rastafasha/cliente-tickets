@@ -11,6 +11,7 @@ import { TicketCardComponent } from '../../../components/ticket-card/ticket-card
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ClientService } from '../../../services/client.service';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -41,11 +42,14 @@ export class TicketDetailComponent {
     payments!:any;
     tickets!:any;
     event_id!:any;
+    ticket_client_id!:any;
+    client!:any;
 
     mostrarinfo: boolean = false;
   
     constructor(
       private ticketService: TicketService,
+      private clientService: ClientService,
       private authService: AuthService,
       private activatedRoute: ActivatedRoute
     ){}
@@ -64,7 +68,18 @@ export class TicketDetailComponent {
       this.ticketService.getTicket(+id).subscribe((resp:any)=>{
         this.ticket = resp;
         this.isLoading = false;
+        this.ticket_client_id= this.ticket.client_id;
+
+        this.getUser();
   
+      })
+
+      
+    }
+
+    getUser(){
+      this.clientService.getClient(this.ticket_client_id).subscribe((resp:any)=>{
+        this.client = resp; 
       })
     }
 

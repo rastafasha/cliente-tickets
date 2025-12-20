@@ -7,10 +7,22 @@
     <div class="contenido">
         <h3>{{ ticket.referencia }}</h3>
         <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
-        
+        <p>Status: </p>
+            <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
+                <i class="fa fa-share"></i>
+            </span>
+            <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
+                <i class="fa fa-check-circle"></i>
+            </span>
+            <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
+                <i class="fa fa-coffee"></i>
+            </span>
+            <span class="badge bg-danger" *ngIf="ticket.status === 'REJECTED'">
+                <i class="fa fa-close"></i>
+            </span>
     </div>
     <div class="actions">
-        <a (click)="abrirModalInfo()" class="btn btn-success">
+        <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="user_id === ticket.client_id">
             <i class="fa fa-share"></i>
         </a>
         <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">

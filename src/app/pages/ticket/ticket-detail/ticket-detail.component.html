@@ -26,8 +26,23 @@
                             <p><b>Monto:</b> {{ticket.monto| currency}}</p>
                             <p><b>Fecha inicio | Hora:</b> {{ticket.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
                             <p><b>Fecha fin | Hora:</b> {{ticket.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
+                            <p>Status: </p>
+                            <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
+                                <i class="fa fa-share"></i> Compartido
+                            </span>
+                            <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
+                                <i class="fa fa-check-circle"></i> Activo
+                            </span>
+                            <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
+                                <i class="fa fa-coffee"></i> Esperado 
+                            </span>
+                            <span class="badge bg-danger" *ngIf="ticket.status === 'REJECTED'">
+                                <i class="fa fa-close"></i> Rechazado
+                            </span>
 
-                            ß
+                            <span  *ngIf="ticket.status === 'SHARED'">
+                                <p><b>Compartido con:</b> {{client.email}}</p>
+                            </span>
                         </div>
                     </div>
                 </div>

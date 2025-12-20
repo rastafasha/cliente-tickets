@@ -49,6 +49,13 @@ export class TicketService {
             map((resp:{ok: boolean, ticket: Ticket}) => resp.ticket)
             );
       }
+      getTicketShared(_id: number) {
+        const url = `${baseUrl}/ticket/shared/${_id}`;
+        return this.http.get<any>(url, this.headers)
+          .pipe(
+            map((resp:{ok: boolean, tickets: Ticket}) => resp.tickets)
+            );
+      }
 
       getTicketsByClient(_id: number) {
         const url = `${baseUrl}/tickets/client/${_id}`;

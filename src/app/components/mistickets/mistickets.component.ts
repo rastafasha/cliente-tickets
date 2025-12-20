@@ -30,6 +30,7 @@ isloading: boolean = false;
   private ticketService = inject(TicketService);
 
   tickets: any[] = [];
+  ticketsShared: any[] = [];
 
    ngOnInit(): void {
     // window.scrollTo(0, 0); // this.getEventos();
@@ -71,6 +72,13 @@ isloading: boolean = false;
   getTicketporCliente(){
     return this.ticketService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
 this.tickets = res;
+
+    }
+    );
+  }
+  getTicketShared(){
+    return this.ticketService.getTicketShared(this.userprofile.id).subscribe((res: any) => {
+this.ticketsShared = res;
 
     }
     );
