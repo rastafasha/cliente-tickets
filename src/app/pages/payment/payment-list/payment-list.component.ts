@@ -21,13 +21,15 @@ import { EventsuserComponent } from "../../../components/eventsuser/eventsuser.c
 import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
 import { TicketService } from '../../../services/ticket.service';
 import { MisticketsComponent } from '../../../components/mistickets/mistickets.component';
+import { MisticketsEnviadosComponent } from '../../../components/mistickets-enviados/mistickets-enviados.component';
+import { MisticketsActivosComponent } from "../../../components/mistickets-activos/mistickets-activos.component";
 
 @Component({
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
-    MisticketsComponent,
-    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent],
+    MisticketsComponent, MisticketsEnviadosComponent,
+    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent, MisticketsActivosComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })
@@ -35,6 +37,9 @@ export class PaymentListComponent {
 
   option_selectedd:number = 1;
   solicitud_selectedd:any = null;
+
+    option_selecteddT:number = 1;
+  solicitud_selecteddT:any = null;
 
   pageTitle = 'Historial';
     isLoading = false;
@@ -45,15 +50,17 @@ export class PaymentListComponent {
     p: number = 1;
     count: number = 8;
     userprofile!:Usuario;
-  
+    
     error!: string;
     selectedValue!: any;
     msm_error!: string;
     query: string = '';
-  
+    
     ServerUrl = environment.url_servicios;
-  
+    
     tickets!: any[];
+    status!:any;
+
     constructor(
       private parentService: ParentService,
       private paymentService: PaymentService,
@@ -127,9 +134,25 @@ export class PaymentListComponent {
       }
     }
 
+   optionSelectedT(value:number){
+      this.option_selecteddT = value;
+      if(this.option_selecteddT === 1){
+
+        // this.ngOnInit();
+      }
+      if(this.option_selecteddT === 2){
+        this.solicitud_selecteddT = null;
+      }
+
+      if(this.option_selecteddT === 3){
+        this.solicitud_selecteddT = null;
+      }
+    }
+
     getTicketbyClient(){
       return this.ticktService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
-this.tickets = res;
+      this.tickets = res;
+      this.status = res.status;
 
       });
     } 

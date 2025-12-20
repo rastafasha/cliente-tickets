@@ -1,13 +1,14 @@
 <app-loading *ngIf="isLoading"></app-loading>
 
-<div class="ticket-card">
-    <div class="image">
-        <img [src]="ticket.qr_code " alt="Ticket QR" />
-    </div>
-    <div class="contenido">
-        <h3>{{ ticket.referencia }}</h3>
-        <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
-        <p>Status: </p>
+<div class="col-xs-12 " *ngFor="let ticket of tickets ">
+    <div class="ticket-card">
+        <div class="image">
+            <img [src]="ticket.qr_code " alt="Ticket QR" />
+        </div>
+        <div class="contenido">
+            <h3>{{ ticket.referencia }}</h3>
+            <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
+            <p>Status: </p>
             <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
                 <i class="fa fa-share"></i> Compartido
             </span>
@@ -15,30 +16,31 @@
                 <i class="fa fa-check-circle"></i> Activo
             </span>
             <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
-                                <i class="fa fa-check-circle"></i> Compartido Activado
-                            </span>
+                <i class="fa fa-check-circle"></i> Compartido Activado
+            </span>
             <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
                 <i class="fa fa-coffee"></i> pendiente por activar o usar
             </span>
             <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
                 <i class="fa fa-close"></i> Expirado
             </span>
-    </div>
-    <div class="actions">
-        <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="user_id === ticket.client_id && ticket.status === 'ACTIVE'">
-            <i class="fa fa-share"></i>
-        </a>
-        <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">
-            <i class="fa fa-eye"></i>
-        </a>
 
+        </div>
+        <div class="actions">
+            <!-- <a (click)="abrirModalInfo()" class="btn btn-success">
+            <i class="fa fa-share"></i>
+        </a>-->
+            <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">
+                <i class="fa fa-eye"></i>
+            </a>
+
+        </div>
     </div>
 </div>
 
-
 <!-- modalinfo -->
 
-<div class="modaldescarga animated fadeIn" *ngIf="mostrarinfo" >
+<div class="modaldescarga animated fadeIn" *ngIf="mostrarinfo">
     <div class="cerrarinfo">
         <span class="closeinfo" (click)="closemodalInfo()">&times;</span>
     </div>
@@ -58,21 +60,23 @@
                 </ul>
             </div>
             <div class="row" *ngIf="option_selectedd == 1">
-                 <div class="row">
+                <div class="row">
                     <div class="col-xs-12">
                         <!-- buscador -->
                         <form class="form-horizontal">
                             <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                                 <div class="input-group">
                                     <input type="search" name="search" type="text" class="form-control col-xs-12"
-                                        placeholder="Buscar por correo o id.." [(ngModel)]="query" aria-describedby="button-addon1"
-                                        class="form-control border-0 bg-light">
+                                        placeholder="Buscar por correo o id.." [(ngModel)]="query"
+                                        aria-describedby="button-addon1" class="form-control border-0 bg-light">
                                     <div class="input-group-append">
-                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
-                                            (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                        <button id="button-addon1" type="submit"
+                                            class="btn btn-link text-primary circle" (click)="search()" name="submit"
+                                            data-toggle="tooltip" title="mostrar todos"><i
                                                 class="fa fa-search"></i></button>
                                         <a href="javascript:;" (click)="PageSize()"
-                                            class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                            class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                                class="fa fa-refresh"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -98,17 +102,17 @@
                                 </td> -->
                                 <th scope="row">{{client.name}}
                                 </th>
-    
+
                                 <th scope="row">{{client.email | slice:0:25}}
                                 </th>
                                 <td>
-                                   <a (click)="compartir(client)" class="btn btn-success">
-                        <i class="fa fa-share"></i>
-                    </a>
+                                    <a (click)="compartir(client)" class="btn btn-success">
+                                        <i class="fa fa-share"></i>
+                                    </a>
                                 </td>
                             </tr>
-    
-    
+
+
                         </tbody>
                     </table>
                 </div>
@@ -125,9 +129,12 @@
             </div>
 
 
-            
-            
+
+
         </div>
+        <!-- <a href="assets/material/ElNobelEsNuestro_MaterialCompleto.zip" download>
+            <button class="btn_descargar">Descargar Material</button>
+        </a> -->
         <div class="border_button animated fadeInUp"></div>
     </div>
 </div>

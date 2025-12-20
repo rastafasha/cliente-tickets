@@ -1,0 +1,9 @@
+
+<!--  -->
+<div class="notificador" *ngIf="showNotificacion">
+    <div class="alert alert-success" role="alert">
+        <button (click)="closeNotificacion()" class="btn btn-close d-flex justify-content-end"></button>
+        <strong *ngIf="mensaje">{{mensaje}}</strong>
+        <strong *ngIf="mensaje_ticket">{{mensaje_ticket}}</strong>
+    </div>
+</div>

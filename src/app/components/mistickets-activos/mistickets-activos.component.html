@@ -29,12 +29,7 @@
 
         </div>
         <div class="actions">
-            <!-- <a (click)="abrirModalInfo()" class="btn btn-success">
-            <i class="fa fa-share"></i>
-        </a> -->
-            <a (click)="aceptarTicketShared(ticket)" *ngIf="ticket.status !== 'ACTIVE'" class="btn btn-outline-success">
-            <i class="fa fa-check-circle-o"></i>
-        </a>
+            
             <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
                 <i class="fa fa-eye"></i>
             </a>

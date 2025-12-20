@@ -2,14 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import Swal from 'sweetalert2';
 import { ClientService } from '../../services/client.service';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
-import { EventoService } from '../../services/evento.service';
 
 @Component({
-  selector: 'app-mistickets',
+  selector: 'app-mistickets-activos',
   imports: [
     CommonModule,
     RouterModule,
@@ -17,11 +15,12 @@ import { EventoService } from '../../services/evento.service';
     FormsModule,
     LoadingComponent,
   ],
-  templateUrl: './mistickets.component.html',
-  styleUrl: './mistickets.component.scss',
+  templateUrl: './mistickets-activos.component.html',
+  styleUrl: './mistickets-activos.component.scss'
 })
-export class MisticketsComponent {
-  @Input() userprofile!: any;
+export class MisticketsActivosComponent {
+   @Input() userprofile!: any;
+  @Input() status: any;
 
   title: string = 'Tickets Recibidos';
 
@@ -37,29 +36,29 @@ export class MisticketsComponent {
 
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
-  private eventoService = inject(EventoService);
 
   tickets: any[] = [];
   ticketsShared: any[] = [];
 
   ngOnInit(): void {
-    // window.scrollTo(0, 0); // this.getEventos();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
-      this.getTicketShared();
+      this.getTicketActivos();
     }
   }
 
-  getTicketShared() {
+ 
+  getTicketActivos() {
     return this.ticketService
-      .getTicketShared(this.userprofile.id)
+      .getTicketSAc(this.userprofile.id)
       .subscribe((res: any) => {
         this.ticketsShared = res;
+        console.log(this.ticketsShared);
       });
   }
-  
+
   abrirModalInfo() {
     this.mostrarinfo = true;
   }
@@ -68,34 +67,7 @@ export class MisticketsComponent {
     this.mostrarinfo = false;
   }
 
-  aceptarTicketShared(ticket: any) {
-    this.isloading = true;
-    const data = {
-      client_id: this.userprofile.id,
-      ticket_id: ticket.id,
-      event_id: ticket.event_id,
-    };
-    this.eventoService.addClienteToEvento(data, ticket.event_id).subscribe(
-      (res: any) => {
-        this.isloading = false;
-        Swal.fire(
-          '¡Éxito!',
-          'Has aceptado el ticket compartido correctamente.',
-          'success'
-        );
-        this.getTicketShared();
-      },
-      (error: any) => {
-        this.isloading = false;
-        Swal.fire(
-          'Error',
-          'Hubo un problema al aceptar el ticket compartido.',
-          'error'
-        );
-      }
-    );
-  }
-
+  
   optionSelected(value: number) {
     this.option_selectedd = value;
     if (this.option_selectedd === 1) {

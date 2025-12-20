@@ -16,6 +16,7 @@ import { StatuspagosComponent } from '../../components/statuspagos/statuspagos.c
 import { Client } from '../../models/client.model';
 import { SliderComponent } from "../../shared/slider/slider.component";
 import { PublicidadComponent } from '../../components/publicidad/publicidad.component';
+import { NotificadorComponent } from "../../shared/notificador/notificador.component";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ import { PublicidadComponent } from '../../components/publicidad/publicidad.comp
     TranslateModule,
     // TasabcvComponent,
     SliderComponent,
-    PublicidadComponent
+    PublicidadComponent,
+    NotificadorComponent
 ],
   providers: [TranslateService],
   templateUrl: './home.component.html',

@@ -33,11 +33,14 @@
                             <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
                                 <i class="fa fa-check-circle"></i> Activo
                             </span>
+                            <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
+                                                <i class="fa fa-check-circle"></i> Compartido Activado
+                                            </span>
                             <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
-                                <i class="fa fa-coffee"></i> Esperado 
+                                <i class="fa fa-coffee"></i> pendiente por activar o usar
                             </span>
-                            <span class="badge bg-danger" *ngIf="ticket.status === 'REJECTED'">
-                                <i class="fa fa-close"></i> Rechazado
+                            <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
+                                <i class="fa fa-close"></i> Expirado
                             </span>
 
                             <span  *ngIf="ticket.status === 'SHARED'">

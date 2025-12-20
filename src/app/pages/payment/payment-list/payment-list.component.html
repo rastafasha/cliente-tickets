@@ -95,11 +95,33 @@
             <app-eventsuser [userprofile]="userprofile"></app-eventsuser>
          </div>
          <div class="row" *ngIf="option_selectedd == 3">
-            <div class="row pt-3 pb-3 " >
-            <h2>Mis Tickets</h2>
-            <app-mistickets [userprofile]="userprofile"></app-mistickets>
-            
-        </div>
+
+            <div class="tab-content-set">
+                <ul class="nav">
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 1}"
+                            (click)="optionSelectedT(1)">Recibidos</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 2}"
+                            (click)="optionSelectedT(2)">Activos</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 3}"
+                            (click)="optionSelectedT(3)">Enviados</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row" *ngIf="option_selecteddT == 1">
+                <app-mistickets [userprofile]="userprofile"></app-mistickets>
+            </div>
+            <div class="row" *ngIf="option_selecteddT == 2">
+                <app-mistickets-activos [userprofile]="userprofile" ></app-mistickets-activos>
+            </div>
+            <div class="row" *ngIf="option_selecteddT == 3">
+                <app-mistickets-enviados [userprofile]="userprofile"></app-mistickets-enviados>
+            </div>
          </div>
     </div>
 

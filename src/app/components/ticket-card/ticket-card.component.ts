@@ -38,7 +38,6 @@ user_id: any = null;
   tickets: any[] = [];
 
    ngOnInit(): void {
-    window.scrollTo(0, 0); // this.getEventos();
     let USER = localStorage.getItem("user");
     this.user = USER ? JSON.parse(USER) : null;
     this.user_id = this.profile.id;
@@ -47,7 +46,7 @@ user_id: any = null;
 
    
   
-  compartir(client:any){debugger
+  compartir(client:any){
     this.isloading = true;
     const data = {
       from_id: this.user_id,
@@ -81,6 +80,7 @@ user_id: any = null;
 
   closemodalInfo(){
     this.mostrarinfo = false;
+    this.ngOnInit();
   }
 
 
