@@ -115,12 +115,12 @@
             </div>
 
             <div class="row" *ngIf="option_selectedd == 2">
-                <form action="">
+                <form [formGroup]="invitacionForm">
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico">
+                        <input type="email" formControlName="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico">
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar Invitación</button>
+                    <button type="submit" class="btn btn-primary" (click)="invitar(email)">Enviar Invitación</button>
                 </form>
             </div>
 

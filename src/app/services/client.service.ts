@@ -63,6 +63,13 @@ export class ClientService {
       )
   }
 
+  invitarCliente(data:any){
+    const headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});      
+    const URL = baseUrl+'/client/invitarCliente';
+    return this.http.post(URL,data, {headers:headers});
+  }
+
+
   
 
   addClienttoUser(data:any){
