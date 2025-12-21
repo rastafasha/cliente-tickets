@@ -49,7 +49,7 @@ export class NotificadorComponent {
       this.mensaje = msg;
       // console.log(this.mensaje)
 
-      if (this.mensaje[0].status === 'APPROVED') {
+      if (this.mensaje[0].status === 'APPROVED' && this.mensaje[0].createdAt >= new Date(new Date().getTime() - 60000)) {
         this.showNotificacion = true;
         this.mensaje = `Pago aprobado: ${this.mensaje[0].referencia}`;
       }

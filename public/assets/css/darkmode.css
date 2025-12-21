@@ -327,3 +327,10 @@
 .darkmode .bg-light {
     background-color: #393939 !important;
 } 
+
+
+.darkmode .contenido_modalinfo{
+    background: var(--bs-dark) !important;
+    color: #f1f1f1;
+
+ }
