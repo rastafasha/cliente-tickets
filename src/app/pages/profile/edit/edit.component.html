@@ -8,15 +8,16 @@
                     <app-backButtn [pageTitle]="pageTitle" [Title]="Title"></app-backButtn>
                     <app-loading *ngIf="isLoading" [loadingTitle]="loadingTitle"></app-loading>
                     <form [formGroup]="userForm" *ngIf="!isLoading">
-                        <div class="card text-left mb-4 " style="
+                        <div class="card text-left mb-4 " *ngIf="profileSeleccionado" style="
                             flex-direction: row; align-items: center;padding-left: 20px;
                             ">
                             <!-- <img class="card-img-top" [src]="IMAGE_PREVISUALIZA" style="width: 45px; height: 45px; border-radius: 100px;" alt=""> -->
                             <img [src]="(profile.avatar || '')  | imagenPipe: 'clients' "
                                 style="width: 45px; height: 45px; border-radius: 100px;" alt="">
                             <div class="card-body">
-                                <h4 style="margin: 0; padding: 0;" class="card-title">{{profile.name}}</h4>
-                                <p style="margin: 0; padding: 0;" class="card-text">{{profile.email}}</p>
+                                <h4 style="margin: 0; padding: 0;" class="card-title">{{profileSeleccionado.name}}</h4>
+                                <p style="margin: 0; padding: 0;" class="card-text">{{profileSeleccionado.email}}</p>
+                                <p style="margin: 0; padding: 0;" class="card-text">{{profileSeleccionado.pais.code}} | {{profileSeleccionado.pais.title}}</p>
                             </div>
                         </div>
                         <!-- datos -->

@@ -11,6 +11,7 @@
                 <p>{{'Username'|translate}}: {{profile.name}}</p>
                 <p *ngIf="profile">{{profile.name}} {{profile.surname}}</p>
                 <p>{{user.email}}</p>
+                <p>{{profile.pais.code}} | {{profile.pais.title}}</p>
                 <!-- <p>{{user.roles}}</p> -->
                 <!-- <p *ngIf="profile">{{profile.status}}</p> -->
                 <span class="badge  bg-primary" *ngIf="profile.status === 'PENDING'"> {{'Pending'|translate}}</span>

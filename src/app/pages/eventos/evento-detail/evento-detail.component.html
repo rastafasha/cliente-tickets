@@ -36,6 +36,9 @@
                         <div class="col-xs-12 col-sm-6 info_evento p-3">
                             <p><b>Nombre:</b> {{evento.name}}</p>
                             <p><b>Descripción:</b> {{evento.description}}</p>
+                            <p><b>Promueve:</b> {{evento.company.name}}</p>
+                            <p><b>Pais:</b> {{evento.pais.title}}</p>
+                            <p *ngIf="evento.tickets_disponibles"><b>Tickets Disponibles:</b> {{evento.tickets_disponibles}}</p>
                             <p><b>Status: &nbsp;</b>
                                 <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
