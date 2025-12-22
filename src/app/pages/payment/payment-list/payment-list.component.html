@@ -6,7 +6,7 @@
         <div class="tab-content-set">
             <ul class="nav">
                 <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                    <a href="#" onclick="return false;"  [ngClass]="{'active': option_selectedd == 1}"
                         (click)="optionSelected(1)">Compras</a>
                 </li>
                 <li>
@@ -21,7 +21,12 @@
         </div>
         <!-- compras -->
          <div class="row" *ngIf="option_selectedd == 1">
-            <div class="col-xs-12">
+
+            <div *ngIf="!payments  && !isLoading">
+                <h4 class="text-center">No Posees compras registradas</h4>
+            </div>
+
+            <div class="col-xs-12" *ngIf="payments && payments.length > 0 && !isLoading">
                     <!-- buscador -->
                     <form class="form-horizontal">
                         <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
@@ -43,7 +48,7 @@
                 </div>
             <app-loading *ngIf="isLoading"></app-loading>
             <div class="card recent-sales overflow-auto border-radio" *ngIf="!isLoading">
-                <div class="card-body" >
+                <div class="card-body" *ngIf="payments && payments.length > 0 && !isLoading">
                     <table class="table table-borderless datatable table-striped">
                         <thead>
                             <tr>

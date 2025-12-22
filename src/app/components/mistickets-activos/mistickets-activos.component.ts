@@ -167,9 +167,9 @@ export class MisticketsActivosComponent {
         const data = {
           client_id: this.userprofile.id,
           ticket_id: ticket.id,
-          event_id: ticket.event_id,
+          event_id: ticket.event.id,
         };
-        this.eventoService.addClienteToEvento(data, ticket.event_id).subscribe(
+        this.eventoService.addClienteToEvento(data, ticket.event.id).subscribe(
           (res: any) => {
             this.isloading = false;
             Swal.fire(
