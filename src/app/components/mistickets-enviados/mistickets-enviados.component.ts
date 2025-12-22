@@ -69,7 +69,7 @@ isloading: boolean = false;
   }
 
   getTicketporCliente(){
-    return this.ticketService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
+    return this.ticketService.getTicketShared(this.userprofile.id).subscribe((res: any) => {
 this.tickets = res;
 
     }

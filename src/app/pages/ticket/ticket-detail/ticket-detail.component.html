@@ -43,7 +43,10 @@
                             <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
                                 <i class="fa fa-close"></i> Expirado
                             </span>
-
+                            <span class="badge bg-danger" *ngIf="ticket.status === 'USED'">
+                <i class="fa fa-close"></i> Usado
+            </span>
+                            <p><b>Asistencia:</b> {{asistencia}}</p>
                             <span  *ngIf="ticket.status === 'SHAREDACTIVE'">
                                 <p><b>Usado por:</b> {{client.email}}</p>
                             </span>

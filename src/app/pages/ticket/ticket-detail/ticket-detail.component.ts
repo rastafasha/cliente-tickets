@@ -25,8 +25,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
     // MenuFooterComponent,
     // HeaderComponent,
     BackButtnComponent,
-    RouterModule,
-    QRCodeComponent
+    RouterModule
   ],
   templateUrl: './ticket-detail.component.html',
   styleUrls: ['./ticket-detail.component.scss']
@@ -58,6 +57,7 @@ export class TicketDetailComponent {
   href? : string;
   vcard!: string;
   errors:any = null;
+  asistencia: any;
   
     constructor(
       private ticketService: TicketService,
@@ -79,15 +79,23 @@ export class TicketDetailComponent {
     getTicket(id:number){
       this.isLoading= true;
       this.ticketService.getTicket(+id).subscribe((resp:any)=>{
-        this.ticket = resp;
+        this.ticket = resp.ticket;
         this.isLoading = false;
         this.ticket_client_id= this.ticket.client_id;
         this.client = this.ticket.client;
+        this.asistencia = resp.asistencia;
+
+        if(this.asistencia === 1){
+          this.asistencia = 'Asistió al evento';
+        }else{
+          this.asistencia = 'Asistecia no confirmada';
+        }
+
         
         this.myQrCodeValue = this.ticket.qr_code;
         // this.myQrCodeValue = 'http://api.qrserver.com/v1/create-qr-code/?data=${this.ticket.qr_code}&size=200x200'; //genera una imagen de qr
         // this.myQrCodeValue = 'https://ticketapp.malcolmcordova.com/admin/dashboard/cliente/detail/'+ this.ticket.client_id; //envia a la url del cliente
-        console.log(this.myQrCodeValue)
+        // console.log(this.myQrCodeValue)
         this.getUser();
   
       })

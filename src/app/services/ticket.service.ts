@@ -44,10 +44,7 @@ export class TicketService {
     
       getTicket(_id: number) {
         const url = `${baseUrl}/ticket/show/${_id}`;
-        return this.http.get<any>(url, this.headers)
-          .pipe(
-            map((resp:{ok: boolean, ticket: Ticket}) => resp.ticket)
-            );
+        return this.http.get<any>(url, this.headers);
       }
       getTicketShared(_id: number) {
         const url = `${baseUrl}/tickets/shared/${_id}`;
@@ -65,6 +62,14 @@ export class TicketService {
       }
       getTicketACtShared(_id: number) {
         const url = `${baseUrl}/tickets/tiketsactivosCompartidos/${_id}`;
+        return this.http.get<any>(url, this.headers)
+          .pipe(
+            map((resp:{ok: boolean, tickets: Ticket}) => resp.tickets)
+            );
+      }
+     
+      tiketUsedorExpired(_id: number) {
+        const url = `${baseUrl}/tickets/usedorexpired/${_id}`;
         return this.http.get<any>(url, this.headers)
           .pipe(
             map((resp:{ok: boolean, tickets: Ticket}) => resp.tickets)

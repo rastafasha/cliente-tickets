@@ -44,6 +44,7 @@ export class EventsuserComponent {
   ServerUrl = environment.url_servicios;
   event_id!: number;
   paymentsbyevent!: number;
+  asistencia: any;
 
   payments!: Payment[];
 
@@ -82,6 +83,13 @@ export class EventsuserComponent {
       (res: any) => {
         this.events = res.client.eventos;
         this.payments = res.client.payments;
+        this.asistencia = res.asistencia;
+
+        if(this.asistencia === 1){
+          this.asistencia = 'Asistió al evento';
+        }else{
+          this.asistencia = 'Asistecia no confirmada';
+        }
 
         // Compute ticketcount for events with repeated event_id
         const countMap: { [key: number]: number } = {};

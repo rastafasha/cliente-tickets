@@ -24,12 +24,13 @@ import { MisticketsComponent } from '../../../components/mistickets/mistickets.c
 import { MisticketsEnviadosComponent } from '../../../components/mistickets-enviados/mistickets-enviados.component';
 import { MisticketsActivosComponent } from "../../../components/mistickets-activos/mistickets-activos.component";
 import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/mistickets-act-sh.component";
+import { MisticketUsadosComponent } from '../../../components/misticket-usados/misticket-usados.component';
 
 @Component({
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
-    MisticketsComponent, MisticketsEnviadosComponent,
+    MisticketsComponent, MisticketsEnviadosComponent, MisticketUsadosComponent,
     RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent, MisticketsActivosComponent, MisticketsActShComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'

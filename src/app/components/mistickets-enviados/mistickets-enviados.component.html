@@ -24,6 +24,9 @@
             <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
                 <i class="fa fa-close"></i> Expirado
             </span>
+            <span class="badge bg-danger" *ngIf="ticket.status === 'USED'">
+                <i class="fa fa-close"></i> Usado
+            </span>
 
         </div>
         <div class="actions">

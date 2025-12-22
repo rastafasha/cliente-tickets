@@ -29,6 +29,7 @@
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">tickets</th>
+                        <th scope="col">Asistencia</th>
                         <th scope="col">Fecha</th>
                         <!-- <th scope="col">Status</th> -->
                     </tr>
@@ -44,6 +45,7 @@
                             {{eventPaymentCounts[evento.id] || 1}}
                         </td> -->
                         <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
+                        <td>{{asistencia}}</td>
                         <td>
                             {{evento.fecha_inicio|date}}
                         </td>

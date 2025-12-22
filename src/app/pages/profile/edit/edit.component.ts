@@ -16,6 +16,8 @@ import { ParentService } from '../../../services/parent-service.service';
 import { Parent } from '../../../models/parents';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { ClientService } from '../../../services/client.service';
+import { PaisService } from '../../../services/pais.service';
+import { Pais } from '../../../models/pais';
 
 @Component({
   selector: 'app-edit',
@@ -28,7 +30,8 @@ import { ClientService } from '../../../services/client.service';
         FormsModule,
         LoadingComponent,
         TranslateModule,
-        ImagenPipe
+        ImagenPipe,
+        NgFor
   ],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css'
@@ -78,6 +81,7 @@ export class EditComponent {
   public activeLang = 'es';
   flag = false;
   lang!:string;
+  countries!:Pais [];
     
 
     constructor(
@@ -85,6 +89,7 @@ export class EditComponent {
       private activatedRoute: ActivatedRoute,
       private parentService: ParentService,
       private clienteService: ClientService,
+      private paisService: PaisService,
       private fb: FormBuilder,
       private translate: TranslateService,
     ) {
@@ -109,11 +114,21 @@ export class EditComponent {
     //   this.user = null;
     //   this.role = '';
     // }
+    this.getPaisesList();
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormularioPerfil(id));
       this.validarFormularioPerfil();
       this.Title = this.user.name;
       
     }
+
+     getPaisesList(){
+      this.paisService.getPaises().subscribe(
+        (resp:any) =>{
+          this.countries = resp.countries;
+
+        }
+      )
+  }
 
 
     getProfile(){
@@ -151,6 +166,7 @@ export class EditComponent {
             birt_date: res.birt_date,
             address: res.address,
             lang: res.lang,
+            pais_id: res.pais_id,
             gender: res.gender,
             n_doc: res.n_doc,
             mobile: res.mobile,
@@ -179,6 +195,7 @@ export class EditComponent {
       address: [''],
       n_doc: [''],
       lang: [''],
+      pais_id: [''],
       gender: [''],
       usuario: [this.user.id],
       id: [''],
@@ -217,6 +234,11 @@ export class EditComponent {
     formData.append("client_id", this.user.id+'');
     if (this.userForm.value.address) {
       formData.append("address", this.userForm.value.address);
+      
+    }
+    
+    if (this.userForm.value.pais_id) {
+      formData.append("pais_id", this.userForm.value.pais_id);
       
     }
     
