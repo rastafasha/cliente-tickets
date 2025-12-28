@@ -11,6 +11,7 @@ import { EventoDetailComponent } from './pages/eventos/evento-detail/evento-deta
 import { PaymentListComponent } from './pages/payment/payment-list/payment-list.component';
 import { PagarComponent } from './pages/payment/pagar/pagar.component';
 import { TicketDetailComponent } from './pages/ticket/ticket-detail/ticket-detail.component';
+import { CategoriaComponent } from './pages/categoria/categoria.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -29,6 +30,8 @@ export const routes: Routes = [
     
     {path: 'events', component: EventoListComponent},
     {path: 'event/:id', component: EventoDetailComponent},
+
+    {path: 'category/:id', component: CategoriaComponent},
     
     {path: 'ticket-detail/:id', component: TicketDetailComponent},
 

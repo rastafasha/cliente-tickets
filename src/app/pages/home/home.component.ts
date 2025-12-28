@@ -17,6 +17,7 @@ import { Client } from '../../models/client.model';
 import { SliderComponent } from "../../shared/slider/slider.component";
 import { PublicidadComponent } from '../../components/publicidad/publicidad.component';
 import { NotificadorComponent } from "../../shared/notificador/notificador.component";
+import { CategoryBarComponent } from "../../components/category-bar/category-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ import { NotificadorComponent } from "../../shared/notificador/notificador.compo
     // TasabcvComponent,
     SliderComponent,
     PublicidadComponent,
-    NotificadorComponent
+    NotificadorComponent,
+    CategoryBarComponent
 ],
   providers: [TranslateService],
   templateUrl: './home.component.html',

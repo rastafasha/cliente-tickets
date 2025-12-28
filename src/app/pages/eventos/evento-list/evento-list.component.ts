@@ -17,12 +17,13 @@ import { BackButtnComponent } from '../../../shared/backButtn/backButtn.componen
 import Swal from 'sweetalert2';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
+import { CategoryBarComponent } from '../../../components/category-bar/category-bar.component';
 @Component({
   selector: 'app-evento-list',
   imports: [HeaderComponent,MenuFooterComponent,
     CommonModule, NgFor,NgIf,LoadingComponent, ReactiveFormsModule, FormsModule,
     
-    RouterLink, ImagenPipe, BackButtnComponent,
+    RouterLink, ImagenPipe, BackButtnComponent,CategoryBarComponent
     // PieChart2Component
   ],
   templateUrl: './evento-list.component.html',

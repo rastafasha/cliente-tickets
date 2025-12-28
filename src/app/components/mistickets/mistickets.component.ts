@@ -110,13 +110,6 @@ export class MisticketsComponent {
     });
 
 
-
-
-
-
-
-
-
   }
 
   optionSelected(value: number) {
