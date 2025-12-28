@@ -25,6 +25,7 @@ import { BackButtnComponent } from '../../../shared/backButtn/backButtn.componen
 import { TasabcvService } from '../../../services/tasabcv.service';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
+import { ImagenPipe } from '../../../pipes/imagen.pipe';
 
 @Component({
   selector: 'app-pagar',
@@ -38,6 +39,7 @@ import { Evento } from '../../../models/evento';
     // MenuFooterComponent,
     BackButtnComponent,
     LoadingComponent,
+    ImagenPipe
   ],
   templateUrl: './pagar.component.html',
   styleUrls: ['./pagar.component.css'],

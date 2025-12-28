@@ -57,10 +57,10 @@ export class CategoriaComponent {
 
 
   getProductByCategory(){
+    this.isLoading = true;
     this.categoryService.getEventsByCat(this.categoria.id).subscribe( (res:any) =>{
       this.events = res.events;
-      console.log(this.events);
-
+      this.isLoading = false;
       });
 
   }

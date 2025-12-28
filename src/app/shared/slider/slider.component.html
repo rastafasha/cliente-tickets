@@ -9,17 +9,12 @@
     <div class="carousel-inner">
         <div class="carousel-item" *ngFor="let slider of sliders| slice:0:5; let i=index; "
             [class.active]="i === currentSlide">
-            <div class="BannPpal" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
+            <div class="BannPpal" [routerLink]="['/event/',slider.id]" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
                     <div class="container">
-                        <!-- <div class="cuadrotext {{slider.align}}"> -->
-                            <!-- <h3 class="Up {{slider?.is_activeText}} {{slider.color}}">{{slider.first_title}}</h3> -->
-                            <h3 class="Up ">{{slider.name}}</h3>
-                            <!-- <img [src]="slider.avatar| imagenPipe: 'events' "  class="d-block w-100" alt="..."> -->
-                            <!-- <p class="Up {{slider?.is_activeText}} {{slider.color}}">{{slider.subtitulo}}</p> -->
+                        <h3 class="Up ">{{slider.name}}</h3>
                             <div class="text-center">
-                                <!-- <a [href]="slider.enlace" [target]="slider.target" class="btn-azul btn-lg {{slider.mostrarboton}}">+ Info</a> -->
-                                <button class="btn btn-success" [routerLink]="['/comprar-ticket/',slider.id]">Comprar ticket</button>
-                                <button class="btn btn-primary" [routerLink]="['/event/',slider.id]">+ Info</button>
+                                <!-- <button class="btn btn-success" [routerLink]="['/comprar-ticket/',slider.id]">Comprar ticket</button> -->
+                                <!-- <button class="btn btn-primary" [routerLink]="['/event/',slider.id]">+ Info</button> -->
                             </div>
                         </div>
                     </div>

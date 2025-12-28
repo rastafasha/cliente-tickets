@@ -38,6 +38,7 @@
                             <p><b>Descripción:</b> {{evento.description}}</p>
                             <p><b>Promueve:</b> {{evento.company.name}}</p>
                             <p><b>Pais:</b> {{evento.pais.title}}</p>
+                            <p><b>Categoría:</b> {{evento.category.name}}</p>
                             <p *ngIf="evento.tickets_disponibles"><b>Tickets Disponibles:</b> {{evento.tickets_disponibles}}</p>
                             <p><b>Status: &nbsp;</b>
                                 <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>

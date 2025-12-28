@@ -1,4 +1,5 @@
 import { environment } from "../environments/environment";
+import { Category } from "./category";
 import { Company } from "./company";
 import { Pais } from "./pais";
 
@@ -11,10 +12,12 @@ export class Evento {
     client_id!: number;
     pais_id!: number;
     company_id!: number;
+    catergory_id!: number;
     name: string = "";
     description: string = "";
     company!: Company;
     pais!: Pais;
+    category!: Category;
     fecha_inicio!: Date;
     fecha_fin!: Date;
     precio_general: number = 0;
