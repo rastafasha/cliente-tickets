@@ -4,6 +4,8 @@
     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
 
     <div class="row">
+
+        <!-- info del evento a comprar -->
         <div class="col-12 col-sm-4 ">
             <div class="card recibo border-radio">
                 <h3 class="text-center">Info del evento</h3>
@@ -14,22 +16,22 @@
                             border-left: 1px solid #ccc; 
                             padding-left: 15px;
                             margin-left: 5px;">
-                            <!-- <img [src]="evento.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt=""> -->
                     <p><b>Evento:</b> {{evento.name}} </p>
                     <p><b>Precio General:</b> {{evento.precio_general|currency}}</p>
                     <p><b>Precio Especialista:</b> {{evento.precio_especialistas|currency}}</p>
                     <p><b>Precio Estudiante:</b> {{evento.precio_estudiantes|currency}}</p>
-                    <p><b>Fecha:</b> {{evento.fecha_inicio|date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Fecha fin:</b> {{evento.fecha_fin|date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Fecha:</b> {{evento.fecha_inicio|date:'MMM d, y'}}</p>
+                    <p><b>Fecha fin:</b> {{evento.fecha_fin|date:'MMM d, y'}}</p>
                     <p><b>Tasa BCV:</b> {{precio_dia|currency:'Bs.'}}</p>
-                    <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y'}}</p>
                 </div>
             </div>
         </div>
+        <!-- instruccion y formulario -->
         <div class="col-12 col-sm-8">
             <div class="card border-radio">
                 <div class="pt-3">
-                    <!--external Bordered Tabs -->
+                    <!--selectores external Bordered Tabs -->
                     <ul class="nav nav-tabs nav-tabs-bordered">
 
                         <li class="nav-item">
@@ -43,10 +45,10 @@
                         </li>
                     </ul>
                     <div class="tab-content pt-2">
+
                         <!-- instruccioness -->
                         <div class="tab-pane fade show active profile-overview" id="instrucci">
                             <div class="instruccioness pagarinfo ">
-                                <!-- <img src="./assets/img/paypal-pay01.png" alt=""> -->
                                 <div class="info">
                                     <h5 class="text-center">¿Cómo hacer el pago?</h5>
                                     <ol>
@@ -74,6 +76,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                         <!-- carpagos -->
                         <div class="tab-pane fade pt-3" id="formulario">
 
@@ -91,17 +96,61 @@
                                         </div>
                                         <!-- Seleccione -->
                                         <div class="row">
+                                            <!-- Tipo De pago -->
+                                            <div class="col-12pt-3" style="float: left;">
+                                                <div class="row">
+                                                    <div class="div1 col-xs-12 col-sm-6">
+                                                        <div>
+                                                            <label for="">Método de Pago </label>
+
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Transferencia Dólares'"
+                                                                    (click)="selectedTypeCoupon('Transferencia Dólares')"
+                                                                    type="radio" value="Transferencia Dólares"
+                                                                    id="radiotipo2">
+                                                                <label class="form-check-label"
+                                                                    for="radiotipo2">Transferencia Dólares</label>
+                                                            </div>
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Transferencia Bolívares'"
+                                                                    (click)="selectedTypeCoupon('Transferencia Bolívares')"
+                                                                    type="radio" value="Transferencia Bolívares"
+                                                                    id="radiotipo3">
+                                                                <label class="form-check-label"
+                                                                    for="radiotipo3">Transferencia Bolívares</label>
+                                                            </div>
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Pago Móvil'"
+                                                                    (click)="selectedTypeCoupon('Pago Móvil')"
+                                                                    type="radio" value="Pago Móvil" id="radiotipo4">
+                                                                <label class="form-check-label" for="radiotipo4">Pago
+                                                                    Movil</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+                                            <br>
+
+                                           
                                             <!-- Seleccione Banco destino -->
-                                            <div class="divinfo col-xs-12 col-sm-6 pb-3">
+                                            <div class="divinfo col-xs-12 col-sm-6 pb-3" *ngIf="metodo">
                                                 <div class="col-xs-12 ">
-                                                    <p class="text-center Bordered text-bold">
-                                                        Seleccione Banco destino</p>
+                                                    <!-- <p class="text-center Bordered text-bold">
+                                                        Seleccione Banco destino</p> -->
 
                                                     <div class="col-xs-12 ">
                                                         <div class="input-group">
 
                                                             <select class="form-control" formControlName="bank_destino"
-                                                            (change)="selectBanco($any($event.target).value)">
+                                                                (change)="selectBanco($any($event.target).value)">
                                                                 <option value="">-- Seleccione Banco destino --</option>
                                                                 <option *ngFor="let data of paymentMethods"
                                                                     [value]="data.bankName">
@@ -113,17 +162,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="divinfo col-xs-12 col-sm-6 " *ngIf="bankselected">
+                                             <!-- Tipo de Entrada -->
+                                            <div class="divinfo col-xs-12 col-sm-6 " *ngIf=" metodo">
                                                 <div class="col-xs-12 ">
-                                                    <p class="text-center Bordered text-bold">
-                                                        Seleccione Monto a cancelar</p>
+                                                    <!-- <p class="text-center Bordered text-bold">
+                                                        Seleccione Tipo de Entrada</p> -->
 
                                                     <div class="col-xs-12 ">
                                                         <div class="input-group">
 
                                                             <select class="form-control"
                                                                 (change)="selectPrecio($any($event.target).value)">
-                                                                <option value="">-- Seleccione Monto --</option>
+                                                                <option value="">-- Seleccione Tipo de Entrada --</option>
                                                                 <option *ngFor="let data of preciosEvento"
                                                                     [value]="data.precio">
                                                                     {{data.precionombre}} - {{data.precio | currency}}
@@ -134,46 +184,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Tipo De pago -->
-                                        <div class="col-12pt-3" *ngIf="bankselected && preciopagar > 0" style="float: left;">
-                                            <div class="row">
-                                                <div class="div1 col-xs-12 col-sm-6">
-                                                    <div >
-                                                        <label for="">Método de Pago </label>
 
-                                                        <div class="form-check chickd">
-                                                            <input class="form-check-input" formControlName="metodo"
-                                                                [checked]="metodo == 'Transferencia Dólares'"
-                                                                (click)="selectedTypeCoupon('Transferencia Dólares')"
-                                                                type="radio" value="Transferencia Dólares"
-                                                                id="radiotipo2">
-                                                            <label class="form-check-label"
-                                                                for="radiotipo2">Transferencia Dólares</label>
-                                                        </div>
-                                                        <div class="form-check chickd">
-                                                            <input class="form-check-input" formControlName="metodo"
-                                                                [checked]="metodo == 'Transferencia Bolívares'"
-                                                                (click)="selectedTypeCoupon('Transferencia Bolívares')"
-                                                                type="radio" value="Transferencia Bolívares"
-                                                                id="radiotipo3">
-                                                            <label class="form-check-label"
-                                                                for="radiotipo3">Transferencia Bolívares</label>
-                                                        </div>
-                                                        <div class="form-check chickd">
-                                                            <input class="form-check-input" formControlName="metodo"
-                                                                [checked]="metodo == 'Pago Móvil'"
-                                                                (click)="selectedTypeCoupon('Pago Móvil')" type="radio"
-                                                                value="Pago Móvil" id="radiotipo4">
-                                                            <label class="form-check-label" for="radiotipo4">Pago
-                                                                Movil</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <!-- Transferencias -->
-                                                <div class="divform " *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'"
-                                                    >
+                                            <div class="col-xs-12 col-sm-6">
+                                                <!-- Transferencias -->
+                                                <div class="divform "
+                                                    *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'">
 
                                                     <div class="div2">
                                                         <div class="form-group ">
@@ -217,7 +232,8 @@
                                                         <div class="form-group "
                                                             *ngIf="preciopagar && metodo==='Transferencia Dólares'">
                                                             <label for="">Monto</label>
-                                                            <p>Colocar Monto a pagar: <b>{{preciopagar|currency}}</b>
+                                                            <p>Colocar Monto a pagar:
+                                                                <b>{{preciopagar|currency}}</b>
                                                             </p>
                                                             <input type="text" formControlName="monto"
                                                                 class="form-control">
@@ -250,7 +266,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- pago movil -->
-                                                <div class="divform " *ngIf="preciopagar && metodo === 'Pago Móvil'">
+                                                <div class="divform " *ngIf="metodo === 'Pago Móvil'">
                                                     <div class="div2">
                                                         <div class="form-group ">
                                                             <label for="">Nombre Banco </label>
@@ -297,7 +313,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="div5">
-                                                      
+
                                                         <div class="form-group ">
                                                             <label for="">Monto</label>
                                                             <p>Colocar Monto a pagar:
@@ -316,12 +332,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </div>
-
                                             </div>
 
 
                                         </div>
+
                                     </div>
                                     <!-- Foto -->
                                     <div *ngIf="bankselected && preciopagar > 0" class="divinfo p-3">
@@ -345,7 +360,7 @@
                                     <div class="clear"></div><br>
 
                                     <button class="btn btn-outline-success mb-3"
-                                        *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'|| metodo == 'Pago Móvil'"
+                                        *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'|| metodo == 'Pago Móvil' && preciopagar > 0"
                                         type="submit">Registrar Pago</button>
 
 
