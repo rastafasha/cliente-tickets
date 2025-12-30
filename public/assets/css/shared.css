@@ -173,18 +173,7 @@
 
 .categorylist {}
 
-.categorylist {
-    grid-auto-columns: calc(44% - (var(--swiffy-slider-item-gap)/ 2) - 2.5rem)!important;
-    margin-bottom: 0px !important;
-}
 
-.categorylist h2 {
-    font-size: 14px;
-    background-color: #f2f2f2;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
 
 @media (min-width: 768px) {
 

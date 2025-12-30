@@ -1,43 +1,54 @@
 <!-- <app-header></app-header> -->
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp user main" role="main" name="profile" style="margin-top: 0px;">
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container animated fadeInUp user main" *ngIf="!isLoading" role="main" name="profile"
+    style="margin-top: 0px;">
 
     <div class="col-xs-12 pt-3">
 
         <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-        <app-loading *ngIf="isLoading"></app-loading>
 
-        <section class="section dashboard" *ngIf="!isLoading">
 
-            <div class="card pagodetail">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 p-3">
-                        <p><b>Referencia:</b> {{payment.referencia}}</p>
-                    <p><b>Status:</b>
-                        <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'"> <i class="fa fa-check-circle" ></i> Aprobado</span>
-                        <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'"> <i class="fa fa-coffee"></i> Pendiente</span>
-                        <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'"> <i class="fa fa-close"></i> Rechazado</span>
+        <div class=" pagodetail">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+
+                    <img [src]="payment.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
+                border: 1px solid #ccc;
+                margin-top: 30px;" class="shadow" alt="">
+                </div>
+                <div class="col-xs-12 col-sm-6 p-3">
+                    <p><b>Referencia:</b> {{payment.referencia}}</p>
+                    <p><b>Status:</b><br>
+                        <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'"> <i
+                                class="fa fa-check-circle"></i> Aprobado</span>
+                        <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'"> <i
+                                class="fa fa-coffee"></i> Pendiente</span>
+                        <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'"> <i class="fa fa-close"></i>
+                            Rechazado</span>
                     </p>
-                    <p><b>Status deuda:</b> 
+                    <p><b>Status deuda:</b><br>
                         <!-- {{payment.status_deuda}} -->
-                    <span class="badge bg-success" *ngIf="payment.status_deuda !== 'DEUDA'">Pagado</span>
-                                        <span class="badge bg-danger" *ngIf="payment.status_deuda === 'DEUDA'">Deuda</span>
+                        <span class="badge bg-success" *ngIf="payment.status_deuda !== 'DEUDA'">Pagado</span>
+                        <span class="badge bg-danger" *ngIf="payment.status_deuda === 'DEUDA'">Deuda</span>
                     </p>
-                    <p><b>Nombre de la cuenta:</b> {{payment.nombre}}</p>
-                    <p><b>email de la cuenta:</b> {{payment.email}}</p>
-                    <p><b>Evento:</b> {{event.name}} </p>
-                    <p><b>Fecha inicio:</b> {{event.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p *ngIf="event.fecha_fin"><b>Fecha fin:</b> {{event.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Fecha | Hora del pago:</b> {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Metodo de Pago:</b> {{payment.metodo}}</p>
+                    <p><b>Nombre de la cuenta:</b><br> {{payment.nombre}}</p>
+                    <p><b>email de la cuenta:</b><br> {{payment.email}}</p>
+                    <p><b>Evento:</b> <br> <a [routerLink]="['/event/', payment.event_id]">{{event.name}} </a> </p>
+                    <p><b>Fecha inicio:</b> <br>{{event.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p *ngIf="event.fecha_fin"><b>Fecha fin:</b><br> {{event.fecha_fin | date:'MMM d, y, h:mm:ss a'}}
+                    </p>
+                    <p><b>Fecha | Hora del pago:</b> <br>
+                        {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Metodo de Pago:</b> <br> {{payment.metodo}}</p>
                     <div *ngIf="payment.bank_name">
-                        <p><b>Nombre del Banco:</b> {{payment.bank_name}}</p>
+                        <p><b>Nombre del Banco:</b> <br>{{payment.bank_name}}</p>
                     </div>
                     <div *ngIf="payment.bank_destino">
-                        <p><b>Banco destino:</b> {{payment.bank_destino}}</p>
+                        <p><b>Banco destino:</b><br> {{payment.bank_destino}}</p>
                     </div>
 
-                    <p><b>Monto:</b>
+                    <p><b>Monto:</b><br>
                         <span *ngIf="payment.metodo ==='Transferencia Bolívares' || payment.metodo ==='payment Móvil'">
                             {{payment.monto|currency:'Bs.'}}
 
@@ -46,21 +57,13 @@
                             {{payment.monto|currency}}
                         </span>
                     </p>
-                    
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
 
-                        <img [src]="payment.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
-                border: 1px solid #ccc;
-                margin-top: 30px;" class="shadow" alt="">
-                    </div>
                 </div>
-
-
+                
             </div>
 
 
-        </section>
+        </div>
     </div>
 </div>
 <!-- End #main-->

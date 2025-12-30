@@ -55,7 +55,7 @@
                                 <th scope="col">Imagen</th>
                                 <th scope="col">Referencia</th>
                                 <th scope="col">Evento</th>
-                                <th scope="col">Status Deuda</th>
+                                <!-- <th scope="col">Status Deuda</th> -->
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
@@ -70,10 +70,10 @@
                                 <th scope="row"><a [routerLink]="['/event/', pago.event_id]">{{pago.event?.name}}</a>
                                 </th>
                                 
-                                <td>
+                                <!-- <td>
                                     <span class="badge bg-success" *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span>
                                     <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span>
-                                </td>
+                                </td> -->
     
                                 <td>
                                     <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">
@@ -106,23 +106,23 @@
 
             <div class="tab-content-set">
                 <ul class="nav">
-                    <li>
+                    <li >
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 1}"
                             (click)="optionSelectedT(1)">Recibidos</a>
                     </li>
-                    <li>
+                    <li >
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 2}"
                             (click)="optionSelectedT(2)">Disponibles</a>
                     </li>
-                    <li>
+                    <li >
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 3}"
                             (click)="optionSelectedT(3)">Recibidos Activos</a>
                     </li>
-                    <li>
+                    <li >
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 4}"
                             (click)="optionSelectedT(4)">Compartidos</a>
                     </li>
-                    <li>
+                    <li >
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 5}"
                             (click)="optionSelectedT(5)">Usados</a>
                     </li>

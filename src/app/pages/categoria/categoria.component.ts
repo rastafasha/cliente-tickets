@@ -24,8 +24,9 @@ import { MenuFooterComponent } from '../../shared/menu-footer/menu-footer.compon
 export class CategoriaComponent {
 
   categoria!: Category;
-  events!:any;
+  events:Evento [] = [];
   isLoading = false;
+  isEvent = false;
     pageTitle = 'Categoria';
 
 
@@ -61,6 +62,11 @@ export class CategoriaComponent {
     this.categoryService.getEventsByCat(this.categoria.id).subscribe( (res:any) =>{
       this.events = res.events;
       this.isLoading = false;
+      if(this.events.length > 0){
+        this.isEvent = true;
+      }else{
+        this.isEvent = false;
+      }
       });
 
   }

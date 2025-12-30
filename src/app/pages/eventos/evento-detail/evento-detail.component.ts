@@ -48,6 +48,7 @@ export class EventoDetailComponent {
   payments!:any;
   tickets!:any;
   event_id!:any;
+  isTicket = false;
 
   constructor(
     private eventoService: EventoService,
@@ -58,6 +59,7 @@ export class EventoDetailComponent {
   ){}
 
   ngOnInit(){
+    this.isTicket = false;
     window.scrollTo(0,0);
      let USER = localStorage.getItem("user");
     this.userprofile = USER ? JSON.parse(USER) : null;
@@ -92,10 +94,17 @@ export class EventoDetailComponent {
   // }
 
   getTicketsByClientbyEvent(){
+    this.isTicket= true;
     this.isLoading= true;
     this.ticketService.getTicketsByEvent(this.event_id, this.userprofile.id).subscribe((resp:any)=>{
       this.tickets = resp;
       this.isLoading = false;
+      if(this.tickets.length > 0){
+        this.isTicket = true;
+      }else{
+        this.isTicket = false;
+
+      }
 
     })
   }

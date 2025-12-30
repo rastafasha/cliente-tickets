@@ -16,6 +16,7 @@ export class MisticketUsadosComponent {
   @Input() userprofile!: any;
 
   isLoading: boolean = false;
+  isTtickets: boolean = false;
   mostrarinfo: boolean = false;
   option_selectedd: number = 1;
   solicitud_selectedd: any = null;
@@ -43,8 +44,16 @@ export class MisticketUsadosComponent {
 
 
   getTicketporCliente() {
+    this.isLoading = true;
     return this.ticketService.tiketUsedorExpired(this.userprofile.id).subscribe((res: any) => {
       this.tickets = res;
+
+       this.isLoading = false;
+        if (this.tickets.length > 0) {
+          this.isTtickets = true;
+        } else {
+          this.isTtickets = false;
+        }
 
     }
     );

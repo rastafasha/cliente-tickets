@@ -34,6 +34,7 @@ export class MisticketsComponent {
 
   showList: boolean = false;
   isloading: boolean = false;
+  isTtickets = false
 
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
@@ -53,10 +54,18 @@ export class MisticketsComponent {
   }
 
   getTicketShared() {
+    this.isLoading = true;
     return this.ticketService
       .getTicketShared(this.userprofile.id)
       .subscribe((res: any) => {
         this.ticketsShared = res;
+
+         this.isLoading = false;
+        if (this.ticketsShared.length > 0) {
+          this.isTtickets = true;
+        } else {
+          this.isTtickets = false;
+        }
       });
   }
 

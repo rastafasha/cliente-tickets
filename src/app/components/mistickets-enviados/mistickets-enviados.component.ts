@@ -8,22 +8,23 @@ import { LoadingComponent } from '../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-mistickets-enviados',
- imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, LoadingComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, LoadingComponent],
   templateUrl: './mistickets-enviados.component.html',
   styleUrl: './mistickets-enviados.component.scss'
 })
 export class MisticketsEnviadosComponent {
- @Input() userprofile!:any;
+  @Input() userprofile!: any;
 
   isLoading: boolean = false;
   mostrarinfo: boolean = false;
-  option_selectedd:number = 1;
-  solicitud_selectedd:any = null;
-   query: string = '';
-clients:any[] = [];
+  option_selectedd: number = 1;
+  solicitud_selectedd: any = null;
+  query: string = '';
+  clients: any[] = [];
+  isTtickets = false;
 
-showList: boolean = false;
-isloading: boolean = false;
+  showList: boolean = false;
+  isloading: boolean = false;
 
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
@@ -31,17 +32,17 @@ isloading: boolean = false;
   tickets: any[] = [];
   ticketsShared: any[] = [];
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     // window.scrollTo(0, 0); // this.getEventos();
   }
 
-   ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
       this.getTicketporCliente();
     }
   }
-  
-  compartir(client:any){
+
+  compartir(client: any) {
     // this.isloading = true;
     // const data = {
     //   client_id: client.id,
@@ -68,48 +69,55 @@ isloading: boolean = false;
     // });
   }
 
-  getTicketporCliente(){
+  getTicketporCliente() {
+    this.isLoading = true;
     return this.ticketService.getTicketShared(this.userprofile.id).subscribe((res: any) => {
-this.tickets = res;
+      this.tickets = res;
+      this.isLoading = false;
+      if (this.tickets.length > 0) {
+        this.isTtickets = true;
+      } else {
+        this.isTtickets = false;
+      }
 
     }
     );
   }
 
-  abrirModalInfo(){
+  abrirModalInfo() {
     this.mostrarinfo = true;
   }
 
-  closemodalInfo(){
+  closemodalInfo() {
     this.mostrarinfo = false;
   }
 
 
-   optionSelected(value:number){
-      this.option_selectedd = value;
-      if(this.option_selectedd === 1){
+  optionSelected(value: number) {
+    this.option_selectedd = value;
+    if (this.option_selectedd === 1) {
 
-        // this.ngOnInit();
-      }
-      if(this.option_selectedd === 2){
-        this.solicitud_selectedd = null;
-      }
+      // this.ngOnInit();
     }
+    if (this.option_selectedd === 2) {
+      this.solicitud_selectedd = null;
+    }
+  }
 
-     search() {
-      return this.clientService.search(this.query).subscribe((res: any) => {
-        this.clients = res;
-        this.showList = true;
-        if (!this.query) {
-          this.ngOnInit();
-          this.showList = false;
-        }
-      });
-    }
-  
-    public PageSize(): void {
-      this.query = '';
-      this.showList = false;
-    }
-  
+  search() {
+    return this.clientService.search(this.query).subscribe((res: any) => {
+      this.clients = res;
+      this.showList = true;
+      if (!this.query) {
+        this.ngOnInit();
+        this.showList = false;
+      }
+    });
+  }
+
+  public PageSize(): void {
+    this.query = '';
+    this.showList = false;
+  }
+
 }

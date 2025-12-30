@@ -8,7 +8,6 @@ import { environment } from '../../../environments/environment';
 import { Payment } from '../../../models/payment';
 import { Student } from '../../../models/student';
 import { PaymentService } from '../../../services/payment.service';
-import { ParentService } from '../../../services/parent-service.service';
 import { Usuario } from '../../../models/usuario.model';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { RouterLink } from '@angular/router';
@@ -64,7 +63,6 @@ export class PaymentListComponent {
     status!:any;
 
     constructor(
-      private parentService: ParentService,
       private paymentService: PaymentService,
       private ticktService: TicketService,
       private http: HttpClient,
@@ -91,7 +89,6 @@ export class PaymentListComponent {
     getPayments(): void {
       if (!this.userprofile || !this.userprofile.id) {
         this.isLoading = false;
-        this.error = 'Parent profile is not defined.';
         return;
       }
       this.isLoading = true;

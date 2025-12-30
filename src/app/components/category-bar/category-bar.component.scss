@@ -1,0 +1,19 @@
+.categorylist {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 10px;
+    justify-content: center;
+
+    grid-auto-columns: calc(44% - (var(--swiffy-slider-item-gap)/ 2) - 2.5rem)!important;
+    margin-bottom: 0px !important;
+    & h2 {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    background: var(--azulclaro);
+        color: var(--blanco);
+    }
+}
+

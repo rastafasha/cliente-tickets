@@ -9,7 +9,7 @@ import { CommonModule, NgFor } from '@angular/common';
   selector: 'app-category-bar',
   templateUrl: './category-bar.component.html',
   imports:[RouterModule, NgFor, CommonModule],
-  styleUrls: ['./category-bar.component.css']
+  styleUrls: ['./category-bar.component.scss']
 })
 export class CategoryBarComponent implements OnInit {
 

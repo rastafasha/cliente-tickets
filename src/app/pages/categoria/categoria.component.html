@@ -28,14 +28,17 @@
         <app-loading *ngIf="isLoading"></app-loading>
         <div class="card recent-sales overflow-auto border-radio" *ngIf="!isLoading">
     
-            <div class="card-body">
+            <div *ngIf="!isEvent ">  
+                <p class="text-center p-3">Aun no tenemos eventos para esta categoría</p>
+            </div>
+            <div class="card-body" *ngIf="isEvent">
     
-                <table class="table table-borderless datatable table-striped">
+                <table  class="table table-borderless datatable table-striped" >
                     <thead>
                         <tr>
-                            <th>Imagen</th>
+                            <!-- <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Status</th>
+                            <th>Status</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -49,12 +52,12 @@
                                 </a>
                             </td>
                             <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
-                            <td>
+                            <!-- <td>
                                  <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                 <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                                 <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
     

@@ -6,14 +6,14 @@
     <button *ngFor="let slider of eventos | slice:0:5; let i = index"  [class.active]="i === currentSlide" (click)="selectSlide(i)" type="button" data-bs-target="#carouselPublicidad" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide ' + (i+1)"></button>
   </div>
     <div class="carousel-inner">
-        <div class="carousel-item" *ngFor="let slider of eventos| slice:0:5; let i=index; "
+        <div class="carousel-item shadow p-2" *ngFor="let slider of eventos| slice:0:5; let i=index; "
             [class.active]="i === currentSlide">
             <div class="BannPublicidad" [routerLink]="['/event/',slider.id]" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
                         <div class="container">
-                            <h3 class="Up ">{{slider.name}}</h3>
-                            <div class="text-center">
+                            <h5 class="Up nameevent ">{{slider.name}}</h5>
+                            <!-- <div class="text-center">
                                <button class="btn btn-primary" [routerLink]="['/event/',slider.id]">+ Info</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

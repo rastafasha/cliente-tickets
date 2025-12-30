@@ -42,6 +42,7 @@ export class MisticketsActivosComponent {
 
   tickets: any[] = [];
   ticketsShared: any[] = [];
+  isTtickets= false;
 
   user: any = null;
   user_id: any = null;
@@ -60,11 +61,18 @@ export class MisticketsActivosComponent {
 
 
   getTicketActivos() {
+        this.isloading = true;
     return this.ticketService
       .getTicketSAc(this.userprofile.id)
       .subscribe((res: any) => {
         this.ticketsShared = res;
-        console.log(this.ticketsShared);
+        this.isloading = false;
+
+        if(this.ticketsShared.length > 0){
+          this.isTtickets = true;
+        }else{
+          this.isTtickets = false;
+        }
       });
   }
 

@@ -7,11 +7,11 @@
     <button *ngFor="let slider of sliders | slice:0:5; let i = index"  [class.active]="i === currentSlide" (click)="selectSlide(i)" type="button" data-bs-target="#carouselPrincipal" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide ' + (i+1)"></button>
   </div>
     <div class="carousel-inner">
-        <div class="carousel-item" *ngFor="let slider of sliders| slice:0:5; let i=index; "
+        <div class="carousel-item  p-2" *ngFor="let slider of sliders| slice:0:5; let i=index; "
             [class.active]="i === currentSlide">
             <div class="BannPpal" [routerLink]="['/event/',slider.id]" [style.background-image]="'url(' + (slider.avatar | imagenPipe: 'events') + ')'" >
                     <div class="container">
-                        <h3 class="Up ">{{slider.name}}</h3>
+                        <h5 class="Up nameevent">{{slider.name}}</h5>
                             <div class="text-center">
                                 <!-- <button class="btn btn-success" [routerLink]="['/comprar-ticket/',slider.id]">Comprar ticket</button> -->
                                 <!-- <button class="btn btn-primary" [routerLink]="['/event/',slider.id]">+ Info</button> -->

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Payment } from '../../../models/payment';
@@ -24,7 +24,7 @@ import { Evento } from '../../../models/evento';
     CommonModule, ReactiveFormsModule, FormsModule,
     // HeaderComponent, MenuFooterComponent,
     BackButtnComponent, ImagenPipe,
-    LoadingComponent
+    LoadingComponent, RouterModule
   ],
   templateUrl: './payment-detail.component.html',
   styleUrl: './payment-detail.component.scss'

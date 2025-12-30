@@ -6,7 +6,8 @@
     
     .carousel-item {
         border-radius: 20px;
-        border: 1px solid var(--grisclaro);
+        /* border: 1px solid var(--grisclaro); */
+        /* box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) ; */
 
     }
     .carousel-item img {

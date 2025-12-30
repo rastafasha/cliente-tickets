@@ -143,10 +143,6 @@ ul.opcionespago li{
     padding: 5px;
 }
 
-.instruccioness img {}
-
-.instruccioness b,
-.datos b,
 .instruccioness h3,
 .datos h3 {
     color: var(--azul);

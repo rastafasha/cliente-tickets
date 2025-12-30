@@ -34,11 +34,11 @@
                     <thead>
                         <tr>
                             <!-- <th>ID</th> -->
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <!-- <th>Inicio</th>
-                            <th>Finaliza</th> -->
-                            <th>Status</th>
+                            <!-- <th>Imagen</th>
+                            <th>Nombre</th> -->
+                             <!-- <th>Inicio</th> -->
+                            <!--<th>Finaliza</th> -->
+                            <!-- <th>Status</th> -->
                             <!-- <th>Option</th> -->
                             <!-- <th class="text-nowrap">Acciones</th> -->
                         </tr>
@@ -55,14 +55,14 @@
                                 </a>
                             </td>
                             <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
-                            <!-- <td>{{evento.fecha_inicio|date}} </td>
-                            <td>{{evento.fecha_fin|date}} </td> -->
-                            <td>
+                             <!-- <td>{{evento.fecha_inicio|date}} </td> -->
+                            <!--<td>{{evento.fecha_fin|date}} </td> -->
+                            <!-- <td>
                                  <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                 <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                                 <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Finalizado</span>    
-                            </td>
+                            </td> -->
                             
                             <!-- <td class="text-nowrap text-center">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal" (click)="openPaymentsModal(evento)">

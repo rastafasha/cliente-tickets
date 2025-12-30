@@ -1,37 +1,29 @@
 <!-- <app-header></app-header> -->
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp user main" role="main" name="profile" style="margin-top: 0px;">
+ <app-loading *ngIf="isLoading"></app-loading>
+<div class="container animated fadeInUp mt-3"  *ngIf="!isLoading" role="main" name="profile" style="margin-top: 0px;">
 
-    <div class="col-xs-12 pt-2">
-
-        <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-        <!-- <h3>{{evento.name}}</h3> -->
-        <app-loading *ngIf="isLoading"></app-loading>
-
-        <div class="row " *ngIf="!isLoading">
+     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+        <div class="row ">
 
             <div class="tab-content-set">
-            <ul class="nav">
-                <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
-                        (click)="optionSelected(1)">Info Evento</a>
-                </li>
-                <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
-                        (click)="optionSelected(2)">Tickets Aprobados</a>
-                </li>
-            </ul>
-        </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                            (click)="optionSelected(1)">Info Evento</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;" *ngIf="isTicket"
+                            [ngClass]="{'active': option_selectedd == 2}" (click)="optionSelected(2)">Tickets
+                            Aprobados</a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="row" *ngIf="option_selectedd == 1">
-            <section class="section dashboard">
-
-                <div class="card pagodetail border-radio">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <img [src]="evento.avatar | imagenPipe: 'events'" style="width:100%; padding: 10px;
-                    border: 1px solid #ccc;
-                    margin-top: 30px;" class="shadow" alt="">
+            <div  *ngIf="option_selectedd == 1">
+                <div class="container">
+                        <div class="col-xs-12 col-sm-6 ">
+                            <img [src]="evento.avatar | imagenPipe: 'events'"  class="shadow" alt="">
                         </div>
                         <div class="col-xs-12 col-sm-6 info_evento p-3">
                             <p><b>Nombre:</b> {{evento.name}}</p>
@@ -39,7 +31,8 @@
                             <p><b>Promueve:</b> {{evento.company.name}}</p>
                             <p><b>Pais:</b> {{evento.pais.title}}</p>
                             <p><b>Categoría:</b> {{evento.category.name}}</p>
-                            <p *ngIf="evento.tickets_disponibles"><b>Tickets Disponibles:</b> {{evento.tickets_disponibles}}</p>
+                            <p *ngIf="evento.tickets_disponibles"><b>Tickets Disponibles:</b>
+                                {{evento.tickets_disponibles}}</p>
                             <p><b>Status: &nbsp;</b>
                                 <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>
                                 <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
@@ -64,27 +57,22 @@
                             <!-- </p> -->
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+            </div>
 
-        <div class="row" *ngIf="option_selectedd == 2">
-            <div class="row pt-3 pb-3 " >
-            <!-- <h5>Mis Tickets</h5> -->
-            <app-loading *ngIf="isLoading"></app-loading>
-            <div class="row" *ngIf="!isLoading">
-                <div class="col-xs-12 " *ngFor="let ticket of tickets ">
-                    <app-ticket-card [ticket]="ticket" [profile]="userprofile"></app-ticket-card>
+            <div  *ngIf="option_selectedd == 2 && isTicket">
+                <div class="row pt-3 pb-3 ">
+                    <!-- <h5>Mis Tickets</h5> -->
+                    <app-loading *ngIf="isLoading"></app-loading>
+                    <div class="row" *ngIf="!isLoading">
+                        <div class="col-xs-12 " *ngFor="let ticket of tickets ">
+                            <app-ticket-card [ticket]="ticket" [profile]="userprofile"></app-ticket-card>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
 
-            
-        </div>
 
-        
-    </div>
+        </div>
 </div>
 <!-- End #main-->
 <!-- <app-menu-footer></app-menu-footer> -->
