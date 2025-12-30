@@ -4,6 +4,8 @@
   "categories": ["eventos y tickets", "compras"],
   "description": "App para administrar compra de ticket para eventos",
   "display": "standalone",
+  "theme_color": "#333",
+  "background_color": "#fafafa",
   "scope": "./",
   "start_url": "./",
   "icons": [

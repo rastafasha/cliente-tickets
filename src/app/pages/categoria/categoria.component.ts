@@ -49,7 +49,7 @@ export class CategoriaComponent {
    getCategory(id:number){
     this.categoryService.getById(+id).subscribe((resp:any)=>{
       this.categoria = resp.category;
-      console.log(resp)
+      // console.log(resp)
       this.pageTitle = 'Categoría ' + this.categoria.name;
 
       this.getProductByCategory()

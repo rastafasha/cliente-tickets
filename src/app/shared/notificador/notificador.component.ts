@@ -35,7 +35,7 @@ export class NotificadorComponent {
 
     let USER = localStorage.getItem("user");
     this.user = USER ? JSON.parse(USER) : null;
-    console.log(this.user)
+    // console.log(this.user)
     this.mensaje = msg;
 
     const svcAny = this.paymentService as any;

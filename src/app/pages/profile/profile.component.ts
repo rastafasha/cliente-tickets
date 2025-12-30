@@ -54,7 +54,7 @@ export class ProfileComponent {
   ngOnInit(): void {
     let USER = localStorage.getItem("user");
     this.user = USER ? JSON.parse(USER) : null;
-    console.log(this.user)
+    // console.log(this.user)
     window.scrollTo(0, 0);
     
     this.getProfile();

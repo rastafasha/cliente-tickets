@@ -95,7 +95,7 @@ export class PaymentListComponent {
       this.paymentService.getPagosbyUser(this.userprofile.id).subscribe(
         (res: any) => {
           this.payments = res;
-          console.log(res)
+          // console.log(res)
           this.isLoading = false;
         },
         (error) => {

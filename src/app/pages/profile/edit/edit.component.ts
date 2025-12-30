@@ -137,7 +137,7 @@ export class EditComponent {
       this.clienteService.getClient(this.user.id).subscribe(
         (res: any) => {
           this.profileSeleccionado = res;
-          console.log('profileSeleccionado', this.profileSeleccionado);
+          // console.log('profileSeleccionado', this.profileSeleccionado);
           this.userForm.patchValue({
             id: res.id,
             name: res.name,

@@ -9,3 +9,12 @@ canvas{
     width: 100% !important;
     height: auto !important;
 }
+
+.topeimg{
+    display: flex;
+    flex-direction: row;
+    & .infotik{
+        display: flex;
+        flex-direction: column;
+    }
+}

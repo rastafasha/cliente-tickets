@@ -58,7 +58,7 @@ export class PaymentDetailComponent {
       res =>{
         this.payment = res;
         (error:any) => this.error = error
-        console.log(this.payment);
+        // console.log(this.payment);
       }
     );
   }

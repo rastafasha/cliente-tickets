@@ -68,7 +68,7 @@ export class EventsuserComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userprofile;
-    console.log(this.userprofile);
+    // console.log(this.userprofile);
     if (changes['userprofile'] && changes['userprofile'].currentValue) {
       this.getEventsporCliente();
 

@@ -161,19 +161,20 @@
                                             <div class="form-check-inline ">
                                                 <label class="form-check-label ">
                                                     <input type="radio" value="1" formControlName="gender"
-                                                        class="form-check-input ">{{'formulario.Male'|translate}}
+                                                        class="form-check-input "> {{'formulario.Male'|translate}}
                                                 </label>
                                             </div>
                                             <div class="form-check-inline ">
                                                 <label class="form-check-label ">
                                                     <input type="radio" value="2" formControlName="gender"
-                                                        class="form-check-input ">{{'formulario.Female'|translate}}
+                                                        class="form-check-input "> {{'formulario.Female'|translate}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
+
                                     <!-- pais -->
-                                    <div class="col-12 col-md-4  col-xl-4">
+                                    <div class="col-12 col-md-4  col-xl-4 mt-4 mb-4">
                                         <div class="form-group select-gender input-group gap-3">
                                             <div class="form-group col-xs-12 col-sm-6">
                                                 <label class="col-md-3">Pais <span class="text-danger">*</span></label>
@@ -189,23 +190,23 @@
                                         </div>
                                     </div>
                                     <!-- Lang -->
-                                    <div class="col-12 col-md-4  col-xl-4">
+                                    <div class="col-12 col-md-4  col-xl-4 mb-4">
                                         <div class="form-group select-gender input-group gap-3">
                                             <span class="input-group-text" id="basic-addon1">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <i class="fa fa-flag" aria-hidden="true"></i>
                                             </span>
                                             <div class="form-check-inline ">
                                                 <label class="form-check-label ">
                                                     <input type="radio" [value]="'es'" (change)="cambiarLenguaje('es')"
                                                         formControlName="lang"
-                                                        class="form-check-input ">{{'Spanish'|translate}}
+                                                        class="form-check-input "> {{'Spanish'|translate}}
                                                 </label>
                                             </div>
                                             <div class="form-check-inline ">
                                                 <label class="form-check-label ">
                                                     <input type="radio" [value]="'en'" (change)="cambiarLenguaje('en')"
                                                         formControlName="lang"
-                                                        class="form-check-input ">{{'English'|translate}}
+                                                        class="form-check-input "> {{'English'|translate}}
                                                 </label>
                                             </div>
                                         </div>
@@ -233,10 +234,10 @@
                         </div>
                         <br>
 
-                        <div class="row align-items-center">
+                        <div class="row align-items-center mb-4">
                             <div class="col-12">
                                 <div class="doctor-submit text-end">
-                                    <button type="button" class="btn btn-primary submit-form me-2"
+                                    <button type="button" class="btn btn-outline-primary submit-form me-2"
                                         (click)="onUserSave()">{{'formulario.Save'|translate}}</button>
 
                                 </div>

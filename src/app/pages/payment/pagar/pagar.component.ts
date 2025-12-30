@@ -136,7 +136,7 @@ export class PagarComponent implements OnInit {
       .getPagosPendingbyStudent(this.event_id)
       .subscribe((resp: any) => {
         this.isLoading = false;
-        console.log(resp);
+        // console.log(resp);
         this.deuda = resp[0].monto;
         this.parent_id = resp[0].parent_id;
         this.fecha = resp[0].fecha;
@@ -169,11 +169,11 @@ export class PagarComponent implements OnInit {
   }
 
   selectBanco(value?: any) {
-    console.log(value)
+    // console.log(value)
     this.bankselected = value;
   }
   selectPrecio(value?: any) {
-    console.log(value)
+    // console.log(value)
     this.preciopagar = value;
   }
 

@@ -290,3 +290,11 @@ img {
     border-radius: 100px !important;
 }
 /* search input */
+
+.qrimg{
+  width: auto;
+  height: 150px;
+  display: block;
+  margin: auto;
+ }
+
