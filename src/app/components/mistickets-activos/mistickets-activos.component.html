@@ -16,7 +16,7 @@
             </div>
             <div class="contenido">
                 <h3>{{ ticket.referencia }}</h3>
-                <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
+                <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name | slice:0:15}}...</a></p>
                 <p>Status: </p>
                 <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
                     <i class="fa fa-share"></i> Compartido
@@ -43,7 +43,7 @@
                     class="btn btn-outline-success">
                     <i class="fa fa-check-circle-o"></i>
                 </a>
-                <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="ticket.status === 'ACTIVE' ">
+                <a (click)="abrirModalInfo()" class="btn btn-outline-success" *ngIf="ticket.status === 'ACTIVE' ">
                     <i class="fa fa-share"></i>
                 </a>
                 <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
@@ -141,7 +141,7 @@
                                 <input type="email" class="form-control" id="email"
                                     placeholder="Ingrese el correo electrónico">
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar Invitación</button>
+                            <button type="submit" class="btn btn-outline-primary">Enviar Invitación</button>
                         </form>
                     </div>
 

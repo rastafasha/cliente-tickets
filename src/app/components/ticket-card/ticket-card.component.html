@@ -1,12 +1,12 @@
 <app-loading *ngIf="isLoading"></app-loading>
 
-<div class="ticket-card">
+<div class="ticket-card" *ngIf="!isLoading">
     <div class="image">
         <img [src]="ticket.qr_code " alt="Ticket QR" />
     </div>
     <div class="contenido">
-        <h3>{{ ticket.referencia }}</h3>
-        <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
+        <p>Ref: {{ ticket.referencia }}</p>
+        <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name | slice:0:15 }}...</a></p>
         <p>Status: </p>
             <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
                 <i class="fa fa-share"></i> Compartido
@@ -31,7 +31,7 @@
         <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="ticket.status === 'ACTIVE' ">
             <i class="fa fa-share"></i>
         </a>
-        <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">
+        <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
             <i class="fa fa-eye"></i>
         </a>
 

@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6 info_ticket p-3">
                             <p><b>Referencia:</b> {{ticket.referencia}}</p>
-                            <p><b>Evento:</b> {{ticket.event.name}}</p>
+                            <p><b>Evento:</b> <a [routerLink]="['/event/', ticket.event_id]"> {{ticket.event.name}}</a></p>
                             <p><b>Empresa:</b> {{ticket.company.name}}</p>
                             <p><b>Monto:</b> {{ticket.monto| currency}}</p>
                             <p><b>Fecha inicio | Hora:</b> <br> {{ticket.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>

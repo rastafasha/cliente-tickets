@@ -14,7 +14,7 @@
             </div>
             <div class="contenido">
                 <h3>{{ ticket.referencia }}</h3>
-                <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name }}</a></p>
+                <p>Evento: <a [routerLink]="['/event/', ticket.event_id]">{{ ticket.event?.name | slice:0:15 }}...</a></p>
                 <p>Status: </p>
                 <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
                     <i class="fa fa-share"></i> Compartido
@@ -37,7 +37,7 @@
 
             </div>
             <div class="actions">
-                <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-primary">
+                <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
                     <i class="fa fa-eye"></i>
                 </a>
 

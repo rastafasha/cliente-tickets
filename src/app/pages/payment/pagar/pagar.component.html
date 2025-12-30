@@ -1,19 +1,18 @@
 <!-- <app-header></app-header> -->
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="container-fluid user animated fadeInUp" style="margin-top: 0px; padding-top: 15px;" *ngIf="!isLoading">
+<div class="container-fluid user animated fadeInUp pt-3" *ngIf="!isLoading"style="margin-top: 0px; padding-top: 15px;" >
     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
 
     <div class="row">
 
         <!-- info del evento a comprar -->
         <div class="col-12 col-sm-4 ">
-            <div class="card recibo border-radio">
-                <h3 class="text-center">Info del evento</h3>
-                <div class="pt-3" style="display: flex;
+            <div class="card recibo ">
+                <h3 class="text-center pt-3">Info del evento</h3>
+                <div class="pt-2" style="display: flex;
                             flex-direction: column;
                             align-items: baseline;
                             padding: 10px;
-                            border-left: 1px solid #ccc; 
                             padding-left: 15px;
                             margin-left: 5px;">
                     <p><b>Evento:</b> {{evento.name}} </p>
