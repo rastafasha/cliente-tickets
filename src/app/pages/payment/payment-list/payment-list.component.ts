@@ -24,6 +24,8 @@ import { MisticketsEnviadosComponent } from '../../../components/mistickets-envi
 import { MisticketsActivosComponent } from "../../../components/mistickets-activos/mistickets-activos.component";
 import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/mistickets-act-sh.component";
 import { MisticketUsadosComponent } from '../../../components/misticket-usados/misticket-usados.component';
+import { Ticket } from '../../../models/ticket';
+import { Evento } from '../../../models/evento';
 
 @Component({
   selector: 'app-payment-list',
@@ -47,6 +49,7 @@ export class PaymentListComponent {
     loading = false;
     usersCount = 0;
     payments!: Payment[]|null;
+    event!: any;
   
     p: number = 1;
     count: number = 8;
@@ -157,6 +160,7 @@ export class PaymentListComponent {
       return this.ticktService.getTicketsByClient(this.userprofile.id).subscribe((res: any) => {
       this.tickets = res;
       this.status = res.status;
+      this.event = this.tickets.filter((ticket: Ticket) => ticket.status === 'activo').map((ticket: Ticket) => ticket.event) ;
 
       });
     } 

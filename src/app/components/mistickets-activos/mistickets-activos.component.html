@@ -72,6 +72,10 @@
                                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
                                     (click)="optionSelected(2)">Invitar</a>
                             </li>
+                            <li>
+                                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 3}"
+                                    (click)="optionSelected(3)">Compartir Ticket</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="row" *ngIf="option_selectedd == 1">
@@ -135,6 +139,17 @@
                     </div>
 
                     <div class="row" *ngIf="option_selectedd == 2">
+                        <form action="">
+                            <div class="mb-3">
+                                <label for="whatsapp" class="form-label">Whatsapp</label>
+                                <input type="text" class="form-control" id="whatsapp"
+                                    [(ngModel)]="whatsapp" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Ingrese el número de whatsapp">
+                            </div>
+                            <button type="button" class="btn btn-outline-primary" (click)="sendWhatsAppOrder(whatsapp)">Enviar</button>
+                        </form>
+                    </div>
+                    <div class="row" *ngIf="option_selectedd == 3">
                         <form action="">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Correo Electrónico</label>

@@ -133,7 +133,7 @@
                 <app-mistickets [userprofile]="userprofile"></app-mistickets>
             </div>
             <div class="row" *ngIf="option_selecteddT == 2">
-                <app-mistickets-activos [userprofile]="userprofile" ></app-mistickets-activos>
+                <app-mistickets-activos [event]="event" [userprofile]="userprofile" ></app-mistickets-activos>
             </div>
             <div class="row" *ngIf="option_selecteddT == 3">
                 <app-mistickets-act-sh [userprofile]="userprofile"></app-mistickets-act-sh>

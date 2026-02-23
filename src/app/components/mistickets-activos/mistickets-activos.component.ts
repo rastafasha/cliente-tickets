@@ -7,6 +7,11 @@ import { TicketService } from '../../services/ticket.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import Swal from 'sweetalert2';
 import { EventoService } from '../../services/evento.service';
+import { Evento } from '../../models/evento';
+import { Client } from '../../models/client.model';
+import { environment } from '../../environments/environment';
+
+const frontend = environment.url_frontend;
 
 @Component({
   selector: 'app-mistickets-activos',
@@ -23,6 +28,7 @@ import { EventoService } from '../../services/evento.service';
 export class MisticketsActivosComponent {
   @Input() userprofile!: any;
   @Input() status: any;
+  @Input() event: any;
 
   title: string = 'Tickets Recibidos';
 
@@ -36,13 +42,17 @@ export class MisticketsActivosComponent {
   showList: boolean = false;
   isloading: boolean = false;
 
+  public whatsapp!: string;
+  client!: Client;
+  contactoSelected: any = null;
+  
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
   private eventoService = inject(EventoService);
 
   tickets: any[] = [];
   ticketsShared: any[] = [];
-  isTtickets= false;
+  isTtickets = false;
 
   user: any = null;
   user_id: any = null;
@@ -57,20 +67,21 @@ export class MisticketsActivosComponent {
     if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
       this.getTicketActivos();
     }
+    console.log(this.event)
   }
 
 
   getTicketActivos() {
-        this.isloading = true;
+    this.isloading = true;
     return this.ticketService
       .getTicketSAc(this.userprofile.id)
       .subscribe((res: any) => {
         this.ticketsShared = res;
         this.isloading = false;
 
-        if(this.ticketsShared.length > 0){
+        if (this.ticketsShared.length > 0) {
           this.isTtickets = true;
-        }else{
+        } else {
           this.isTtickets = false;
         }
       });
@@ -123,31 +134,31 @@ export class MisticketsActivosComponent {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-       this.isloading = true;
-    const data = {
-      from_id: this.user_id,
-      client_id: client.id,
-      status: 'SHARED'
-    };
-    this.ticketService.compartirTicket(this.ticket.id, data).subscribe((res: any) => {
-      if (res.status === 'error') {
-        //this.uploadError = res.message;
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Ocurrión un error, vuelva a intentar!',
+        this.isloading = true;
+        const data = {
+          from_id: this.user_id,
+          client_id: client.id,
+          status: 'SHARED'
+        };
+        this.ticketService.compartirTicket(this.ticket.id, data).subscribe((res: any) => {
+          if (res.status === 'error') {
+            //this.uploadError = res.message;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ocurrión un error, vuelva a intentar!',
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Exito!',
+              text: 'Se Compartió Correctamente!'
+            });
+            // this.router.navigateByUrl('/');
+            this.isloading = false;
+            this.PageSize()
+          }
         });
-      } else {
-        Swal.fire({
-          icon: 'success',
-          title: 'Exito!',
-          text: 'Se Compartió Correctamente!'
-        });
-        // this.router.navigateByUrl('/');
-        this.isloading = false;
-        this.PageSize()
-      }
-    });
       } else if (result.isDenied) {
         Swal.fire("Ningun cambio efectuado", "", "info");
         // this.ngOnInit();
@@ -155,9 +166,6 @@ export class MisticketsActivosComponent {
     });
 
 
-
-
-    
   }
 
   aceptarTicketShared(ticket: any) {
@@ -206,6 +214,41 @@ export class MisticketsActivosComponent {
 
 
   }
+
+
+
+  // Generate WhatsApp message with order items
+  getWhatsAppMessage(): string {
+
+    if (!this.userprofile || this.ticket) {
+      return '';
+    }
+
+    let message = `*Hola! quiero Invitarte al evento #${this.ticket.event.name}*\n\n`;
+    message += `*el dia:* ${this.ticket.event.fecha_inicio}\n`;
+    message += `─────────────────────\n`;
+    message += `*Accede a la App:* ${frontend}\n y comparte momentos increíbles con nosotros!`;
+
+    return encodeURIComponent(message);
+
+
+  }
+
+  // Open WhatsApp with pre-filled message
+  sendWhatsAppOrder(whatsapp:string): void {
+
+    this.whatsapp = whatsapp;
+    const phone = this.whatsapp.toString().replace(/\D/g, '');
+    const message = this.getWhatsAppMessage();
+
+    if (message) {
+      const url = `https://wa.me/${phone}?text=${message}`;
+      window.open(url, '_blank');
+    }
+    this.getTicketActivos();
+
+  }
+
 
 
 
