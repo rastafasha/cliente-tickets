@@ -2,11 +2,6 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { MenuFooterComponent } from '../../../shared/menu-footer/menu-footer.component';
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { Parent } from '../../../models/parents';
-import { Student } from '../../../models/student';
-import { ParentService } from '../../../services/parent-service.service';
-import { StudentService } from '../../../services/student-service.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +13,7 @@ import Swal from 'sweetalert2';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 import { CategoryBarComponent } from '../../../components/category-bar/category-bar.component';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-evento-list',
   imports: [HeaderComponent,MenuFooterComponent,
@@ -30,7 +26,7 @@ import { CategoryBarComponent } from '../../../components/category-bar/category-
   styleUrl: './evento-list.component.scss'
 })
 export class EventoListComponent {
-    userprofile!: Parent;
+    userprofile!:any ;
     isLoading = false;
     pageTitle = 'Eventos';
   
@@ -54,7 +50,6 @@ export class EventoListComponent {
     selectedEventoProfile!: Evento;
   
     constructor(
-      private parentService: ParentService,
       private eventoService: EventoService,
       private http: HttpClient,
       private authService: AuthService,
@@ -80,7 +75,7 @@ export class EventoListComponent {
 
     getEventos(){
       this.eventoService.getActivos().subscribe((resp:any)=>{
-        this.eventos = resp.eventos;
+        this.eventos = resp.data;
       })
     }
   

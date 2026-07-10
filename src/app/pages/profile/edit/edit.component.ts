@@ -7,7 +7,6 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import Swal from 'sweetalert2';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ParentService } from '../../../services/parent-service.service';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { ClientService } from '../../../services/client.service';
 import { PaisService } from '../../../services/pais.service';
@@ -80,7 +79,6 @@ export class EditComponent {
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private parentService: ParentService,
     private clienteService: ClientService,
     private paisService: PaisService,
     private fb: FormBuilder,

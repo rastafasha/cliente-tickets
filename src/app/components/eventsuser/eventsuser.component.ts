@@ -1,16 +1,14 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { EventoService } from '../../services/evento.service';
-import { Evento } from '../../models/evento';
 import { PaymentService } from '../../services/payment.service';
-import { AuthService } from '../../services/auth.service';
 import { Payment } from '../../models/payment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-eventsuser',

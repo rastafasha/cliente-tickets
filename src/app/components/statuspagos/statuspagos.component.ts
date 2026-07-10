@@ -1,10 +1,7 @@
 import { NgIf, CommonModule, NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Parent } from '../../models/parents';
 import { AuthService } from '../../services/auth.service';
-import { ProfileService } from '../../services/profile.service';
-import { TasabcvService } from '../../services/tasabcv.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { PaymentService } from '../../services/payment.service';
 import { StudentWithDebt } from '../../models/payment';
@@ -16,13 +13,12 @@ import { StudentWithDebt } from '../../models/payment';
   styleUrl: './statuspagos.component.scss'
 })
 export class StatuspagosComponent {
-  @Input() user!:  Parent;
+  @Input() user!:  any;
   
    isLoading:boolean = false;
     isProfile:boolean = false;
     parent_has_debt:boolean = false;
     student_has_debt:boolean = false;
-    public profile: Parent = new Parent();
     parent_debt_amount!:number;
     student_debt_amount!:number;
     precio_fecha!:Date;

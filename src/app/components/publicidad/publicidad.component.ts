@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { of, delay } from 'rxjs';
 import { EventoService } from '../../services/evento.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -11,11 +10,10 @@ import { LoadingComponent } from '../../shared/loading/loading.component';
 @Component({
   selector: 'app-publicidad',
   imports: [
-    CommonModule, NgFor, ReactiveFormsModule, FormsModule,
-    
+    CommonModule, NgFor, 
+    ReactiveFormsModule, FormsModule,
     RouterLink, ImagenPipe,
     LoadingComponent
-    // PieChart2Component
   ],
   templateUrl: './publicidad.component.html',
   styleUrls: ['./publicidad.component.scss']

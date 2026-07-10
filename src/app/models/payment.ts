@@ -1,9 +1,6 @@
-import { environment } from "../environments/environment";
+import { environment } from "../../environments/environment";
 import { Evento } from "./evento";
-import { Student } from "./student";
 import { Usuario } from "./usuario.model";
-
-
 
 const base_url = environment.url_media;
 
@@ -12,7 +9,6 @@ export class Payment {
    user_id?:Usuario;
    parent_id?:number;
    student_id?:number;
-   student!:Student;
    metodo?:string;
    bank_name?:string;
    bank_destino?:string;

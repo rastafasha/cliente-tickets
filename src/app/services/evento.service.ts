@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
-import { Student } from '../models/student';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
-import { environment } from '../environments/environment';
 import { Evento } from '../models/evento';
+import { environment } from '../../environments/environment';
 const baseUrl = environment.url_servicios;
 
 @Injectable({
@@ -19,7 +18,6 @@ export class EventoService {
   // public role: Role;
   error!: string;
 
-  serverUrl = environment.url_servicios;
 
   constructor(
     private http: HttpClient,
@@ -49,41 +47,50 @@ export class EventoService {
 
   getAll(): Observable<any> {
 
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/events";
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/events`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
+      )
 
 
   }
   getActivos(): Observable<any> {
-
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/events/activos";
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/events/activos`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
+      )
 
 
   }
   getDestacados(): Observable<any> {
-
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/events/destacados";
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/events/destacados`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
+      )
 
 
   }
 
   getById(id: number): Observable<any> {
 
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/event/show/" + id;
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/event/show/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, event: Evento }) => resp.event)
+      );
   }
 
   getPaymentById(id: number): Observable<any> {
 
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/event/paymentbyid/" + id;
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/event/paymentbyid/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, evento: Evento }) => resp.evento)
+      );
+
   }
 
 
@@ -91,39 +98,37 @@ export class EventoService {
 
   eventsbyUser(id: number): Observable<any> {
 
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/event/eventsbyuser/" + id;
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/event/eventsbyuser/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
+      );
+
   }
   eventsbyClient(id: number): Observable<any> {
-
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer' + this.authService.token });
-    let URL = this.serverUrl + "/event/eventsbyclient/" + id;
-    return this.http.get(URL, { headers: headers });
+    const url = `${baseUrl}/event/eventsbyclient/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
+      );
   }
 
   createEvento(evento: Evento) {
-    return this.http.post<any>(this.serverUrl + '/event/store/', evento)
-      .pipe(
-        catchError(this.handleError)
-      );
+    const url = `${baseUrl}/event/store/ ${evento}`;
+    return this.http.post<any>(url, this.headers);
 
   }
 
 
 
   update(evento: Evento, id: number) {
-    return this.http.post<any>(this.serverUrl + '/event/update/' + id, evento)
-      .pipe(
-        catchError(this.handleError)
-      );
+    const url = `${baseUrl}/event/update/ ${id}`;
+    return this.http.post<any>(url, this.headers);
   }
 
   addClienteToEvento(data: any, id: number) {
-    return this.http.post<any>(this.serverUrl + '/event/addcliente/' + id, data)
-      .pipe(
-        catchError(this.handleError)
-      );
+    const url = `${baseUrl}/event/addcliente/ ${id} ${data}`;
+    return this.http.post<any>(url, this.headers);
   }
 
   updateStatus(data: any, id: number) {

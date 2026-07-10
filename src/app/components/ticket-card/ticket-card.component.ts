@@ -2,11 +2,8 @@ import {
   Component,
   inject,
   Input,
-  OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
-import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {

@@ -1,17 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuFooterComponent } from '../../shared/menu-footer/menu-footer.component';
-import { LateralComponent } from '../../components/lateral/lateral.component';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { RouterLink } from '@angular/router';
 import { BackButtnComponent } from '../../shared/backButtn/backButtn.component';
 import { AuthService } from '../../services/auth.service';
-import { Usuario } from '../../models/usuario.model';
-import { ProfileService } from '../../services/profile.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Parent } from '../../models/parents';
-import { ParentService } from '../../services/parent-service.service';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../models/client.model';

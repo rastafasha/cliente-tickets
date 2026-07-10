@@ -8,7 +8,6 @@ import { Profile } from '../../models/profile.model';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import {TranslateService} from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Parent } from '../../models/parents';
 @Component({
   selector: 'app-header',
   standalone: true,

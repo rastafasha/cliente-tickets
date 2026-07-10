@@ -1,5 +1,5 @@
 
-import { environment } from "../environments/environment";
+import { environment } from "../../environments/environment";
 import { Pais } from "./pais";
 const base_url = environment.url_media;
 

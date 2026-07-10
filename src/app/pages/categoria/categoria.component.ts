@@ -48,10 +48,8 @@ export class CategoriaComponent {
 
    getCategory(id:number){
     this.categoryService.getById(+id).subscribe((resp:any)=>{
-      this.categoria = resp.category;
-      // console.log(resp)
+      this.categoria = resp;
       this.pageTitle = 'Categoría ' + this.categoria.name;
-
       this.getProductByCategory()
     })
   }
@@ -60,7 +58,7 @@ export class CategoriaComponent {
   getProductByCategory(){
     this.isLoading = true;
     this.categoryService.getEventsByCat(this.categoria.id).subscribe( (res:any) =>{
-      this.events = res.events;
+      this.events = res.events.data;
       this.isLoading = false;
       if(this.events.length > 0){
         this.isEvent = true;

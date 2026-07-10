@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule, NgFor } from '@angular/common';
@@ -26,7 +24,7 @@ export class CategoryBarComponent implements OnInit {
   loadCategories(){
     this.categoriaService.getAll().subscribe(
       resp => {
-        this.categorias = resp.categories;
+        this.categorias = resp;
       }
     )
   }

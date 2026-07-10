@@ -7,8 +7,6 @@ import { UserService } from '../../services/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../shared/loading/loading.component';
-import { StudentService } from '../../services/student-service.service';
-import { Student } from '../../models/student';
 
 @Component({
   selector: 'app-recentpayments',
@@ -29,7 +27,6 @@ export class RecentpaymentsComponent {
   public user;
   query: string = '';
   student_id!:number;
-  student!:Student;
   parent_has_debt!:boolean;
 
   student_with_debt: students_with_debt[] = [];
@@ -38,7 +35,6 @@ export class RecentpaymentsComponent {
     private location: Location,
     private paymentService: PaymentService,
     private userService: UserService,
-    private studentService: StudentService,
     private http: HttpClient
   ) {
     this.user = this.userService.user;
@@ -67,12 +63,6 @@ export class RecentpaymentsComponent {
   }
   
 
-  getStudent(){
-    this.studentService.getUserById(this.student_id).subscribe((res: any) =>{
-      console.log(res);
-      })
-    }
-  
   search() {
     return this.paymentService.search(this.query).subscribe((res: any) => {
       this.payments = res;

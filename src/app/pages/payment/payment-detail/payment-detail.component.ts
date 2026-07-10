@@ -5,14 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Payment } from '../../../models/payment';
 import { PaymentService } from '../../../services/payment.service';
-import { HeaderComponent } from '../../../shared/header/header.component';
-import { MenuFooterComponent } from '../../../shared/menu-footer/menu-footer.component';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
-import { StudentService } from '../../../services/student-service.service';
-import { ParentService } from '../../../services/parent-service.service';
-import { Parent } from '../../../models/parents';
-import { Student } from '../../../models/student';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { EventoService } from '../../../services/evento.service';
 import { Client } from '../../../models/client.model';
@@ -45,7 +39,6 @@ export class PaymentDetailComponent {
     private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
     private eventService: EventoService,
-    private parentService: ParentService,
     private http: HttpClient
   ) { }
 
@@ -72,19 +65,12 @@ export class PaymentDetailComponent {
         this.client_id = res.client_id;
         this.event_id = res.event_id;
         this.isLoading = false;
-        this.getParent();
         this.getStudent();
       }
 
     )
   }
-  getParent(){
-    this.parentService.getUserById(this.client_id).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.client = resp.client;
-
-    })
-  }
+  
   getStudent(){
     this.eventService.getById(this.event_id).subscribe((resp:any)=>{
       // console.log(resp);

@@ -1,14 +1,10 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Parent } from '../../models/parents';
 import { AuthService } from '../../services/auth.service';
-import { ParentService } from '../../services/parent-service.service';
 import { ProfileService } from '../../services/profile.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { TasabcvService } from '../../services/tasabcv.service';
-import { Tasabcv } from '../../models/tasabcba';
 
 @Component({
   selector: 'app-tasabcv',
@@ -20,7 +16,6 @@ export class TasabcvComponent {
   
   isLoading:boolean = false;
   isProfile:boolean = false;
-  public profile: Parent = new Parent();
   precio_dia!:number;
   precio_fecha!:Date;
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Payment } from '../models/payment';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 const baseUrl = environment.url_servicios;
 

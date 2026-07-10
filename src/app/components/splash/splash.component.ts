@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SplashscreenService } from 'src/app/services/splashscreen.service';
+import { SplashscreenService } from '../../services/splashscreen.service';
 
 @Component({
   selector: 'app-splash',
@@ -11,7 +11,7 @@ export class SplashComponent implements OnInit {
   // The screen starts with the maximum opacity
 public opacityChange = 1;
 
-public splashTransition;
+public splashTransition:any;
 
 // First access the splash is visible
 public showSplash = true;
@@ -25,7 +25,7 @@ readonly ANIMATION_DURATION = 1;
   ngOnInit(): void {
 
     // Somewhere the stop method has been invoked
-    this.splashService.subscribe(res => {
+    this.splashService.subscribe((res:any) => {
       this.hideSplashAnimation();
   });
   }

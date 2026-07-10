@@ -4,7 +4,7 @@ import { throwError, Observable, of } from 'rxjs';
 import  {catchError, map, tap} from 'rxjs/operators';
 import { Params, Router } from '@angular/router';
 import { Pais } from '../models/pais';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({

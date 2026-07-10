@@ -2,7 +2,6 @@ import { CommonModule, NgClass, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { Evento } from '../../models/evento';
 import { EventoService } from '../../services/evento.service';
@@ -23,7 +22,6 @@ import { LoadingComponent } from "../loading/loading.component";
 export class SliderComponent {
 
   sliders!: Evento[];
-    imagenSerUrl = environment.url_media;
 
     currentSlide = 0;
     isLoading = false;
@@ -43,7 +41,7 @@ export class SliderComponent {
       this.isLoading = true;
       return this.eventoService.getDestacados().subscribe(
         resp=>{
-          this.sliders = resp.eventos;
+          this.sliders = resp.data;
           // console.log(this.sliders);
           this.isLoading = false;
         }

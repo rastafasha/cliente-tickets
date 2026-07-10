@@ -7,9 +7,8 @@ import { TicketService } from '../../services/ticket.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import Swal from 'sweetalert2';
 import { EventoService } from '../../services/evento.service';
-import { Evento } from '../../models/evento';
 import { Client } from '../../models/client.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 const frontend = environment.url_frontend;
 

@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { HeaderComponent } from '../../../shared/header/header.component';
-import { MenuFooterComponent } from '../../../shared/menu-footer/menu-footer.component';
 import { CommonModule, NgFor } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +11,6 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { PaymentService } from '../../../services/payment.service';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
-import { Payment } from '../../../models/payment';
 import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
 import { TicketService } from '../../../services/ticket.service';
 
@@ -25,9 +22,6 @@ import { TicketService } from '../../../services/ticket.service';
     FormsModule,
     LoadingComponent,
     TranslateModule,
-    // NgFor,
-    // MenuFooterComponent,
-    // HeaderComponent,
     BackButtnComponent,
     ImagenPipe,
     RouterModule,
@@ -74,7 +68,7 @@ export class EventoDetailComponent {
     this.isLoading= true;
     this.eventoService.getById(id).subscribe(
       res=>{
-        this.evento = res.event;
+        this.evento = res;
         this.event_id = this.evento.id;
         this.isLoading = false;
         this.getTicketsByClientbyEvent();

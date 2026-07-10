@@ -4,20 +4,15 @@ import { HeaderComponent } from '../../../shared/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { Payment } from '../../../models/payment';
-import { Student } from '../../../models/student';
 import { PaymentService } from '../../../services/payment.service';
 import { Usuario } from '../../../models/usuario.model';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
-import { StudentService } from '../../../services/student-service.service';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
-import { BarChartComponent } from '../../../components/charts/bar-chart/bar-chart.component';
 import { EventsuserComponent } from "../../../components/eventsuser/eventsuser.component";
-import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
 import { TicketService } from '../../../services/ticket.service';
 import { MisticketsComponent } from '../../../components/mistickets/mistickets.component';
 import { MisticketsEnviadosComponent } from '../../../components/mistickets-enviados/mistickets-enviados.component';
@@ -25,7 +20,7 @@ import { MisticketsActivosComponent } from "../../../components/mistickets-activ
 import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/mistickets-act-sh.component";
 import { MisticketUsadosComponent } from '../../../components/misticket-usados/misticket-usados.component';
 import { Ticket } from '../../../models/ticket';
-import { Evento } from '../../../models/evento';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-payment-list',

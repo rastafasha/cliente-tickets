@@ -51,7 +51,9 @@
                                     <img [src]="evento.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt="">
                                 </a>
                             </td>
-                            <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a></td>
+                            <td><a [routerLink]="['/event/', evento.id]">{{evento.name}} </a>
+                                {{evento?.category?.name}}
+                            </td>
                             <!-- <td>
                                  <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                 <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
