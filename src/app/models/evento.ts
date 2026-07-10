@@ -16,6 +16,7 @@ export class Evento {
     catergory_id!: number;
     name: string = "";
     description: string = "";
+    lugar: string = "";
     company!: Company;
     pais!: Pais;
     category!: Category;
