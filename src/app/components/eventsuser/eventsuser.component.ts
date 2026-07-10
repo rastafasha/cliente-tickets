@@ -2,7 +2,7 @@ import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ImagenPipe } from '../../pipes/imagen.pipe';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { EventoService } from '../../services/evento.service';
@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-eventsuser',
   imports: [
-    CommonModule, FormsModule, NgIf, NgFor, LoadingComponent,
+    CommonModule, FormsModule, NgIf, LoadingComponent,
     ImagenPipe, RouterModule
   ],
   templateUrl: './eventsuser.component.html',
@@ -43,12 +43,13 @@ export class EventsuserComponent {
   event_id!: number;
   paymentsbyevent!: number;
   asistencia: any;
+  eventoSelected:any;
 
   payments!: Payment[];
 
   constructor(
     private eventoService: EventoService,
-    private paymentService: PaymentService,
+    private router: Router,
     private http: HttpClient,
     handler: HttpBackend
   ) {
@@ -82,7 +83,7 @@ export class EventsuserComponent {
         this.events = res.client.eventos;
         this.payments = res.client.payments;
         this.asistencia = res.asistencia;
-
+        this.isLoading = false;
         if(this.asistencia === 1){
           this.asistencia = 'Asistió al evento';
         }else{
@@ -102,7 +103,7 @@ export class EventsuserComponent {
           }
         });
 
-        this.isLoading = false;
+        
       },
       (error) => {
         this.error = error;
@@ -127,5 +128,11 @@ export class EventsuserComponent {
   public PageSize(): void {
     this.getEventsporCliente();
     this.query = '';
+  }
+
+  irAEvento(evento:any){
+    this.eventoSelected = evento;
+
+    this.router.navigate(['/event', this.eventoSelected.id ]);
   }
 }

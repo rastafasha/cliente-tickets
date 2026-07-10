@@ -1,80 +1,149 @@
 <!-- <app-header></app-header> -->
 <!-- =======| Main |======= -->
- <app-loading *ngIf="isLoading"></app-loading>
-<div class="container animated fadeInUp mt-3"  *ngIf="!isLoading" role="main" name="profile" style="margin-top: 0px;">
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container animated fadeInUp mt-3" *ngIf="!isLoading" role="main" name="profile" style="margin-top: 0px;">
 
-     <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-        <div class="row ">
+    <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+    <div class="row ">
 
-            <div class="tab-content-set">
-                <ul class="nav">
-                    <li>
-                        <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
-                            (click)="optionSelected(1)">Info Evento</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="return false;" *ngIf="isTicket"
-                            [ngClass]="{'active': option_selectedd == 2}" (click)="optionSelected(2)">Tickets
-                            Aprobados</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="tab-content-set">
+            <ul class="nav">
+                <li>
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                        (click)="optionSelected(1)">Info Evento</a>
+                </li>
+                <li>
+                    <a href="#" onclick="return false;" *ngIf="isTicket" [ngClass]="{'active': option_selectedd == 2}"
+                        (click)="optionSelected(2)">Tickets
+                        Aprobados</a>
+                </li>
+            </ul>
+        </div>
 
-            <div  *ngIf="option_selectedd == 1">
-                <!-- <div class="container tikfond" [style.background-image]="'url(' + (evento.avatar | imagenPipe: 'events') + ')'" > -->
-                <div class="container "  >
-                        <div class="col-xs-12 col-sm-6 ">
-                            <img [src]="evento.avatar | imagenPipe: 'events'"  class="shadow" alt="">
-                        </div>
-                        <div class="col-xs-12 col-sm-6 info_evento p-3 " >
-                            <p><b>Nombre:</b><br> {{evento.name}}</p>
-                            <p><b>Descripción:</b><br> {{evento.description}}</p>
-                            <p><b>Promueve:</b><br> {{evento.company.name}}</p>
-                            <p><b>Pais:</b><br> {{evento.pais.title}}</p>
-                            <p><b>Categoría:</b><br> {{evento.category.name}}</p>
-                            <p *ngIf="evento.tickets_disponibles"><b>  Tickets Disponibles:</b><br>
-                                {{evento.tickets_disponibles}}</p>
-                            <p><b>Status: &nbsp;</b><br>
-                                <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Activo</span>
-                                <span class="badge bg-primary" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
-                                <span class="badge bg-danger" *ngIf="evento.status === 'FINISHED'">finalizado</span>
-                            </p>
+        <div *ngIf="option_selectedd == 1">
+            <!-- <div class="container tikfond" [style.background-image]="'url(' + (evento.avatar | imagenPipe: 'events') + ')'" > -->
+            <div class="row ">
+                <div class="col-xs-12 col-sm-6 ">
+                    <img [src]="evento.avatar | imagenPipe: 'events'" class="shadow" alt="">
+                </div>
 
-                            <p><b>Precio General:</b> <br>{{evento.precio_general| currency}}</p>
-                            <p><b>Precio Estudiantes:</b> <br>{{evento.precio_estudiantes| currency}}</p>
-                            <p><b>Precio Especialistas:</b> <br>{{evento.precio_especialistas| currency}}</p>
-                            <p><b>Fecha inicio | Hora:</b> <br>{{evento.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
-                            <p><b>Fecha fin | Hora:</b> <br>{{evento.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
+                <div class="card shadow-sm border-0 rounded-4 overflow-hidden" style="max-w: 450px; margin: 0 auto;">
+                    <div class="card-body p-4">
 
-
-                            <div class="row p-3 ">
-                                <button type="button" class="btn btn-outline-success "
-                                    [routerLink]="['/comprar-ticket/',evento.id]">
-                                    Comprar Ticket
-                                </button>
+                        <!-- Encabezado: Título y Estatus -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <span
+                                    class="badge bg-light text-primary border border-primary-subtle text-uppercase mb-1"
+                                    style="font-size: 0.75rem;">
+                                    Teatro • Mayotte
+                                </span>
+                                <h5 class="card-title fw-bold text-dark mb-1" style="font-size: 1.25rem;">
+                                    {{evento.name}}
+                                </h5>
+                                <p class="card-subtitle text-muted small">
+                                    Promueve: <span class="fw-semibold text-secondary">{{evento.company.name}}</span>
+                                </p>
                             </div>
-                            <div class="tikfond" ></div>
-                            <!-- <p *ngIf="payments.length == 0"><b>Aun no has comprado ticket para este evento</b> </p> -->
-                            <!-- <p *ngIf="payments.length > 0"><b>Has Comprado :</b> {{payments.length}} de 5 disponibles -->
-                            <!-- </p> -->
+                            <span class="badge bg-success-subtle text-success px-2.5 py-1.5 rounded-pill fw-bold"
+                                style="font-size: 0.75rem;" *ngIf="evento.status === 'PUBLISHED'">
+                                Activo
+                            </span>
+                            <span class="badge bg-primary-subtle text-primary px-2.5 py-1.5 rounded-pill fw-bold"
+                                style="font-size: 0.75rem;" *ngIf="evento.status === 'INACTIVE'">
+                                Inactivo
+                            </span>
+                            <span class="badge bg-danger-subtle text-danger px-2.5 py-1.5 rounded-pill fw-bold"
+                                style="font-size: 0.75rem;" *ngIf="evento.status === 'FINISHED'">
+                                finalizado
+                            </span>
                         </div>
-                    </div>
-            </div>
 
-            <div  *ngIf="option_selectedd == 2 && isTicket">
-                <div class="row pt-3 pb-3 ">
-                    <!-- <h5>Mis Tickets</h5> -->
-                    <app-loading *ngIf="isLoading"></app-loading>
-                    <div class="row" *ngIf="!isLoading">
-                        <div class="col-xs-12 " *ngFor="let ticket of tickets ">
-                            <app-ticket-card [ticket]="ticket" [profile]="userprofile"></app-ticket-card>
+                        <!-- Descripción / Alerta Corta -->
+                        <div class="bg-light p-2.5 rounded-3 mb-4 text-secondary small d-flex align-items-center">
+                            <span class="me-2">✨</span> <strong>Descripción:</strong> {{evento.description}}
                         </div>
+
+                        <!-- Sección de Precios en Columnas -->
+                        <div class="mb-4">
+                            <h6 class="text-uppercase text-muted fw-bold mb-2.5"
+                                style="font-size: 0.75rem; tracking: 0.5px;">
+                                Estructura de Precios
+                            </h6>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <div class="bg-light p-2.5 text-center rounded-3 border border-light-subtle">
+                                        <span class="text-muted d-block small mb-1"
+                                            style="font-size: 0.75rem;">General</span>
+                                        <span class="fw-bold text-dark h6 mb-0">{{evento.precio_general| currency}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div
+                                        class="bg-primary-subtle p-2.5 text-center rounded-3 border border-primary-subtle">
+                                        <span class="text-primary-emphasis d-block small mb-1 fw-medium"
+                                            style="font-size: 0.75rem;">Estudiantes</span>
+                                        <span class="fw-bold text-primary-emphasis h6 mb-0">{{evento.precio_estudiantes| currency}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="bg-light p-2.5 text-center rounded-3 border border-light-subtle">
+                                        <span class="text-muted d-block small mb-1"
+                                            style="font-size: 0.75rem;">Especialistas</span>
+                                        <span class="fw-bold text-dark h6 mb-0">{{evento.precio_especialistas| currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fechas y Disponibilidad (Footer de la Tarjeta) -->
+                        <div class="row pt-3 border-t g-0 align-items-center">
+                            <div class="col-7 border-endpe-2">
+                                <h6 class="text-uppercase text-muted fw-bold mb-2" style="font-size: 0.75rem;">Horarios
+                                </h6>
+                                <div class="small text-secondary mb-1">
+                                    <span class="me-1">📅</span> <span class="fw-medium text-dark">Inicio:</span> {{evento.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}
+                                </div>
+                                <div class="small text-secondary">
+                                    <span class="me-1">🏁</span> <span class="fw-medium text-dark">Fin:</span> {{evento.fecha_fin | date:'MMM d, y, h:mm:ss a'}}
+                                </div>
+                            </div>
+                            <div class="col-5 ps-3 text-end" *ngIf="evento.tickets_disponibles">
+                                <h6 class="text-uppercase text-muted fw-bold mb-1" style="font-size: 0.75rem;">
+                                    Disponibles</h6>
+                                <span class="display-6 fw-bold text-primary d-block"
+                                    style="font-size: 1.5rem; line-height: 1;">{{evento.tickets_disponibles}}</span>
+                                <span class="text-muted small" style="font-size: 0.7rem;">cupos libres</span>
+                            </div>
+                        </div>
+                        <div class="row p-3 ">
+                        <button type="button" class="btn btn-outline-success "
+                            [routerLink]="['/comprar-ticket/',evento.id]">
+                            Comprar Ticket
+                        </button>
+                    </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div *ngIf="option_selectedd == 2 && isTicket">
+            <div class="row pt-3 pb-3 ">
+                <!-- <h5>Mis Tickets</h5> -->
+                <app-loading *ngIf="isLoading"></app-loading>
+                <div class="row" *ngIf="!isLoading">
+                    <div class="col-xs-12 " *ngFor="let ticket of tickets ">
+                        <app-ticket-card [ticket]="ticket" [profile]="userprofile"></app-ticket-card>
                     </div>
                 </div>
             </div>
-
-
         </div>
+
+
+    </div>
 </div>
 <!-- End #main-->
 <!-- <app-menu-footer></app-menu-footer> -->

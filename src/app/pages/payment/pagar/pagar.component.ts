@@ -35,7 +35,7 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
     // MenuFooterComponent,
     BackButtnComponent,
     LoadingComponent,
-    ImagenPipe
+    // ImagenPipe
   ],
   templateUrl: './pagar.component.html',
   styleUrls: ['./pagar.component.css'],

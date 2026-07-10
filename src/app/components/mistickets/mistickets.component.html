@@ -21,16 +21,16 @@
                         <i class="fa fa-share"></i> Compartido
                     </span>
                     <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
-                        <i class="fa fa-check-circle"></i> Activo
+                        <i class="fas fa-check"></i> Activo
                     </span>
                     <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
                         <i class="fa fa-check-circle"></i> Compartido Activado
                     </span>
                     <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
-                        <i class="fa fa-coffee"></i> pendiente por activar o usar
+                        <i class="fas fa-coffee"></i> pendiente por activar o usar
                     </span>
                     <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
-                        <i class="fa fa-close"></i> Expirado
+                        <i class="fas fa-close"></i> Expirado
                     </span>
 
                 </div>

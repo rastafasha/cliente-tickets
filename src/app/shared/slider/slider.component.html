@@ -1,7 +1,7 @@
 
 <app-loading *ngIf="isLoading"></app-loading>
 
-<div id="carouselPrincipal" class="carousel slide" data-ride="carousel" data-interval="8000" *ngIf="!isLoading">
+<div id="carouselPrincipal" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000" *ngIf="!isLoading">
 
     <div class="carousel-indicators" *ngIf="sliders.length > 1">
     <button *ngFor="let slider of sliders | slice:0:5; let i = index"  [class.active]="i === currentSlide" (click)="selectSlide(i)" type="button" data-bs-target="#carouselPrincipal" [attr.data-bs-slide-to]="i" [attr.aria-label]="'Slide ' + (i+1)"></button>
@@ -22,11 +22,11 @@
         </div>
 
     
-    <button class="carousel-control-prev" *ngIf="currentSlide > 0" type="button" data-target="#carouselPrincipal" data-slide="prev" (click)="prevSlide()">
+    <button class="carousel-control-prev" *ngIf="currentSlide > 0" type="button" data-target="#carouselPrincipal" data-bs-slide="prev" (click)="prevSlide()">
         <span class="fa fa-chevron-circle-left fa-2x  " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>
-    <button class="carousel-control-next" *ngIf="currentSlide <= 4 && currentSlide > 1" type="button" data-target="#carouselPrincipal" data-slide="next" (click)="nextSlide()">
+    <button class="carousel-control-next" *ngIf="currentSlide <= 4 && currentSlide > 1" type="button" data-target="#carouselPrincipal" data-bs-slide="next" (click)="nextSlide()">
         <span class="fa fa-chevron-circle-right fa-2x " aria-hidden="true"></span>
         <span class="sr-only"></span>
     </button>

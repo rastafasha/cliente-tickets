@@ -52,6 +52,11 @@
     }
 }
 
+.pacatdis{
+    display: flex;
+    gap: 10px;
+}
+
 @media (max-width:990px) {
     .info_evento{
     display: flex;

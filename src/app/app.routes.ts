@@ -14,7 +14,7 @@ import { TicketDetailComponent } from './pages/ticket/ticket-detail/ticket-detai
 import { CategoriaComponent } from './pages/categoria/categoria.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
+    {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent},
     
     {path: 'search', component: SearchComponent},
@@ -35,5 +35,5 @@ export const routes: Routes = [
     
     {path: 'ticket-detail/:id', component: TicketDetailComponent},
 
-    {path: '**', redirectTo: '', pathMatch: 'full'},
+    {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

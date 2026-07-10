@@ -1,70 +1,132 @@
-<!-- <app-header></app-header> -->
-<!-- =======| Main |======= -->
-<app-loading *ngIf="isLoading"></app-loading>
-<div class="container animated fadeInUp user main" *ngIf="!isLoading" role="main" name="profile"
-    style="margin-top: 0px;">
+<!-- Pantalla de carga nativa -->
+<!-- <app-loading *ngIf="isLoading"></app-loading> -->
 
-    <div class="col-xs-12 pt-3">
-
-        <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-
-
-        <div class=" pagodetail">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-
-                    <img [src]="payment.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
-                border: 1px solid #ccc;
-                margin-top: 30px;" class="shadow" alt="">
-                </div>
-                <div class="col-xs-12 col-sm-6 p-3">
-                    <p><b>Referencia:</b> {{payment.referencia}}</p>
-                    <p><b>Status:</b><br>
-                        <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'"> <i
-                                class="fa fa-check-circle"></i> Aprobado</span>
-                        <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'"> <i
-                                class="fa fa-coffee"></i> Pendiente</span>
-                        <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'"> <i class="fa fa-close"></i>
-                            Rechazado</span>
-                    </p>
-                    <p><b>Status deuda:</b><br>
-                        <!-- {{payment.status_deuda}} -->
-                        <span class="badge bg-success" *ngIf="payment.status_deuda !== 'DEUDA'">Pagado</span>
-                        <span class="badge bg-danger" *ngIf="payment.status_deuda === 'DEUDA'">Deuda</span>
-                    </p>
-                    <p><b>Nombre de la cuenta:</b><br> {{payment.nombre}}</p>
-                    <p><b>email de la cuenta:</b><br> {{payment.email}}</p>
-                    <p><b>Evento:</b> <br> <a [routerLink]="['/event/', payment.event_id]">{{event.name}} </a> </p>
-                    <p><b>Fecha inicio:</b> <br>{{event.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p *ngIf="event.fecha_fin"><b>Fecha fin:</b><br> {{event.fecha_fin | date:'MMM d, y, h:mm:ss a'}}
-                    </p>
-                    <p><b>Fecha | Hora del pago:</b> <br>
-                        {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Metodo de Pago:</b> <br> {{payment.metodo}}</p>
-                    <div *ngIf="payment.bank_name">
-                        <p><b>Nombre del Banco:</b> <br>{{payment.bank_name}}</p>
-                    </div>
-                    <div *ngIf="payment.bank_destino">
-                        <p><b>Banco destino:</b><br> {{payment.bank_destino}}</p>
-                    </div>
-
-                    <p><b>Monto:</b><br>
-                        <span *ngIf="payment.metodo ==='Transferencia Bolívares' || payment.metodo ==='payment Móvil'">
-                            {{payment.monto|currency:'Bs.'}}
-
-                        </span>
-                        <span *ngIf="payment.metodo ==='Transferencia Dólares'">
-                            {{payment.monto|currency}}
-                        </span>
-                    </p>
-
-                </div>
-                
-            </div>
-
-
+<!-- Contenedor Offcanvas (Cambia 'offcanvas-end' por 'offcanvas-start' si lo quieres a la izquierda) -->
+<div class="offcanvas offcanvas-bottom border-0 shadow" 
+     [class.show]="isOpen()" 
+     [style.display]="isOpen() ? 'block' : 'none'"
+     tabindex="-1" 
+     id="offcanvasPagoDetail"
+     style="height: 95vh; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+    
+    <!-- Encabezado del Offcanvas -->
+    <div class="offcanvas-header bg-light border-bottom py-3 px-4">
+        <div>
+            <span class="text-uppercase text-muted fw-bold tracking-wider" style="font-size: 0.7rem;">Detalle del Pago</span>
+            <h5 class="offcanvas-title fw-bold text-dark mt-1" id="offcanvasPagoDetailLabel" *ngIf="pagoSeleccionado">
+                Ref: <span class="font-monospace text-primary">{{pagoSeleccionado.referencia}}</span>
+            </h5>
         </div>
+        <button type="button" class="btn-close shadow-none" (click)="cerrarOffcanvas()"></button>
+    </div>
+
+    <!-- Cuerpo del Offcanvas con Scroll independiente -->
+    <div class="offcanvas-body p-4" *ngIf="pagoSeleccionado" style="overflow-y: scroll;">
+        
+        <!-- Tarjeta de Comprobante / Avatar -->
+        <div class="mb-4 text-center">
+            <div class="position-relative d-inline-block w-100 rounded-3 overflow-hidden bg-light border border-light-subtle shadow-sm p-2">
+                <img [src]="pagoSeleccionado.avatar | imagenPipe: 'payments'" 
+                     class="img-fluid rounded-2 w-100 object-fit-cover" 
+                     style="max-height: 220px;" 
+                     alt="Comprobante de pago">
+            </div>
+        </div>
+
+        <!-- Fila de Estados / Badges Principales -->
+        <div class="row g-2 mb-4">
+            <div class="col-6">
+                <div class="bg-light p-2.5 rounded-3 border text-center">
+                    <span class="text-muted d-block small mb-1" style="font-size: 0.75rem;">Estatus Pago</span>
+                    
+                    <span class="badge bg-success-subtle text-success px-2.5 py-1.5 rounded-pill fw-bold w-100" *ngIf="pagoSeleccionado.status === 'APPROVED'">
+                        <i class="fa fa-check-circle me-1"></i> Aprobado
+                    </span>
+                    <span class="badge bg-primary-subtle text-primary px-2.5 py-1.5 rounded-pill fw-bold w-100" *ngIf="pagoSeleccionado.status === 'PENDING'">
+                        <i class="fa fa-coffee me-1"></i> Pendiente
+                    </span>
+                    <span class="badge bg-danger-subtle text-danger px-2.5 py-1.5 rounded-pill fw-bold w-100" *ngIf="pagoSeleccionado.status === 'REJECTED'">
+                        <i class="fa fa-close me-1"></i> Rechazado
+                    </span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="bg-light p-2.5 rounded-3 border text-center">
+                    <span class="text-muted d-block small mb-1" style="font-size: 0.75rem;">Estado Deuda</span>
+                    
+                    <span class="badge bg-success-subtle text-success px-2.5 py-1.5 rounded-pill fw-bold w-100" *ngIf="pagoSeleccionado.status_deuda !== 'DEUDA'">
+                        Pagado
+                    </span>
+                    <span class="badge bg-danger-subtle text-danger px-2.5 py-1.5 rounded-pill fw-bold w-100" *ngIf="pagoSeleccionado.status_deuda === 'DEUDA'">
+                        Deuda
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloque de Monto Destacado -->
+        <div class="bg-primary-subtle border border-primary-subtle p-3 rounded-3 text-center mb-4">
+            <span class="text-primary-emphasis text-uppercase fw-bold d-block small mb-1" style="font-size: 0.7rem; tracking: 0.5px;">Monto Total Recibido</span>
+            <h3 class="fw-bold text-primary-emphasis m-0" style="font-size: 1.75rem;">
+                <span *ngIf="pagoSeleccionado.metodo === 'Transferencia Bolívares' || pagoSeleccionado.metodo === 'payment Móvil'">
+                    {{pagoSeleccionado.monto | currency:'Bs. '}}
+                </span>
+                <span *ngIf="pagoSeleccionado.metodo === 'Transferencia Dólares'">
+                    {{pagoSeleccionado.monto | currency}}
+                </span>
+            </h3>
+            <span class="badge bg-white text-primary border border-primary-subtle mt-2 fw-semibold px-2 py-1" style="font-size: 0.75rem;">
+                💵 {{pagoSeleccionado.metodo}}
+            </span>
+        </div>
+
+        <!-- Información de la Cuenta -->
+        <div class="mb-4">
+            <h6 class="text-uppercase text-muted fw-bold mb-2.5" style="font-size: 0.7rem; letter-spacing: 0.5px;">Datos del Pagador</h6>
+            <div class="list-group list-group-flush border rounded-3 overflow-hidden bg-white shadow-xs" style="font-size: 0.85rem;">
+                <div class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-3">
+                    <span class="text-muted">Nombre</span>
+                    <span class="fw-medium text-dark text-end">{{pagoSeleccionado.nombre}}</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-3">
+                    <span class="text-muted">Email</span>
+                    <span class="fw-medium text-dark text-end font-monospace small">{{pagoSeleccionado.email}}</span>
+                </div>
+                <!-- Campos Bancarios Condicionales -->
+                <div *ngIf="pagoSeleccionado.bank_name" class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-3">
+                    <span class="text-muted">Banco Origen</span>
+                    <span class="fw-medium text-dark text-end">{{pagoSeleccionado.bank_name}}</span>
+                </div>
+                <div *ngIf="pagoSeleccionado.bank_destino" class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-3">
+                    <span class="text-muted">Banco Destino</span>
+                    <span class="fw-medium text-dark text-end">{{pagoSeleccionado.bank_destino}}</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center py-2.5 px-3">
+                    <span class="text-muted">Fecha del Pago</span>
+                    <span class="fw-medium text-dark text-end">{{pagoSeleccionado.created_at | date:'MMM d, y, h:mm a'}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles del Evento Vinculado -->
+        <div>
+            <h6 class="text-uppercase text-muted fw-bold mb-2.5" style="font-size: 0.7rem; letter-spacing: 0.5px;">Información del Evento</h6>
+            <div class="card bg-light border-light-subtle rounded-3 p-3">
+                <a [routerLink]="['/event/', pagoSeleccionado.event.id]" class="fw-bold text-primary text-decoration-none d-block mb-2" style="font-size: 0.95rem;">
+                    📌 {{pagoSeleccionado.event.name}}
+                </a>
+                <div class="row g-2 border-top pt-2 mt-1 text-secondary" style="font-size: 0.8rem;">
+                    <div class="col-6">
+                        <span class="d-block text-muted small">Fecha Inicio</span>
+                        <span class="fw-medium text-dark">📅 {{pagoSeleccionado.event.fecha_inicio | date:'MMM d, y'}}</span>
+                    </div>
+                    <div class="col-6" *ngIf="pagoSeleccionado.event.fecha_fin">
+                        <span class="d-block text-muted small">Fecha Fin</span>
+                        <span class="fw-medium text-dark">🏁 {{pagoSeleccionado.event.fecha_fin | date:'MMM d, y'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-<!-- End #main-->
-<!-- <app-menu-footer></app-menu-footer> -->

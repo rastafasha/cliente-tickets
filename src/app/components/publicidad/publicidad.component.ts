@@ -34,7 +34,7 @@ export class PublicidadComponent implements OnInit {
     this.isLoading = true;
     this.eventoService.getActivos().subscribe((resp:any)=>{
       // console.log(resp);
-      this.eventos = resp.eventos;
+      this.eventos = resp.data;
       this.isLoading = false;
     })
   }

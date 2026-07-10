@@ -107,7 +107,7 @@
 
     .BannPpal {
     background-size: cover;
-        height: calc(80vh);
+        height: calc(40vh);
         display: flex
 ;
         justify-content: center;

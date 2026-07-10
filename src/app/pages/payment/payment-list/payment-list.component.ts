@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild, viewChild } from '@angular/core';
 import { MenuFooterComponent } from "../../../shared/menu-footer/menu-footer.component";
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,17 +21,22 @@ import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/
 import { MisticketUsadosComponent } from '../../../components/misticket-usados/misticket-usados.component';
 import { Ticket } from '../../../models/ticket';
 import { environment } from '../../../../environments/environment';
+import { PaymentDetailComponent } from "../payment-detail/payment-detail.component";
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
-    FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingComponent,
+    FormsModule, ReactiveFormsModule, NgIf, LoadingComponent,
     MisticketsComponent, MisticketsEnviadosComponent, MisticketUsadosComponent,
-    RouterLink, CommonModule, BackButtnComponent, ImagenPipe, EventsuserComponent, MisticketsActivosComponent, MisticketsActShComponent],
+    RouterLink, CommonModule, BackButtnComponent, EventsuserComponent, MisticketsActivosComponent, MisticketsActShComponent, PaymentDetailComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })
 export class PaymentListComponent {
+
+  @ViewChild('offcanvasPagoDetail', { static: false }) offcanvasElement!: ElementRef;
 
   option_selectedd:number = 1;
   solicitud_selectedd:any = null;
@@ -59,6 +64,8 @@ export class PaymentListComponent {
     
     tickets!: any[];
     status!:any;
+    pagoSeleccionado = signal<any>(null);
+    isOpen = signal<boolean>(false);
 
     constructor(
       private paymentService: PaymentService,
@@ -159,5 +166,25 @@ export class PaymentListComponent {
 
       });
     } 
+
+  verDetallePago(pago: any) {
+  this.pagoSeleccionado.set(pago);
+  // console.log(pago);
+
+  // Le da tiempo a Angular de renderizar el *ngIf en el DOM
+  setTimeout(() => {
+    const el = document.getElementById('offcanvasPagoDetail');
+    if (el) {
+      const bsOffcanvas = new bootstrap.Offcanvas(el);
+      bsOffcanvas.show();
+    } else {
+      console.error('El elemento offcanvasPagoDetail no fue encontrado en el DOM.');
+    }
+  }, 0);
+}
+
+cerrarOffcanvas() {
+  this.isOpen.set(false);
+}
 
 }

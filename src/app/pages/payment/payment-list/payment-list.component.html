@@ -2,11 +2,11 @@
 <div class="user container">
     <div class="container-fluid ">
         <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-    
+
         <div class="tab-content-set">
             <ul class="nav">
                 <li>
-                    <a href="#" onclick="return false;"  [ngClass]="{'active': option_selectedd == 1}"
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
                         (click)="optionSelected(1)">Compras</a>
                 </li>
                 <li>
@@ -20,109 +20,127 @@
             </ul>
         </div>
         <!-- compras -->
-         <div class="row" *ngIf="option_selectedd == 1">
+        <div class="row" *ngIf="option_selectedd == 1">
 
             <div *ngIf="!payments  && !isLoading">
                 <h4 class="text-center">No Posees compras registradas</h4>
             </div>
 
             <div class="col-xs-12" *ngIf="payments && payments.length > 0 && !isLoading">
-                    <!-- buscador -->
-                    <form class="form-horizontal">
-                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-                            <div class="input-group">
-                                <input type="search" name="search" type="text" class="form-control col-xs-12"
-                                    placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
-                                    class="form-control border-0 bg-light">
-                                <div class="input-group-append">
-                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
-                                        (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
-                                            class="fa fa-search"></i></button>
-                                    <a href="javascript:;" (click)="PageSize()"
-                                        class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
-                                </div>
+                <!-- buscador -->
+                <form class="form-horizontal">
+                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                        <div class="input-group">
+                            <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                class="form-control border-0 bg-light">
+                            <div class="input-group-append">
+                                <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                    (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                        class="fa fa-search"></i></button>
+                                <a href="javascript:;" (click)="PageSize()"
+                                    class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
                             </div>
                         </div>
-                    </form>
-                    <!-- buscador -->
-                </div>
+                    </div>
+                </form>
+                <!-- buscador -->
+            </div>
             <app-loading *ngIf="isLoading"></app-loading>
             <div class="card recent-sales overflow-auto border-radio" *ngIf="!isLoading">
                 <div class="card-body" *ngIf="payments && payments.length > 0 && !isLoading">
-                    <table class="table table-borderless datatable table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Imagen</th>
-                                <th scope="col">Referencia</th>
-                                <th scope="col">Evento</th>
-                                <!-- <th scope="col">Status Deuda</th> -->
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let pago of payments ">
-                                <td>
-                                    <img [src]="pago.avatar| imagenPipe: 'payments' " class="imagecircle shadow" alt="">
-                                </td>
-                                <th scope="row"><a [routerLink]="['/payment-detail', pago.id]">{{pago.referencia}}</a>
-                                </th>
-    
-                                <th scope="row"><a [routerLink]="['/event/', pago.event_id]">{{pago.event?.name}}</a>
-                                </th>
-                                
-                                <!-- <td>
-                                    <span class="badge bg-success" *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span>
-                                    <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span>
-                                </td> -->
-    
-                                <td>
-                                    <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">
-                                        <i class="fa fa-check-circle" ></i>
-                                    </span>
-                                    <span class="badge bg-primary" *ngIf="pago.status === 'PENDING'">
-                                        <i class="fa fa-coffee"></i>
-                                    </span>
-                                    <span class="badge bg-danger" *ngIf="pago.status === 'REJECTED'">
-                                        <i class="fa fa-close"></i>
-                                    </span>
-                                </td>
-                            </tr>
-    
-    
-                        </tbody>
-                    </table>
-                </div>
-    
-            </div>
-         </div>
-    
-         <!-- eventos -->
-         <div class="row" *ngIf="option_selectedd == 2">
-            <app-eventsuser [userprofile]="userprofile"></app-eventsuser>
-         </div>
 
-         <!-- opciones ticket -->
-         <div class="row" *ngIf="option_selectedd == 3">
+
+
+                    @for (payment of payments; track payment.id) {
+                    <div class="card border-0 shadow-sm mb-3 border-start border-4 " [ngClass]="{
+           'border-success': payment.status === 'APPROVED',
+           'border-warning': payment.status === 'PENDING',
+           'border-danger': payment.status === 'REJECTED'
+         }">
+                        <div class="card-body p-3">
+                            <!-- Fila Superior: Fecha y Estatus -->
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-secondary text-uppercase" style="font-size: 0.75rem;">
+                                        {{payment.created_at | date:'dd/MM/yyyy'}}
+                                    </h6>
+                                </div>
+                                <!-- Badge más estilizado -->
+                                @if (payment.status === 'APPROVED') {
+                                <span
+                                    class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3">Aprobado</span>
+                                }
+                                @if (payment.status === 'PENDING') {
+                                <span
+                                    class="badge rounded-pill bg-warning-subtle text-warning border border-warning-subtle px-3">Pendiente</span>
+                                }
+                                @if (payment.status === 'REJECTED') {
+                                <span
+                                    class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3">Rechazado</span>
+
+                                }
+
+                            </div>
+
+                            <!-- Fila Media: Monto -->
+                            <div class="mb-2">
+                                <p class="mb-0 h4 fw-bold text-dark">
+                                    <!-- {{payment.amount | currency}} -->
+                                    <a [routerLink]="['/event/', payment.event_id]">{{payment.event?.name}}</a>
+                                </p>
+                                <small class="text-muted d-block">Ref: #{{payment.referencia}}</small>
+                            </div>
+
+                            <!-- Fila Inferior: Botón de Acción -->
+                            <div class="d-flex justify-content-end  border-top border-light">
+                                <button class="btn btn-sm btn-outline-primary rounded-pill px-4 fw-bold"
+                                    style="font-size: 0.8rem;" (click)="verDetallePago(payment)">
+                                    <i class="fas fa-receipt me-1"></i> Ver Pago
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botón Flotante para Reportar Nuevo Pago -->
+                    <!-- <button class="btn btn-primary rounded-circle shadow-lg position-fixed"
+    style="bottom: 80px; right: 20px; width: 60px; height: 60px;" (click)="reportarPago(payment._id)">
+    <i class="fas fa-plus fs-3"></i>
+  </button> -->
+                    } @empty {
+                    <p class="text-center text-muted">No hay pagos registrados.</p>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        <!-- eventos -->
+        <div class="row" *ngIf="option_selectedd == 2">
+            <app-eventsuser [userprofile]="userprofile"></app-eventsuser>
+        </div>
+
+        <!-- opciones ticket -->
+        <div class="row" *ngIf="option_selectedd == 3">
 
             <div class="tab-content-set">
                 <ul class="nav">
-                    <li >
+                    <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 1}"
                             (click)="optionSelectedT(1)">Recibidos</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 2}"
                             (click)="optionSelectedT(2)">Disponibles</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 3}"
                             (click)="optionSelectedT(3)">Recibidos Activos</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 4}"
                             (click)="optionSelectedT(4)">Compartidos</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="#" onclick="return false;" [ngClass]="{'active': option_selecteddT == 5}"
                             (click)="optionSelectedT(5)">Usados</a>
                     </li>
@@ -133,7 +151,7 @@
                 <app-mistickets [userprofile]="userprofile"></app-mistickets>
             </div>
             <div class="row" *ngIf="option_selecteddT == 2">
-                <app-mistickets-activos [event]="event" [userprofile]="userprofile" ></app-mistickets-activos>
+                <app-mistickets-activos [event]="event" [userprofile]="userprofile"></app-mistickets-activos>
             </div>
             <div class="row" *ngIf="option_selecteddT == 3">
                 <app-mistickets-act-sh [userprofile]="userprofile"></app-mistickets-act-sh>
@@ -144,8 +162,9 @@
             <div class="row" *ngIf="option_selecteddT == 5">
                 <app-misticket-usados [userprofile]="userprofile"></app-misticket-usados>
             </div>
-         </div>
+        </div>
     </div>
 
 </div>
 <app-menu-footer></app-menu-footer>
+<app-payment-detail [pagoSeleccionado]="pagoSeleccionado()"></app-payment-detail>

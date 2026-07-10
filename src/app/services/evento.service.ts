@@ -107,10 +107,7 @@ export class EventoService {
   }
   eventsbyClient(id: number): Observable<any> {
     const url = `${baseUrl}/event/eventsbyclient/${id}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, eventos: Evento }) => resp.eventos)
-      );
+    return this.http.get<any>(url, this.headers);
   }
 
   createEvento(evento: Evento) {
