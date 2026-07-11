@@ -11,14 +11,9 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BackButtnComponent } from '../../../shared/backButtn/backButtn.component';
-import { ImagenPipe } from '../../../pipes/imagen.pipe';
-import { EventsuserComponent } from "../../../components/eventsuser/eventsuser.component";
+import { EventsuserComponent } from "../../eventos/eventsuser/eventsuser.component";
 import { TicketService } from '../../../services/ticket.service';
-import { MisticketsComponent } from '../../../components/mistickets/mistickets.component';
-import { MisticketsEnviadosComponent } from '../../../components/mistickets-enviados/mistickets-enviados.component';
-import { MisticketsActivosComponent } from "../../../components/mistickets-activos/mistickets-activos.component";
-import { MisticketsActShComponent } from "../../../components/mistickets-act-sh/mistickets-act-sh.component";
-import { MisticketUsadosComponent } from '../../../components/misticket-usados/misticket-usados.component';
+import { MisticketsActivosComponent } from "../../ticket/mistickets-activos/mistickets-activos.component";
 import { Ticket } from '../../../models/ticket';
 import { environment } from '../../../../environments/environment';
 import { PaymentDetailComponent } from "../payment-detail/payment-detail.component";
@@ -29,8 +24,9 @@ declare var bootstrap: any;
   selector: 'app-payment-list',
   imports: [MenuFooterComponent, HeaderComponent,
     FormsModule, ReactiveFormsModule, NgIf, LoadingComponent,
-    MisticketsComponent, MisticketsEnviadosComponent, MisticketUsadosComponent,
-    RouterLink, CommonModule, BackButtnComponent, EventsuserComponent, MisticketsActivosComponent, MisticketsActShComponent, PaymentDetailComponent],
+    RouterLink, CommonModule, BackButtnComponent, 
+    EventsuserComponent, MisticketsActivosComponent,  
+    PaymentDetailComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })

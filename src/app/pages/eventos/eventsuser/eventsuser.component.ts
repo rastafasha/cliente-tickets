@@ -3,12 +3,12 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { ImagenPipe } from '../../pipes/imagen.pipe';
-import { LoadingComponent } from '../../shared/loading/loading.component';
-import { EventoService } from '../../services/evento.service';
-import { PaymentService } from '../../services/payment.service';
-import { Payment } from '../../models/payment';
-import { environment } from '../../../environments/environment';
+import { ImagenPipe } from '../../../pipes/imagen.pipe';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { EventoService } from '../../../services/evento.service';
+import { PaymentService } from '../../../services/payment.service';
+import { Payment } from '../../../models/payment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-eventsuser',

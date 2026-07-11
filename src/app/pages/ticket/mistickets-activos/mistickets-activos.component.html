@@ -9,7 +9,7 @@
     <!-- tickets recibidos -->
     <!-- <h5>{{title}}</h5> -->
      <div *ngIf="isTtickets">
-        <div class="col-xs-12 "  *ngFor="let ticket of ticketsShared ; let i = index">
+        <div class="col-12 "  *ngFor="let ticket of tickets ; let i = index">
         <div class="ticket-card">
             <div class="image">
                 <img [src]="ticket.qr_code " alt="Ticket QR" />
@@ -41,12 +41,12 @@
             <div class="actions">
                 <a (click)="aceptarTicketShared(ticket)" *ngIf="ticket.status === 'ACTIVE'"
                     class="btn btn-outline-success">
-                    <i class="fa fa-check-circle-o"></i>
+                    <i class="fas fa-check"></i>
                 </a>
-                <a (click)="abrirModalInfo()" class="btn btn-outline-success" *ngIf="ticket.status === 'ACTIVE' ">
+                <a (click)="compartir(ticket)" class="btn btn-outline-success" *ngIf="ticket.status === 'ACTIVE' ">
                     <i class="fa fa-share"></i>
                 </a>
-                <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
+                <a (click)="verDetalleTicket(ticket)" class="btn btn-outline-primary">
                     <i class="fa fa-eye"></i>
                 </a>
 
@@ -57,7 +57,7 @@
 
         <div class="modaldescarga animated fadeIn" *ngIf="mostrarinfo">
             <div class="cerrarinfo">
-                <span class="closeinfo" (click)="closemodalInfo()">&times;</span>
+                <!-- <span class="closeinfo" (click)="closemodalInfo()">&times;</span> -->
             </div>
             <div class="contenido_modalinfo">
                 <div class="border_top animated fadeInDown"></div>
@@ -173,3 +173,4 @@
     
 
 </div>
+<app-ticket-detail [ticketSeleccionado]="ticketSeleccionado()"></app-ticket-detail>

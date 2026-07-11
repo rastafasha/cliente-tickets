@@ -1,68 +1,77 @@
-<!-- <app-header></app-header> -->
-<!-- =======| Main |======= -->
-<app-loading *ngIf="isLoading"></app-loading>
-<div class="container animated fadeInUp user main" *ngIf="!isLoading" role="main" name="profile"
-    style="margin-top: 0px;">
+<!-- Pantalla de carga nativa -->
+<!-- <app-loading *ngIf="isLoading"></app-loading> -->
 
-    <div class="col-xs-12 mt-3">
+<!-- Contenedor Offcanvas (Cambia 'offcanvas-end' por 'offcanvas-start' si lo quieres a la izquierda) -->
+<div class="offcanvas offcanvas-bottom border-0 shadow" 
+     [class.show]="isOpen()" 
+     [style.display]="isOpen() ? 'block' : 'none'"
+     tabindex="-1" 
+     id="offcanvasTicket"
+     style="height: 85vh; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+    
+    <!-- Encabezado del Offcanvas -->
+    <div class="offcanvas-header bg-light border-bottom py-3 px-4">
+        <div>
+            <span class="text-uppercase text-muted fw-bold tracking-wider" style="font-size: 0.7rem;">Detalle del Ticket</span>
+            <h5 class="offcanvas-title fw-bold text-dark mt-1" id="offcanvasPagoDetailLabel" *ngIf="ticketSeleccionado">
+                Ref: <span class="font-monospace text-primary">{{ticketSeleccionado?.referencia}}</span>
+            </h5>
+        </div>
+        <button type="button" class="btn-close shadow-none" (click)="cerrarOffcanvas()"></button>
+    </div>
 
-        <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
-        <!-- <h3>{{ticket.name}}</h3> -->
-
-
-        <div class=" pagodetail ">
-            <div class="row">
+    <!-- Cuerpo del Offcanvas con Scroll independiente -->
+    <div class="offcanvas-body p-4" *ngIf="ticketSeleccionado" style="overflow-y: scroll;">
+        <div class="row">
                 <div class="col-xs-12 col-sm-6 topeimg">
-                    <img [src]="ticket.qr_code " class=" qrimg shadow" alt="">
+                    <img [src]="ticketSeleccionado?.qr_code " class="qrimg" alt="">
                     <!-- <qrcode [qrdata]="myQrCodeValue" ></qrcode> -->
-                    <div class="infotik">
-                        <p><b>Referencia:</b><br> {{ticket.referencia}}</p>
+                    
+                </div>
+                <div class="infotik">
+                        <p><b>Referencia:</b><br> {{ticketSeleccionado?.referencia}}</p>
                         <p><b>Asistencia:</b> <br>{{asistencia}}</p>
-                        <span *ngIf="ticket.status === 'SHAREDACTIVE'">
-                            <p><b>Usado por:</b> {{client.email}}</p>
+                        <span *ngIf="ticketSeleccionado?.status === 'SHAREDACTIVE'">
+                            <p><b>Usado por:</b> {{client?.email}}</p>
                         </span>
-                        <span *ngIf="ticket.status === 'SHARED'">
-                            <p><b>Compartido con:</b><br> {{client.email}}</p>
+                        <span *ngIf="ticketSeleccionado?.status === 'SHARED'">
+                            <p><b>Compartido con:</b><br> {{client?.email}}</p>
                         </span>
                         <div class="status">
                             Status:<br>
-                            <!-- ticket.status -->
-                            <span class="badge bg-success" *ngIf="ticket.status === 'SHARED'">
+                            <span class="badge bg-success" *ngIf="ticketSeleccionado?.status === 'SHARED'">
                                 <i class="fa fa-share"></i> Compartido
                             </span>
-                            <span class="badge bg-success" *ngIf="ticket.status === 'ACTIVE'">
+                            <span class="badge bg-success" *ngIf="ticketSeleccionado?.status === 'ACTIVE'">
                                 <i class="fa fa-check-circle"></i> Activo
                             </span>
-                            <span class="badge bg-success" *ngIf="ticket.status === 'SHAREDACTIVE'">
+                            <span class="badge bg-success" *ngIf="ticketSeleccionado?.status === 'SHAREDACTIVE'">
                                 <i class="fa fa-check-circle"></i> Compartido Activado
                             </span>
-                            <span class="badge bg-primary" *ngIf="ticket.status === 'INACTIVE'">
+                            <span class="badge bg-primary" *ngIf="ticketSeleccionado?.status === 'INACTIVE'">
                                 <i class="fa fa-coffee"></i> pendiente por activar o usar
                             </span>
-                            <span class="badge bg-danger" *ngIf="ticket.status === 'EXPIRED'">
+                            <span class="badge bg-danger" *ngIf="ticketSeleccionado?.status === 'EXPIRED'">
                                 <i class="fa fa-close"></i> Expirado
                             </span>
-                            <span class="badge bg-danger" *ngIf="ticket.status === 'USED'">
+                            <span class="badge bg-danger" *ngIf="ticketSeleccionado?.status === 'USED'">
                                 <i class="fa fa-close"></i> Usado
                             </span>
                             <!-- ticket.status -->
                         </div>
                     </div>
-                </div>
                 <div class="col-xs-12 col-sm-6 info_ticket p-3">
 
-                    <p><b>Evento:</b><br> <a [routerLink]="['/event/', ticket.event_id]"> {{ticket.event.name}}</a></p>
-                    <p><b>Empresa:</b><br> {{ticket.company.name}}</p>
-                    <p><b>Monto:</b><br> {{ticket.monto| currency}}</p>
-                    <p><b>Fecha inicio | Hora:</b> <br> {{ticket.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Fecha fin | Hora:</b> <br> {{ticket.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Evento:</b><br> <a [routerLink]="['/event/', ticketSeleccionado?.event_id]"> {{ticketSeleccionado?.event?.name}}</a></p>
+                    <p><b>Empresa:</b><br> {{ticketSeleccionado?.company?.name}}</p>
+                    <p><b>Monto:</b><br> {{ticketSeleccionado?.monto| currency}}</p>
+                    <p><b>Fecha inicio | Hora:</b> <br> {{ticketSeleccionado?.fecha_inicio | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Fecha fin | Hora:</b> <br> {{ticketSeleccionado?.fecha_fin | date:'MMM d, y, h:mm:ss a'}}</p>
 
 
                 </div>
             </div>
-        </div>
 
     </div>
 </div>
-<!-- End #main-->
-<!-- <app-menu-footer></app-menu-footer> -->
+

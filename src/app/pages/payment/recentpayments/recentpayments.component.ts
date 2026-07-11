@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location, NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Payment, students_with_debt } from '../../models/payment';
-import { PaymentService } from '../../services/payment.service';
-import { UserService } from '../../services/usuario.service';
+import { Payment, students_with_debt } from '../../../models/payment';
+import { PaymentService } from '../../../services/payment.service';
+import { UserService } from '../../../services/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-recentpayments',

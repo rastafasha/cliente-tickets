@@ -293,8 +293,9 @@ img {
 
 .qrimg{
   width: auto;
-  height: 150px;
+  height: 250px;
   display: block;
   margin: auto;
+  margin-bottom: 20px;
  }
 

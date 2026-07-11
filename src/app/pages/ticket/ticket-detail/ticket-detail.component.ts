@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal, SimpleChanges } from '@angular/core';
 import { Ticket } from '../../../models/ticket';
 import { TicketService } from '../../../services/ticket.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -19,20 +19,16 @@ import { QRCodeComponent } from 'angularx-qrcode';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    LoadingComponent,
     TranslateModule,
-    // NgFor,
-    // MenuFooterComponent,
-    // HeaderComponent,
-    BackButtnComponent,
     RouterModule
   ],
   templateUrl: './ticket-detail.component.html',
   styleUrls: ['./ticket-detail.component.scss']
 })
 export class TicketDetailComponent {
+  @Input() ticketSeleccionado!: Ticket;
+
   pageTitle= 'Ticket';
-    @Input() ticketSeleccionado!: Ticket;
     isLoading = false;
     option_selectedd:number = 1;
     solicitud_selectedd:any = null;
@@ -47,7 +43,7 @@ export class TicketDetailComponent {
     public myQrCodeValue :string = 'Initial QR code value';
 
     mostrarinfo: boolean = false;
-
+   isOpen = signal<boolean>(false);
 
     //vcard
   vCardInfo!:string;
@@ -70,10 +66,21 @@ export class TicketDetailComponent {
       window.scrollTo(0,0);
      let USER = localStorage.getItem("user");
     this.userprofile = USER ? JSON.parse(USER) : null;
-      this.activatedRoute.params.subscribe( ({id}) => this.getTicket(id));
+      // this.activatedRoute.params.subscribe( ({id}) => this.getTicket(id));
       // this.activatedRoute.params.subscribe( ({id}) => this.getTicketsByClientbyEvent(id));
   
     }
+
+    ngOnChanges(changes: SimpleChanges): void {
+    // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
+    if (changes['ticketSeleccionado'] && this.ticketSeleccionado) {
+      this.isOpen.set(true); 
+    }
+  }
+
+  cerrarOffcanvas() {
+    this.isOpen.set(false); 
+  }
   
   
     getTicket(id:number){

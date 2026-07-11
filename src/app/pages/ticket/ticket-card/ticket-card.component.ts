@@ -1,8 +1,11 @@
 import {
   Component,
+  ElementRef,
   inject,
   Input,
   OnInit,
+  signal,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,10 +16,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoadingComponent } from '../../shared/loading/loading.component';
-import { ClientService } from '../../services/client.service';
-import { TicketService } from '../../services/ticket.service';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ClientService } from '../../../services/client.service';
+import { TicketService } from '../../../services/ticket.service';
 import Swal from 'sweetalert2';
+import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-ticket-card',
@@ -26,11 +31,13 @@ import Swal from 'sweetalert2';
     ReactiveFormsModule,
     FormsModule,
     LoadingComponent,
+    TicketDetailComponent
   ],
   templateUrl: './ticket-card.component.html',
   styleUrl: './ticket-card.component.scss',
 })
 export class TicketCardComponent implements OnInit {
+  @ViewChild('offcanvasTicket', { static: false }) offcanvasElement!: ElementRef;
   @Input() profile!: any;
   @Input() ticket!: any;
 
@@ -48,6 +55,8 @@ export class TicketCardComponent implements OnInit {
   user: any = null;
   user_id: any = null;
   email: any = null;
+  ticketSeleccionado = signal<any>(null);
+    isOpen = signal<boolean>(false);
 
   private clientService = inject(ClientService);
   private ticketService = inject(TicketService);
@@ -188,4 +197,24 @@ export class TicketCardComponent implements OnInit {
     this.query = '';
     this.showList = false;
   }
+
+  verDetalleTicket(ticket: any) {
+  this.ticketSeleccionado.set(ticket);
+  // console.log(pago);
+
+  // Le da tiempo a Angular de renderizar el *ngIf en el DOM
+  setTimeout(() => {
+    const el = document.getElementById('offcanvasTicket');
+    if (el) {
+      const bsOffcanvas = new bootstrap.Offcanvas(el);
+      bsOffcanvas.show();
+    } else {
+      console.error('El elemento offcanvasTicket no fue encontrado en el DOM.');
+    }
+  }, 0);
+}
+
+cerrarOffcanvas() {
+  this.isOpen.set(false);
+}
 }

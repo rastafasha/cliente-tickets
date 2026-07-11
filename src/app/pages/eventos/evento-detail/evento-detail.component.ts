@@ -11,7 +11,7 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
 import { PaymentService } from '../../../services/payment.service';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
-import { TicketCardComponent } from '../../../components/ticket-card/ticket-card.component';
+import { TicketCardComponent } from '../../ticket/ticket-card/ticket-card.component';
 import { TicketService } from '../../../services/ticket.service';
 
 @Component({

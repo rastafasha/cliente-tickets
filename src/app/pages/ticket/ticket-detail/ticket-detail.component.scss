@@ -13,8 +13,21 @@ canvas{
 .topeimg{
     display: flex;
     flex-direction: row;
-    & .infotik{
+   
+}
+
+.infotik{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        gap:10px;
+        
     }
+
+.offcanvas-bottom {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.offcanvas-bottom.show {
+    transform: translateY(0);
 }

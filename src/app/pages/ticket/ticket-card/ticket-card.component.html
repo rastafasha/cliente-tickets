@@ -31,7 +31,7 @@
         <a (click)="abrirModalInfo()" class="btn btn-success" *ngIf="ticket.status === 'ACTIVE' ">
             <i class="fa fa-share"></i>
         </a>
-        <a [routerLink]="['/ticket-detail', ticket.id]" class="btn btn-outline-primary">
+        <a (click)="verDetalleTicket(ticket)" class="btn btn-outline-primary">
             <i class="fa fa-eye"></i>
         </a>
 
@@ -135,3 +135,4 @@
     </div>
 </div>
 <!-- modalinfo -->
+ <app-ticket-detail [ticketSeleccionado]="ticketSeleccionado()"></app-ticket-detail>
