@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,6 +22,9 @@ import { TasabcvService } from '../../../services/tasabcv.service';
 import { EventoService } from '../../../services/evento.service';
 import { Evento } from '../../../models/evento';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
+import { ModalInstruccionesComponent } from '../../../components/modal-instrucciones/modal-instrucciones.component';
+import { SkeletonLoaderComponent } from '../../../shared/skeleton-loader/skeleton-loader.component';
+import { BackButtonComponent } from '../../../shared/back-button/back-button.component';
 
 @Component({
   selector: 'app-pagar',
@@ -31,17 +34,15 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
     NgFor,
     FormsModule,
     ReactiveFormsModule,
-    // HeaderComponent,
-    // MenuFooterComponent,
-    BackButtnComponent,
-    LoadingComponent,
-    // ImagenPipe
+    ModalInstruccionesComponent,
+    SkeletonLoaderComponent,
+    BackButtonComponent
   ],
   templateUrl: './pagar.component.html',
   styleUrls: ['./pagar.component.css'],
 })
 export class PagarComponent implements OnInit {
-  public PaymentRegisterForm!: FormGroup;
+  public paymentForm!: FormGroup;
   public isLoading: boolean = true;
   public cargandoPago: boolean = true;
   pageTitle = 'Comprar';
@@ -53,12 +54,11 @@ export class PagarComponent implements OnInit {
   error!: string;
   deuda: any;
   pagoSeleccionado!: Payment;
-  paymentMethods!: PaymentMethod[] | null;
+  paymentMethods: PaymentMethod[] = [];
 
   event_id!: number;
   parent_id!: number;
   fecha!: Date;
-  evento!: Evento;
 
   precio_dia!: number;
   precio_general!: number;
@@ -71,8 +71,29 @@ export class PagarComponent implements OnInit {
   bankselected: any = null;
   preciopagar: number = 0;
 
-  public FILE_AVATAR: any;
-  public IMAGE_PREVISUALIZA: any = 'assets/img/user-06.jpg';
+ // Signals
+  evento = signal<any>(null); // Viene de la pantalla anterior
+  tasa = signal(0);
+  loading = signal(false);
+  imagePreview = signal<string | null>(null);
+  selectedFile: File | null = null;
+  userId!: string;
+  company_id!: number;
+  paymentSelected!: any;
+  amount: number | null = null;
+
+  info = `
+  <h2>Sección: Reportar Pago</h2>
+  <p><strong>Nota importante:</strong> Actualmente no utilizamos pasarelas de pago directo. Cualquier actualización sobre métodos de pago automatizados será informada oportunamente a través de la <strong>Cartelera</strong> o <strong>Notificaciones</strong>.</p>
+  
+  <p>Para reportar tu pago con éxito, sigue estas instrucciones:</p>
+  <ul>
+    <li><strong>Seleccione el tipo de boleto:</strong> Al seleccionar tipo de boleto, el sistema te mostrará automáticamente el monto a pagar en bs y en divisa.</li>
+    <li><strong>Datos de Transferencia:</strong> Al seleccionar tu método de pago preferido, el sistema te mostrará automáticamente los datos bancarios del beneficiario para que realices la operación desde tu banca en línea.</li>
+    <li><strong>Registro de Información:</strong> Completa los campos solicitados: Banco de destino y los números o códigos de la <strong>Referencia Bancaria</strong>.</li>
+    <li><strong>Monto del Pago:</strong> El monto ya viene predeterminado según la factura que seleccionaste; no es necesario modificarlo.</li>
+    <li><strong>Comprobante Digital (Obligatorio):</strong> Es indispensable adjuntar la imagen o captura de pantalla de tu pago. Esto nos permite validar tu reporte de manera mucho más eficiente.</li>
+  </ul>`;
 
   constructor(
     private fb: FormBuilder,
@@ -90,25 +111,68 @@ export class PagarComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this.getTasadelDia();
     
-    this.activatedRoute.params.subscribe((resp: any) => {
-      // console.log(resp);
-      this.event_id = resp.id;
-      this.getEvento();
-    });
 
     this.usuario = this.authService.user;
     // console.log(this.usuario);
     // this.getInfoPago();
     this.validarFormulario();
     this.getUltimoPrecioTasaBcv();
-    this.getTiposdepagos();
+    
+    this.isLoading =true;
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    // 2. Obtenemos los datos extendidos (monto, nroFactura) del historial
+    const state = window.history.state;
+    if (id === 'deuda-total') {
+      // Caso: Viene del Home con el monto acumulado
+      if (state && state.evento) {
+        this.evento.set(state.evento);
+        this.paymentForm.patchValue({ amount: state.evento.totalPagar });
+      }
+    } else if (id && id !== 'nuevo') {
+      // Caso: Viene de una factura específica
+      if (state && state.evento) {
+        this.evento.set(state.evento);
+        this.paymentForm.patchValue({ amount: state.evento.totalPagar });
+      } else {
+        // Solo llamamos a la API si NO es 'deuda-total'
+        this.eventoService.getById(+id).subscribe(resp => {
+         const eventoData = resp['evento'] ? resp['evento'] : resp;
+  
+        this.evento.set(eventoData);
+        
+        // 2. Extraemos el company_id de forma segura
+        this.company_id = eventoData['company_id'];
+        
+        console.log('Company ID encontrado con éxito:', this.company_id);
+        
+        this.paymentForm.patchValue({ amount: eventoData['totalPagar'] });
+        this.getTiposdepagos();
+        });
+      }
+    }
+    this.isLoading =false;
   }
+   getTasadelDia() {
+    this.tasaBcvService.getUltimaTasa().subscribe((resp: any) => {
+      this.tasa.set(resp.precio_dia);
+    })
+  }
+
+  seleccionarPrecio(monto: number | undefined) {
+  if (monto) {
+    this.amount = monto;
+    console.log('Monto seleccionado:', this.amount);
+  }
+}
+
   getTiposdepagos(): void {
     this.isLoading = true;
     // return this.planesService.carga_info();
     this.paymentMethodService
-      .getPaymentmethodsActivos()
+      .getPaymentMethodByTiendaId(this.company_id)
       .subscribe((resp: any) => {
         this.paymentMethods = resp.tiposdepagos;
         // console.log(resp);
@@ -139,30 +203,24 @@ export class PagarComponent implements OnInit {
       });
   }
 
-  getEvento() {
-    this.isLoading = true;
-    this.eventoService.getById(this.event_id).subscribe((resp: any) => {
-      // console.log(resp);
-      if (resp && resp.event) {
-        this.evento = resp.event;
-        this.precio_general = resp.event.precio_general;
-        this.precio_estudiantes = resp.event.precio_estudiantes;
-        this.precio_especialistas = resp.event.precio_especialistas;
-        this.preciosEvento = [
-          { precioevento: this.precio_general, precionombre: 'Precio General', precio: this.evento.precio_general },
-          { precioevento: this.precio_estudiantes, precionombre: 'Precio Estudiantes', precio: this.evento.precio_estudiantes },
-          { precioevento: this.precio_especialistas, precionombre: 'Precio Especialistas', precio: this.evento.precio_especialistas },
-        ];
-      } else {
-        this.evento = {} as Evento;
-        this.precio_general = 0;
-        this.precio_estudiantes = 0;
-        this.precio_especialistas = 0;
-        this.preciosEvento = [];
-      }
-      this.isLoading = false;
-    });
+  // metodo para el cambio del select 'tipo de transferencia'
+
+  onChangePayment(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const idSeleccionado = target.value;
+
+    // Buscamos el objeto completo
+    this.paymentSelected = this.paymentMethods.find(method => method.id === +idSeleccionado);
+
+    if (this.paymentSelected) {
+      // Seteamos automáticamente el valor en el campo 'bank_destino' del formulario
+      this.paymentForm.patchValue({
+        bank_destino: this.paymentSelected.bankName
+      });
+    }
   }
+
+  
 
   selectBanco(value?: any) {
     // console.log(value)
@@ -174,7 +232,7 @@ export class PagarComponent implements OnInit {
   }
 
   validarFormulario() {
-    this.PaymentRegisterForm = this.fb.group({
+    this.paymentForm = this.fb.group({
       id: [''],
       metodo: ['', Validators.required],
       phone: [''],
@@ -186,45 +244,57 @@ export class PagarComponent implements OnInit {
       nombre: [this.usuario.name],
       parent_id: [this.parent_id],
       event_id: [''],
+      precio_dia: [''],
+      amount: [''],
       status: ['PENDING'],
       fecha: [''],
     });
   }
 
-  loadFile($event: any) {
-    if ($event.target.files[0].type.indexOf('image')) {
-      this.text_validation = 'Solamente pueden ser archivos de tipo imagen';
-      return;
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = () => this.imagePreview.set(reader.result as string);
+      reader.readAsDataURL(file);
     }
-    this.text_validation = '';
-    this.FILE_AVATAR = $event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(this.FILE_AVATAR);
-    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
 
-  updateForm() {
+  loadFile($event: any) {
+    // if ($event.target.files[0].type.indexOf('image')) {
+    //   this.text_validation = 'Solamente pueden ser archivos de tipo imagen';
+    //   return;
+    // }
+    // this.text_validation = '';
+    // this.FILE_AVATAR = $event.target.files[0];
+    // const reader = new FileReader();
+    // reader.readAsDataURL(this.FILE_AVATAR);
+    // reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
+
+  enviarPago() {
     const formData = new FormData();
-    formData.append('phone', this.PaymentRegisterForm.get('phone')?.value);
-    formData.append('metodo', this.PaymentRegisterForm.get('metodo')?.value);
+    formData.append('phone', this.paymentForm.get('phone')?.value);
+    formData.append('metodo', this.paymentForm.get('metodo')?.value);
     formData.append(
       'bank_name',
-      this.PaymentRegisterForm.get('bank_name')?.value
+      this.paymentForm.get('bank_name')?.value
     );
     formData.append(
       'bank_destino',
-      this.PaymentRegisterForm.get('bank_destino')?.value
+      this.paymentForm.get('bank_destino')?.value
     );
-    formData.append('monto', this.PaymentRegisterForm.get('monto')?.value);
+    formData.append('monto', this.paymentForm.get('monto')?.value);
     formData.append(
       'referencia',
-      this.PaymentRegisterForm.get('referencia')?.value
+      this.paymentForm.get('referencia')?.value
     );
     formData.append('event_id', this.event_id + '');
     formData.append('client_id', this.usuario.id + '');
     formData.append('nombre', this.usuario.name);
     formData.append('email', this.usuario.email);
-    formData.append('imagen', this.FILE_AVATAR);
+    formData.append('imagen', this.selectedFile as Blob);
     formData.append('status', 'PENDING');
 
     //crear

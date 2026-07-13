@@ -1,0 +1,383 @@
+<!-- <app-header></app-header> -->
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container-fluid user animated fadeInUp pt-3" *ngIf="!isLoading"style="margin-top: 0px; padding-top: 15px;" >
+    <app-backButtn [pageTitle]="pageTitle"></app-backButtn>
+
+    <div class="row">
+
+        <!-- info del evento a comprar -->
+        <div class="col-12 col-sm-4 ">
+            <div class="card recibo ">
+                <h3 class="text-center pt-3">Info del evento</h3>
+                <div class="pt-2" style="display: flex;
+                            flex-direction: column;
+                            align-items: baseline;
+                            padding: 10px;
+                            padding-left: 15px;
+                            margin-left: 5px;">
+                    <p><b>Evento:</b> {{evento.name}} </p>
+                    <p><b>Precio General:</b> {{evento.precio_general|currency}}</p>
+                    <p><b>Precio Especialista:</b> {{evento.precio_especialistas|currency}}</p>
+                    <p><b>Precio Estudiante:</b> {{evento.precio_estudiantes|currency}}</p>
+                    <p><b>Fecha:</b> {{evento.fecha_inicio|date:'MMM d, y'}}</p>
+                    <p><b>Fecha fin:</b> {{evento.fecha_fin|date:'MMM d, y'}}</p>
+                    <p><b>Tasa BCV:</b> {{precio_dia|currency:'Bs.'}}</p>
+                    <p><b>Tasa BCV Fecha:</b> {{precio_fecha|date:'MMM d, y'}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- instruccion y formulario -->
+        <div class="col-12 col-sm-8">
+            <div class="card border-radio">
+                <div class="pt-3">
+                    <!--selectores external Bordered Tabs -->
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab"
+                                data-bs-target="#instrucci">Instrucciones</button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab"
+                                data-bs-target="#formulario">Formulario</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-2">
+
+                        <!-- instruccioness -->
+                        <div class="tab-pane fade show active profile-overview" id="instrucci">
+                            <div class="instruccioness pagarinfo ">
+                                <div class="info">
+                                    <h5 class="text-center">¿Cómo hacer el pago?</h5>
+                                    <ol>
+                                        <li>Ingrese a su banco de su preferencia</li>
+                                        <li>Ingrese los datos correctamente, y verifique antes de pagar </li>
+                                        <li>Copiar el <b>Número de Referencia</b> del pago o transferencia </li>
+                                        <li>Dirigirse a nuestro <b>Formulario</b> y llenar los datos requeridos </li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                            <div class="datosTranf">
+                                <div class="datos" *ngFor="let pago of paymentMethods">
+                                    <h3><b>{{pago.tipo | uppercase}}</b></h3>
+                                    <div class="clear"></div>
+                                    <!-- <p><b>Método:</b> {{pago.tipo}}</p> -->
+                                    <p *ngIf="pago.email"><b>Correo:</b> {{pago.email}}</p>
+                                    <p *ngIf="pago.bankName"><b>Banco:</b> {{pago.bankName}}</p>
+                                    <p *ngIf="pago.bankAccount"><b>No.Cuenta:</b> {{pago.bankAccount}}</p>
+                                    <p *ngIf="pago.bankAccountType"><b>Tipo de Cuenta:</b> {{pago.bankAccountType}}</p>
+                                    <p *ngIf="pago.ciorif"><b>No.Cuenta o Rif:</b> {{pago.ciorif}}</p>
+                                    <!-- <p *ngIf="pago.telefono"><b>Teléfono:</b> {{pago.telefono}}</p> -->
+                                    <!-- <p><b>Requerido:</b> referencia y/o foto</p> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- carpagos -->
+                        <div class="tab-pane fade pt-3" id="formulario">
+
+                            <section class="section dashboard carpagos ">
+
+                                <form class="form-horizontal form-material formPagar" (submit)="updateForm()"
+                                    enctype="multipart/form-data" [formGroup]="PaymentRegisterForm">
+                                    <div class="container">
+                                        <!-- Seleccione Su Método de Pago -->
+                                        <div class="divinfo">
+                                            <div class="col-xs-12 movil">
+                                                <p class="text-center Bordered text-bold">
+                                                    Favor Continue el proceso</p>
+                                            </div>
+                                        </div>
+                                        <!-- Seleccione -->
+                                        <div class="row">
+                                            <!-- Tipo De pago -->
+                                            <div class="col-12pt-3" style="float: left;">
+                                                <div class="row">
+                                                    <div class="div1 col-xs-12 col-sm-6">
+                                                        <div>
+                                                            <label for="">Método de Pago </label>
+
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Transferencia Dólares'"
+                                                                    (click)="selectedTypeCoupon('Transferencia Dólares')"
+                                                                    type="radio" value="Transferencia Dólares"
+                                                                    id="radiotipo2">
+                                                                <label class="form-check-label"
+                                                                    for="radiotipo2">Transferencia Dólares</label>
+                                                            </div>
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Transferencia Bolívares'"
+                                                                    (click)="selectedTypeCoupon('Transferencia Bolívares')"
+                                                                    type="radio" value="Transferencia Bolívares"
+                                                                    id="radiotipo3">
+                                                                <label class="form-check-label"
+                                                                    for="radiotipo3">Transferencia Bolívares</label>
+                                                            </div>
+                                                            <div class="form-check chickd">
+                                                                <input class="form-check-input" formControlName="metodo"
+                                                                    [checked]="metodo == 'Pago Móvil'"
+                                                                    (click)="selectedTypeCoupon('Pago Móvil')"
+                                                                    type="radio" value="Pago Móvil" id="radiotipo4">
+                                                                <label class="form-check-label" for="radiotipo4">Pago
+                                                                    Movil</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+                                            <br>
+
+                                           
+                                            <!-- Seleccione Banco destino -->
+                                            <div class="divinfo col-xs-12 col-sm-6 pb-3" *ngIf="metodo">
+                                                <div class="col-xs-12 ">
+                                                    <!-- <p class="text-center Bordered text-bold">
+                                                        Seleccione Banco destino</p> -->
+
+                                                    <div class="col-xs-12 ">
+                                                        <div class="input-group">
+
+                                                            <select class="form-control" formControlName="bank_destino"
+                                                                (change)="selectBanco($any($event.target).value)">
+                                                                <option value="">-- Seleccione Banco destino --</option>
+                                                                <option *ngFor="let data of paymentMethods"
+                                                                    [value]="data.bankName">
+                                                                    {{data.bankName}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <!-- Tipo de Entrada -->
+                                            <div class="divinfo col-xs-12 col-sm-6 " *ngIf=" metodo">
+                                                <div class="col-xs-12 ">
+                                                    <!-- <p class="text-center Bordered text-bold">
+                                                        Seleccione Tipo de Entrada</p> -->
+
+                                                    <div class="col-xs-12 ">
+                                                        <div class="input-group">
+
+                                                            <select class="form-control"
+                                                                (change)="selectPrecio($any($event.target).value)">
+                                                                <option value="">-- Seleccione Tipo de Entrada --</option>
+                                                                <option *ngFor="let data of preciosEvento"
+                                                                    [value]="data.precio">
+                                                                    {{data.precionombre}} - {{data.precio | currency}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-6">
+                                                <!-- Transferencias -->
+                                                <div class="divform "
+                                                    *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'">
+
+                                                    <div class="div2">
+                                                        <div class="form-group ">
+                                                            <label for="">Nombre Banco </label>
+                                                            <input type="text" formControlName="bank_name"
+                                                                class="form-control">
+
+
+                                                            @if(PaymentRegisterForm.controls['bank_name'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['bank_name'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="div3">
+                                                        <div class="form-group ">
+                                                            <label for="">Num. referencia </label>
+                                                            <input type="text" formControlName="referencia"
+                                                                class="form-control">
+
+                                                            @if(PaymentRegisterForm.controls['referencia'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['referencia'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="div4">
+                                                        <!-- <div class="form-group " *ngIf="!deuda">
+                                                            <label for="">Monto</label>
+                                                            <input type="text" formControlName="monto"
+                                                                class="form-control">
+                                                        </div> -->
+                                                        <div class="form-group "
+                                                            *ngIf="preciopagar && metodo==='Transferencia Dólares'">
+                                                            <label for="">Monto</label>
+                                                            <p>Colocar Monto a pagar:
+                                                                <b>{{preciopagar|currency}}</b>
+                                                            </p>
+                                                            <input type="text" formControlName="monto"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['monto'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['monto'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                        <div class="form-group "
+                                                            *ngIf="preciopagar && metodo==='Transferencia Bolívares'">
+                                                            <label for="">Monto</label>
+                                                            <p>Colocar Monto a pagar:
+                                                                <b>{{preciopagar*precio_dia|currency:'Bs.'}}</b>
+                                                            </p>
+                                                            <input type="text" formControlName="monto"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['monto'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['monto'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- pago movil -->
+                                                <div class="divform " *ngIf="metodo === 'Pago Móvil'">
+                                                    <div class="div2">
+                                                        <div class="form-group ">
+                                                            <label for="">Nombre Banco </label>
+                                                            <input type="text" formControlName="bank_name"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['bank_name'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['bank_name'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="div3">
+                                                        <div class="form-group ">
+                                                            <label for="">Num. referencia </label>
+                                                            <input type="text" formControlName="referencia"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['referencia'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['referencia'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="div4">
+                                                        <div class="form-group ">
+                                                            <label for="">Num. Teléfono </label>
+                                                            <input type="text" formControlName="phone"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['phone'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['phone'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="div5">
+
+                                                        <div class="form-group ">
+                                                            <label for="">Monto</label>
+                                                            <p>Colocar Monto a pagar:
+                                                                <b>{{preciopagar*precio_dia|currency:'Bs.'}}</b>
+                                                            </p>
+                                                            <input type="text" formControlName="monto"
+                                                                class="form-control">
+                                                            @if(PaymentRegisterForm.controls['monto'].touched){
+
+                                                            <div class="text-danger">
+                                                                @if(PaymentRegisterForm.controls['monto'].errors?.['required']){
+                                                                <span>{{'Campo Requerido'}}</span>
+                                                                }
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <!-- Foto -->
+                                    <div *ngIf="bankselected && preciopagar > 0" class="divinfo p-3">
+                                        <div class="form-group local-top-form">
+                                            <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
+                                            <div class="settings-btn upload-files-avator">
+                                                <label for="file" class="upload labelgoogle">
+                                                    <input type="file" accept="image/*" name="image" id="file"
+                                                        (change)="loadFile($event)" class="hide-input input">
+                                                    <span class="label__name">
+                                                        {{'Select a Photo'}}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="FILE_AVATAR">
+                                            <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="">
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div><br>
+
+                                    <button class="btn btn-outline-success mb-3"
+                                        *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'|| metodo == 'Pago Móvil' && preciopagar > 0"
+                                        type="submit">Registrar Pago</button>
+
+
+                                </form>
+                            </section>
+                            <!-- Form -->
+
+                        </div>
+
+
+
+                    </div>
+                    <!-- End Bordered Tabs -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-menu-footer></app-menu-footer> -->

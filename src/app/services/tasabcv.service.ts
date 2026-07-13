@@ -37,6 +37,14 @@ export class TasabcvService {
           map((resp:{ok: boolean, tasabcvs: Tasabcv}) => resp.tasabcvs)
         )
     }
+
+    getUltimaTasa() {
+      const url = `${baseUrl}/tasabcv/ultimatasa`;
+      return this.http.get<any>(url,this.headers)
+        .pipe(
+          map((resp:{ok: boolean, tasabcv: Tasabcv}) => resp.tasabcv)
+        )
+    }
   
     getTasaBcv(tasabcv: any) {
       const url = `${baseUrl}/tasabcv/show/${tasabcv}`;
