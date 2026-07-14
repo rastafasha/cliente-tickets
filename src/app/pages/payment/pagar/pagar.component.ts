@@ -118,7 +118,6 @@ export class PagarComponent implements OnInit {
     // console.log(this.usuario);
     // this.getInfoPago();
     this.validarFormulario();
-    this.getUltimoPrecioTasaBcv();
     
     this.isLoading =true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -144,6 +143,7 @@ export class PagarComponent implements OnInit {
         this.evento.set(eventoData);
         
         // 2. Extraemos el company_id de forma segura
+        this.event_id = eventoData['id'];
         this.company_id = eventoData['company_id'];
         
         console.log('Company ID encontrado con éxito:', this.company_id);
@@ -174,21 +174,14 @@ export class PagarComponent implements OnInit {
     this.paymentMethodService
       .getPaymentMethodByTiendaId(this.company_id)
       .subscribe((resp: any) => {
-        this.paymentMethods = resp.tiposdepagos;
+        this.paymentMethods = resp;
         // console.log(resp);
         this.isLoading = false;
         (error: any) => (this.error = error);
       });
   }
 
-  getUltimoPrecioTasaBcv() {
-    this.isLoading = true;
-    this.tasaBcvService.getTasas().subscribe((resp: any) => {
-      this.precio_dia = resp[0].precio_dia;
-      this.precio_fecha = resp[0].created_at;
-      this.isLoading = false;
-    });
-  }
+  
 
   getInfoPago() {
     this.isLoading = true;
@@ -236,14 +229,15 @@ export class PagarComponent implements OnInit {
       id: [''],
       metodo: ['', Validators.required],
       phone: [''],
-      bank_name: ['', Validators.required],
-      bank_destino: ['', Validators.required],
+      bank_name: [''],
+      bank_destino: [''],
       monto: ['', Validators.required],
       referencia: ['', Validators.required],
       email: [this.usuario.email],
       nombre: [this.usuario.name],
       parent_id: [this.parent_id],
       event_id: [''],
+      company_id: [''],
       precio_dia: [''],
       amount: [''],
       status: ['PENDING'],
@@ -275,12 +269,9 @@ export class PagarComponent implements OnInit {
 
   enviarPago() {
     const formData = new FormData();
-    formData.append('phone', this.paymentForm.get('phone')?.value);
     formData.append('metodo', this.paymentForm.get('metodo')?.value);
-    formData.append(
-      'bank_name',
-      this.paymentForm.get('bank_name')?.value
-    );
+   
+    formData.append('bank_name', this.paymentSelected.bankName);
     formData.append(
       'bank_destino',
       this.paymentForm.get('bank_destino')?.value
@@ -291,6 +282,7 @@ export class PagarComponent implements OnInit {
       this.paymentForm.get('referencia')?.value
     );
     formData.append('event_id', this.event_id + '');
+    formData.append('company_id', this.company_id + '');
     formData.append('client_id', this.usuario.id + '');
     formData.append('nombre', this.usuario.name);
     formData.append('email', this.usuario.email);
